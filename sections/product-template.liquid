@@ -1,0 +1,1059 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<div id="product-{{ product.id }}"
+  class="product-page product-template prod-{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="product-section">
+
+  <div id="react-product-section">
+    <script type="application/json">
+      {
+        "settings": {{ section.settings | json }},
+        "product": {{ product | json }},
+        "themeSettings": {{settings | json}},
+        "currentVariant": {{ current_variant | json }},
+        "assetURL": "{{ '' | file_url }}",
+        "blocks": [
+          {% for block in section.blocks %}
+            {
+              "settings": {{ block.settings | json }},
+              "type": {{ block.type | json }},
+              "shopify_attributes": {{ block.shopify_attributes | json }}
+            }{% if forloop.last != true %},{% endif %}
+          {% endfor %}
+        ],
+        "metafields": {
+          "productHandleName": "{{ product.metafields.my_fields.product_handle_name }}",
+          "productTitle": "{{ product.metafields.my_fields.product_title }}",
+          "legOptions": {% if product.metafields.my_fields.leg_options == null %} "" {% else %}{{ product.metafields.my_fields.leg_options }}{% endif %},
+          "colorOptions": {% if product.metafields.my_fields.color_options == null %} "" {% else %}{{ product.metafields.my_fields.color_options }}{% endif %},
+          "styleOptions": {% if product.metafields.my_fields.style_options == null %} "" {% else %}{{ product.metafields.my_fields.style_options }}{% endif %},
+          "amountOptions": {% if product.metafields.my_fields.amount_options == null %} "" {% else %}{{ product.metafields.my_fields.amount_options }}{% endif %},
+          "defaultOptions": {% if product.metafields.my_fields.default_options == null %} "" {% else %}{{ product.metafields.my_fields.default_options }}{% endif %},
+          "yotpoProductId": "{{ product.metafields.my_fields.yotpo_product_id }}"
+        }
+      }
+    </script>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product page",
+  "settings": [
+      {
+        "type":"header",
+        "content":"Media"
+      },
+      {
+        "type": "checkbox",
+        "id": "click_to_enlarge",
+        "label": "Enable click to enlarge",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "image_options",
+        "label": "Gallery type",
+        "options": [
+          {
+            "value": "static",
+            "label": "Slideshow with thumbnails"
+          },
+          {
+            "value": "scroll",
+            "label": "Scroll gallery"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "thumbnail_position",
+        "label": "Thumbnail position when gallery w/thumbnails",
+        "options": [
+          {
+            "value": "right",
+            "label": "Right"
+          },
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "thumbs_to_show",
+        "min": 0,
+        "max": 6,
+        "step": 1,
+        "label": "Thumbnail images to show",
+        "default": 3,
+        "info":"Set to 0 to show a slideshow without thumbnails"
+      },
+      {
+        "type": "select",
+        "id": "slide_controls",
+        "label": "Slider control style",
+        "default": "arrows",
+        "options": [
+          {
+            "value": "arrows",
+            "label": "Arrows"
+          },
+          {
+            "value": "dots",
+            "label": "Dots"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_video_looping",
+        "label": "Enable video looping",
+        "default": false
+      },
+      {
+        "type": "paragraph",
+        "content": "Learn more about [Media types](https:\/\/help.shopify.com/en\/manual\/products\/product-media\)"
+      },
+    {
+      "type": "color",
+      "id": "product_image_border",
+      "label": "Image border",
+      "default": "#fff"
+    },
+    {
+      "type": "header",
+      "content": "Product Form"
+    },
+    {
+      "type": "color",
+      "id": "product_form_bg",
+      "label": "Background",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "product_form_border",
+      "label": "Border",
+      "default": "#fff"
+    },
+    {
+      "type": "checkbox",
+      "id": "vendor",
+      "label": "Show vendor"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sku",
+      "label": "Show variant SKU",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quantity",
+      "label": "Show quantity"
+    },
+    {
+      "type": "select",
+      "id": "product_variants",
+      "label": "Product variant display",
+      "options": [
+       {
+         "value": "swatches",
+         "label": "Swatches"
+       },
+       {
+         "value": "drop-downs",
+         "label": "Drop-downs"
+       }
+      ],
+      "default": "swatches"
+    },
+    {
+      "type": "select",
+      "id": "color_swatch_options",
+      "label": "Color swatch style",
+      "options": [
+        {
+          "value": "default-color",
+          "label": "Default color"
+        },
+        {
+         "value": "custom-image",
+         "label": "Custom uploaded images"
+        },
+        {
+         "value": "variant-image",
+         "label": "Zoomed in variant images"
+        }
+      ],
+      "default": "default-color",
+      "info": "Learn more about [color swatch styles](https:\/\/support.weareunderground.com\/article\/259-mr-parker-theme-color-swatch-styles)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_button",
+      "label": "Show dynamic checkout button",
+      "info": "Lets customers check out directly using a familiar payment method. [Learn more](https:\/\/help.shopify.com\/manual\/using-themes\/change-the-layout\/dynamic-checkout)",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Product Description"
+    },
+    {
+      "type": "select",
+      "id": "description_position",
+      "label": "Position",
+      "options": [
+       {
+         "value": "below-form",
+         "label": "Below Form"
+       },
+       {
+         "value": "bottom",
+         "label": "Bottom"
+       }
+      ],
+      "default": "below-form"
+    },
+    {
+      "type": "color",
+      "id": "product_description_border",
+      "label": "Border",
+      "default": "#fff"
+    },
+    {
+      "type": "header",
+      "content": "Product Shortcode Popups"
+    },
+    {
+      "type": "paragraph",
+      "content": "Use shortcodes in your product description to show links to popups with unique product specific content. [Learn more](https:\/\/support.weareunderground.com\/article\/260-mr-parker-theme-product-shortcode-popups)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_size_chart",
+      "label": "Show product size",
+      "info": "Use shortcode [#size][/size]",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_video",
+      "label": "Show product video",
+      "info": "Use shortcode [#video][/video]",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_model",
+      "label": "Show product fit/care",
+      "info": "Use shortcode [#other][/other]",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Product Reviews"
+    },
+    {
+      "type": "paragraph",
+      "content": "For reviews to work you must first install the free [Product Reviews](https:\/\/apps.shopify.com\/product-reviews) App by Shopify."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_product_reviews",
+      "label": "Enable product reviews",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "reviews_heading",
+      "label": "Heading",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "paragraph",
+      "content": "Add tabbed content blocks"
+    }
+  ],
+  "blocks":[
+    {
+      "type":"description",
+      "name":"Product Description",
+      "settings":[]
+    },
+    {
+      "type":"page",
+      "name":"Content from Page",
+      "settings":[
+        {
+        "type": "page",
+        "id": "page",
+        "label": "Show content from"
+        }
+      ]
+    },
+    {
+      "type":"text",
+      "name":"Tab Content",
+      "settings":[
+        {
+        "type": "text",
+        "id": "tab_heading",
+        "label": "Tab Heading",
+        "default": "Tab Heading"
+        },
+	       {
+        "type": "richtext",
+        "id": "tab_content",
+        "label": "Tab Content",
+	  "default": "<p>Enter the content to use inside the tab selected.</p>"
+        }
+    	]
+    },
+    {
+      "type": "product_details",
+      "name": "Product Details",
+      "settings": [
+        {
+          "type":"header",
+          "content":"Direct Response"
+        },
+        {
+          "type": "checkbox",
+          "id": "exclusive_template",
+          "label": "To enable exclusive template",
+          "default": false
+        },
+        {
+          "type": "image_picker",
+          "id": "direct_response_banner",
+          "label": "Banner"
+        },
+        {
+          "type": "text",
+          "id": "direct_response_text",
+          "label": "Text",
+          "default": "Exclusive Offer!"
+        },
+        {
+          "type": "text",
+          "id": "direct_response_discount",
+          "label": "Discount %",
+          "default": "0"
+        },
+        {
+          "type":"header",
+          "content":"Product Details"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "about_heading",
+          "label": "About Heading"
+        },
+        {
+          "type": "text",
+          "id": "about_desktop_heading",
+          "label": "Desktop About Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "about_paragraph",
+          "label": "About Paragraph"
+        },
+        {
+          "type": "textarea",
+          "id": "about_paragraphNote",
+          "label": "About Paragraph Note"
+        },
+        {
+          "type": "image_picker",
+          "id": "about_image",
+          "label": "About Image"
+        },
+        {
+          "type": "text",
+          "id": "about_video_url",
+          "label": "About Video Url"
+        },
+        {
+          "type": "select",
+          "id": "about_media_type",
+          "label": "About Media Type",
+          "info": "Select Video or Image",
+          "options": [
+            {
+              "value": "image",
+              "label": "Image"
+            },
+            {
+              "value": "video",
+              "label": "Video"
+            }
+          ],
+          "default": "video"
+        },
+        {
+          "type": "header",
+          "content": "Desktop Overview Section",
+          "info": "Right Column"
+        },
+
+        {
+          "type": "text",
+          "id": "desktop_overview_section_1_title",
+          "label": "Desktop Overview Section 1 Title"
+        },
+        {
+          "type": "textarea",
+          "id": "desktop_overview_section_1_paragraph",
+          "label": "Desktop Overview Section 1 Paragraph"
+        },
+        {
+          "type": "text",
+          "id": "desktop_overview_section_2_title",
+          "label": "Desktop Overview Section 2 Title"
+        },
+        {
+          "type": "textarea",
+          "id": "desktop_overview_section_2_paragraph",
+          "label": "Desktop Overview Section 2 Paragraph"
+        },
+        {
+          "type": "text",
+          "id": "desktop_overview_section_3_title",
+          "label": "Desktop Overview Section 3 Title"
+        },
+        {
+          "type": "textarea",
+          "id": "desktop_overview_section_3_paragraph",
+          "label": "Desktop Overview Section 3 Paragraph"
+        },
+        {
+          "type": "text",
+          "id": "desktop_overview_section_4_title",
+          "label": "Desktop Overview Section 4 Title"
+        },
+        {
+          "type": "textarea",
+          "id": "desktop_overview_section_4_paragraph",
+          "label": "Desktop Overview Section 4 Paragraph"
+        },
+
+        {
+          "type": "header",
+          "content": "Features"
+        },
+
+        {
+          "type": "text",
+          "id": "features_section_1_name",
+          "label": "Features Name"
+        },
+
+        {
+          "type": "text",
+          "id": "features_section_1_title",
+          "label": "Features Section 1 Title"
+        },
+        {
+          "type": "textarea",
+          "id": "features_section_1_paragraph",
+          "label": "Features Section 1 Paragraph"
+        },
+        {
+          "type": "image_picker",
+          "id": "features_section_1_image",
+          "label": "Features Section 1 Image"
+        },
+        {
+          "type": "text",
+          "id": "features_section_1_video_url",
+          "label": "Features Section 1 Video Url"
+        },
+        {
+          "type": "select",
+          "id": "features_section_1_media_type",
+          "label": "Features Section 1 Media Type",
+          "info": "Select Video or Image",
+          "options": [
+            {
+              "value": "image",
+              "label": "Image"
+            },
+            {
+              "value": "video",
+              "label": "Video"
+            }
+          ],
+          "default": "video"
+        },
+        {
+          "type": "text",
+          "id": "features_section_2_title",
+          "label": "Features Section 2 Title"
+        },
+        {
+          "type": "textarea",
+          "id": "features_section_2_paragraph",
+          "label": "Features Section 2 Paragraph"
+        },
+        {
+          "type": "image_picker",
+          "id": "features_section_2_image",
+          "label": "Features Section 2 Image"
+        },
+        {
+          "type": "text",
+          "id": "features_section_2_video_url",
+          "label": "Features Section 2 Video Url"
+        },
+        {
+          "type": "select",
+          "id": "features_section_2_media_type",
+          "label": "Features Section 2 Media Type",
+          "info": "Select Video or Image",
+          "options": [
+            {
+              "value": "image",
+              "label": "Image"
+            },
+            {
+              "value": "video",
+              "label": "Video"
+            }
+          ],
+          "default": "video"
+        },
+        {
+          "type": "text",
+          "id": "features_section_3_title",
+          "label": "Features Section 3 Title"
+        },
+        {
+          "type": "textarea",
+          "id": "features_section_3_paragraph",
+          "label": "Features Section 3 Paragraph"
+        },
+        {
+          "type": "image_picker",
+          "id": "features_section_3_image",
+          "label": "Features Section 3 Image"
+        },
+        {
+          "type": "text",
+          "id": "features_section_3_video_url",
+          "label": "Features Section 3 Video Url"
+        },
+        {
+          "type": "select",
+          "id": "features_section_3_media_type",
+          "label": "Features Section 3 Media Type",
+          "info": "Select Video or Image",
+          "options": [
+            {
+              "value": "image",
+              "label": "Image"
+            },
+            {
+              "value": "video",
+              "label": "Video"
+            }
+          ],
+          "default": "video"
+        },
+        {
+          "type": "text",
+          "id": "features_section_4_title",
+          "label": "Features Section 4 Title"
+        },
+        {
+          "type": "textarea",
+          "id": "features_section_4_paragraph",
+          "label": "Features Section 4 Paragraph"
+        },
+        {
+          "type": "image_picker",
+          "id": "features_section_4_image",
+          "label": "Features Section 4 Image"
+        },
+        {
+          "type": "text",
+          "id": "features_section_4_video_url",
+          "label": "Features Section 4 Video Url"
+        },
+        {
+          "type": "select",
+          "id": "features_section_4_media_type",
+          "label": "Features Section 4 Media Type",
+          "info": "Select Video or Image",
+          "options": [
+            {
+              "value": "image",
+              "label": "Image"
+            },
+            {
+              "value": "video",
+              "label": "Video"
+            }
+          ],
+          "default": "video"
+        },
+        {
+          "type": "text",
+          "id": "features_section_5_title",
+          "label": "Features Section 5 Title"
+        },
+        {
+          "type": "textarea",
+          "id": "features_section_5_paragraph",
+          "label": "Features Section 5 Paragraph"
+        },
+        {
+          "type": "image_picker",
+          "id": "features_section_5_image",
+          "label": "Features Section 5 Image"
+        },
+        {
+          "type": "text",
+          "id": "features_section_5_video_url",
+          "label": "Features Section 5 Video Url"
+        },
+        {
+          "type": "select",
+          "id": "features_section_5_media_type",
+          "label": "Features Section 5 Media Type",
+          "info": "Select Video or Image",
+          "options": [
+            {
+              "value": "image",
+              "label": "Image"
+            },
+            {
+              "value": "video",
+              "label": "Video"
+            }
+          ],
+          "default": "video"
+        },
+        {
+          "type": "header",
+          "content": "Specifications"
+        },
+        {
+          "type": "text",
+          "id": "section_2_name",
+          "label": "Section 2 Name"
+        },
+        {
+          "type": "text",
+          "id": "section_2_headerTitle1",
+          "label": "Header Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "section_2_dimensionalImage",
+          "label": "Dimension Image"
+        },
+        {
+          "type": "text",
+          "id": "section_2_weight",
+          "label": "Weight"
+        },
+        {
+          "type": "text",
+          "id": "section_2_weightWithCushions",
+          "label": "Weight (WITH CUSHIONS)"
+        },
+        {
+          "type": "text",
+          "id": "section_2_weightWithoutCusions",
+          "label": "Weight (WITHOUT CUSHIONS)"
+        },
+        {
+          "type": "text",
+          "id": "section_2_weightCapacity",
+          "label": "Weight Capacity"
+        },
+        {
+          "type": "text",
+          "id": "section_2_woodType",
+          "label": "Wood Type"
+        },
+        {
+          "type": "text",
+          "id": "section_2_woodSpeciesLine1",
+          "label": "Wood Species Line 1"
+        },
+        {
+          "type": "text",
+          "id": "section_2_woodSpeciesLine2",
+          "label": "Wood Species Line 2"
+        },
+        {
+          "type": "text",
+          "id": "section_2_cushionContent",
+          "label": "Cushion Content"
+        },
+        {
+          "type": "text",
+          "id": "section_2_seatCushionContent",
+          "label": "Seat Cushion Content"
+        },
+        {
+          "type": "text",
+          "id": "section_2_backrestCushionContent",
+          "label": "Backrest Cushion Content"
+        },
+        
+        {
+          "type": "text",
+          "id": "section_2_headerTitle2",
+          "label": "Header Title"
+        },
+        {
+          "type": "text",
+          "id": "section_2_cherryHeight",
+          "label": "Cherry Height"
+        },
+        {
+          "type": "text",
+          "id": "section_2_walnutHeight",
+          "label": "Walnut Height"
+        },
+        {
+          "type": "text",
+          "id": "section_2_blackHeight",
+          "label": "Black Height"
+        },
+        {
+          "type": "text",
+          "id": "section_2_height",
+          "label": "Height"
+        },
+        {
+          "type": "text",
+          "id": "section_2_cherryDepth",
+          "label": "Cherry Depth"
+        },
+        {
+          "type": "text",
+          "id": "section_2_walnutDepth",
+          "label": "Walnut Depth"
+        },
+        {
+          "type": "text",
+          "id": "section_2_blackDepth",
+          "label": "Black Depth"
+        },
+        {
+          "type": "text",
+          "id": "section_2_depth",
+          "label": "Depth"
+        },
+        {
+          "type": "text",
+          "id": "section_2_cherryWidth",
+          "label": "Cherry Width"
+        },
+        {
+          "type": "text",
+          "id": "section_2_walnutWidth",
+          "label": "Walnut Width"
+        },
+        {
+          "type": "text",
+          "id": "section_2_blackWidth",
+          "label": "Black Width"
+        },
+        {
+          "type": "text",
+          "id": "section_2_width",
+          "label": "Width"
+        },
+        {
+          "type": "text",
+          "id": "section_2_cherrySeatHeight",
+          "label": "Cherry Seat Height"
+        },
+        {
+          "type": "text",
+          "id": "section_2_walnutSeatHeight",
+          "label": "Walnut Seat Height"
+        },
+        {
+          "type": "text",
+          "id": "section_2_blackSeatHeight",
+          "label": "Black Seat Height"
+        },
+        {
+          "type": "text",
+          "id": "section_2_seatHeight",
+          "label": "Seat Height"
+        },
+        {
+          "type": "text",
+          "id": "section_2_cherrySeatDepth",
+          "label": "Cherry Seat Depth"
+        },
+        {
+          "type": "text",
+          "id": "section_2_walnutSeatDepth",
+          "label": "Walnut Seat Depth"
+        },
+        {
+          "type": "text",
+          "id": "section_2_blackSeatDepth",
+          "label": "Black Seat Depth"
+        },
+        {
+          "type": "text",
+          "id": "section_2_seatDepth",
+          "label": "Seat Depth"
+        },
+        {
+          "type": "text",
+          "id": "section_2_seatDepthWithBackRest",
+          "label": "Seat Depth (WITH BACKREST)"
+        },
+        {
+          "type": "text",
+          "id": "section_2_cherrySeatWidth",
+          "label": "Cherry Seat Width"
+        },
+        {
+          "type": "text",
+          "id": "section_2_walnutSeatWidth",
+          "label": "Walnut Seat Width"
+        },
+        {
+          "type": "text",
+          "id": "section_2_blackSeatWidth",
+          "label": "Black Seat Width"
+        },
+        {
+          "type": "text",
+          "id": "section_2_seatWidth",
+          "label": "Seat Width"
+        },
+        {
+          "type": "text",
+          "id": "section_2_seatToTopOfBackrest",
+          "label": "Seat to top of backrest"
+        },
+        {
+          "type": "text",
+          "id": "section_2_cherryBackHeight",
+          "label": "Cherry Back Height"
+        },
+        {
+          "type": "text",
+          "id": "section_2_walnutBackHeight",
+          "label": "Walnut Back Height"
+        },
+        {
+          "type": "text",
+          "id": "section_2_blackBackHeight",
+          "label": "Black Back Height"
+        },
+        {
+          "type": "text",
+          "id": "section_2_backHeight",
+          "label": "Back Height"
+        },
+        {
+          "type": "textarea",
+          "id": "product_messaging",
+          "label": "Product Messaging"
+        },
+        {
+          "type": "textarea",
+          "id": "product_messaging_info",
+          "label": "Product Messaging Info"
+        },
+        {
+          "type": "text",
+          "id": "product_messaging_height",
+          "label": "Product Messaging Height"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_overlay_image",
+          "label": "Product Overlay Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_overlay_image_mobile",
+          "label": "Product Overlay Image Mobile"
+        },
+        {
+                    "type": "header",
+                    "content": "Grid Text"
+                },
+                {
+                    "id": "header_text",
+                    "type": "text",
+                    "label": "Header Text"
+                },
+                {
+                    "id": "header_hash_tag",
+                    "type": "text",
+                    "label": "Header Hash Tag"
+                },
+                {
+                    "id": "link_text",
+                    "type": "text",
+                    "label": "Link Text"
+                },
+                {
+                    "id": "link_url",
+                    "type": "url",
+                    "label": "Link Url"
+                },
+        {
+                    "type": "header",
+                    "content": "Desktop Images"
+                },
+                {
+                    "id": "desktop_images_1_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 1 Image"
+                },
+                {
+                    "id": "desktop_images_2_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 2 Image"
+                },
+                {
+                    "id": "desktop_images_3_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 3 Image"
+                },
+                {
+                    "id": "desktop_images_4_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 4 Image"
+                },
+                {
+                    "id": "desktop_images_5_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 5 Image"
+                },
+                {
+                    "id": "desktop_images_6_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 6 Image"
+                },
+                {
+                    "type": "header",
+                    "content": "Mobile Images"
+                },
+                {
+                    "id": "mobile_images_1_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 1 Image"
+                },
+                {
+                    "id": "mobile_images_2_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 2 Image"
+                },
+                {
+                    "id": "mobile_images_3_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 3 Image"
+                },
+                {
+                    "id": "mobile_images_4_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 4 Image"
+                },
+                {
+                    "id": "mobile_images_5_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 5 Image"
+                },
+                {
+                    "id": "mobile_images_6_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 6 Image"
+                }
+    	]
+    },
+
+    {
+      "type": "delivery_info_section",
+      "name": "Delivery Info Section",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name"
+        },
+
+        {
+          "type": "text",
+          "id": "section_1_title",
+          "label": "Section 1 Title"
+        },
+        {
+          "type": "html",
+          "id": "section_1_paragraph",
+          "label": "Section 1 Paragraph"
+        },
+        {
+          "type": "text",
+          "id": "section_1_linkText",
+          "label": "Section 1 Link Text"
+        },
+        {
+          "type": "text",
+          "id": "section_1_linkUrl",
+          "label": "Section 1 Link Url"
+        },
+
+        {
+          "type": "text",
+          "id": "section_2_title",
+          "label": "Section 2 Title"
+        },
+        {
+          "type": "html",
+          "id": "section_2_paragraph",
+          "label": "Section 2 Paragraph"
+        },
+        {
+          "type": "text",
+          "id": "section_2_linkText",
+          "label": "Section 2 Link Text"
+        },
+        {
+          "type": "text",
+          "id": "section_2_linkUrl",
+          "label": "Section 2 Link Url"
+        }
+    	]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "text"
+      }
+    ]
+  }
+}
+{% endschema %}

@@ -1,0 +1,116 @@
+<div class="index-section" data-section-id="{{ section.id }}" data-section-type="featured-collection-section" data-aos="{{ settings.scroll_animation }}">
+  <div id="homepage-collections" class="row">
+    {% if section.settings.title != blank %}
+      {% render 'section-headings', type: section.settings.title, link: collection.url %}
+    {% endif %}
+
+    {% case section.settings.grid %}
+      {% when 2 %}
+        {%- assign grid_item_width = 'desktop-6 tablet-6 mobile-3 span-6' -%}
+      {% when 3 %}
+        {%- assign grid_item_width = 'desktop-4 tablet-6 mobile-3 span-4' -%}
+      {% when 4 %}
+        {%- assign grid_item_width = 'desktop-3 tablet-6 mobile-3 span-3' -%}
+    {% endcase %}
+
+    <div id="collection-loop" style="width: 100%">
+      {% for block in section.blocks limit: section.blocks.size %}
+        <div class="product-index {{ grid_item_width }}" data-alpha="{{ collection.title }}" {{ block.shopify_attributes }} data-product-id="{{ product.id }}">
+          {%- assign collection = collections[block.settings.collection] -%}
+          {% if block.settings.collection == blank %}
+            <div class="onboarding">
+              {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+              {%- assign placeholder = 'collection-' | append: current -%}
+              <div class="collection-image ci onboard">
+                <a href="#">
+                  {{ placeholder | placeholder_svg_tag }}
+                </a>
+              </div>
+              <div class="collection-list product-info">
+                <a href="#">
+                  Sample collection {{ forloop.index }}
+                </a>
+              </div>
+            </div>
+          {% else %}
+            {% render 'collection-grid-item', collection: collection %}
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.blocks.size == 0 %}
+      {% render 'no-blocks' %}
+    {% endif %}
+
+  </div>
+  <style media="screen">
+    #homepage-collections .collection-image > a {
+      display: block;
+      width: 100%;
+    }
+    .coll-title a {
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      margin: 10px auto;
+    }
+      .onboarding .collection-list.product-info {
+      background: rgba(0,0,0,0.8);
+      padding: 20px;
+    }
+  </style>
+</div>
+<div class="clear"></div>
+
+
+{% schema %}
+{
+  "name": "Collection list",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Collection list"
+    },
+    {
+      "type": "range",
+      "id": "grid",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Collections per row",
+      "default": 3
+    }
+  ],
+  "blocks": [
+    {
+      "type": "featured_collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "label": "Collection",
+          "id": "collection",
+          "type": "collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection list",
+      "category": "Collection",
+      "blocks": [
+        {
+          "type": "featured_collection"
+        },
+        {
+          "type": "featured_collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

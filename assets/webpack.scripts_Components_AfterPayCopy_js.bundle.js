@@ -1,0 +1,22 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+(self["webpackChunkecomm_levity"] = self["webpackChunkecomm_levity"] || []).push([["scripts_Components_AfterPayCopy_js"],{
+
+/***/ "./scripts/Components/AfterPayCopy.js":
+/*!********************************************!*\
+  !*** ./scripts/Components/AfterPayCopy.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ \"./node_modules/prop-types/index.js\");\n/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);\n/* eslint-disable new-cap */\n\n\n\nvar AfterPayCopy = function AfterPayCopy(_ref) {\n  var price = _ref.price,\n      dataSize = _ref.dataSize;\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"afterpay-placement\", {\n    \"data-locale\": \"en_US\",\n    \"data-badge-theme\": \"white-on-black\",\n    \"data-modal-theme\": \"white\",\n    \"data-currency\": \"USD\",\n    \"data-amount\": \"\".concat(price / 100),\n    \"data-size\": dataSize\n  });\n};\n\nAfterPayCopy.defaultProps = {\n  dataSize: 'sm'\n};\nAfterPayCopy.propTypes = {\n  price: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number.isRequired),\n  dataSize: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string)\n};\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AfterPayCopy);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zY3JpcHRzL0NvbXBvbmVudHMvQWZ0ZXJQYXlDb3B5LmpzLmpzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFBQTtBQUNBO0FBQ0E7O0FBRUEsSUFBTUUsWUFBWSxHQUFHLFNBQWZBLFlBQWU7QUFBQSxNQUFHQyxLQUFILFFBQUdBLEtBQUg7QUFBQSxNQUFVQyxRQUFWLFFBQVVBLFFBQVY7QUFBQSxzQkFDbkI7QUFDRSxtQkFBWSxPQURkO0FBRUUsd0JBQWlCLGdCQUZuQjtBQUdFLHdCQUFpQixPQUhuQjtBQUlFLHFCQUFjLEtBSmhCO0FBS0UsNkJBQWdCRCxLQUFLLEdBQUcsR0FBeEIsQ0FMRjtBQU1FLGlCQUFXQztBQU5iLElBRG1CO0FBQUEsQ0FBckI7O0FBV0FGLFlBQVksQ0FBQ0csWUFBYixHQUE0QjtBQUMxQkQsRUFBQUEsUUFBUSxFQUFFO0FBRGdCLENBQTVCO0FBSUFGLFlBQVksQ0FBQ0ksU0FBYixHQUF5QjtBQUN2QkgsRUFBQUEsS0FBSyxFQUFFRixxRUFEZ0I7QUFFdkJHLEVBQUFBLFFBQVEsRUFBRUgsMERBQWdCUTtBQUZILENBQXpCO0FBS0EsaUVBQWVQLFlBQWYsRSIsInNvdXJjZXMiOlsid2VicGFjazovL2Vjb21tLWxldml0eS8uL3NjcmlwdHMvQ29tcG9uZW50cy9BZnRlclBheUNvcHkuanM/YjJmNyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKiBlc2xpbnQtZGlzYWJsZSBuZXctY2FwICovXG5pbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xuaW1wb3J0IFByb3BUeXBlcyBmcm9tICdwcm9wLXR5cGVzJztcblxuY29uc3QgQWZ0ZXJQYXlDb3B5ID0gKHsgcHJpY2UsIGRhdGFTaXplIH0pID0+IChcbiAgPGFmdGVycGF5LXBsYWNlbWVudFxuICAgIGRhdGEtbG9jYWxlPVwiZW5fVVNcIlxuICAgIGRhdGEtYmFkZ2UtdGhlbWU9XCJ3aGl0ZS1vbi1ibGFja1wiXG4gICAgZGF0YS1tb2RhbC10aGVtZT1cIndoaXRlXCJcbiAgICBkYXRhLWN1cnJlbmN5PVwiVVNEXCJcbiAgICBkYXRhLWFtb3VudD17YCR7cHJpY2UgLyAxMDB9YH1cbiAgICBkYXRhLXNpemU9e2RhdGFTaXplfVxuICAvPlxuKTtcblxuQWZ0ZXJQYXlDb3B5LmRlZmF1bHRQcm9wcyA9IHtcbiAgZGF0YVNpemU6ICdzbScsXG59O1xuXG5BZnRlclBheUNvcHkucHJvcFR5cGVzID0ge1xuICBwcmljZTogUHJvcFR5cGVzLm51bWJlci5pc1JlcXVpcmVkLFxuICBkYXRhU2l6ZTogUHJvcFR5cGVzLnN0cmluZyxcbn07XG5cbmV4cG9ydCBkZWZhdWx0IEFmdGVyUGF5Q29weTtcbiJdLCJuYW1lcyI6WyJSZWFjdCIsIlByb3BUeXBlcyIsIkFmdGVyUGF5Q29weSIsInByaWNlIiwiZGF0YVNpemUiLCJkZWZhdWx0UHJvcHMiLCJwcm9wVHlwZXMiLCJudW1iZXIiLCJpc1JlcXVpcmVkIiwic3RyaW5nIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./scripts/Components/AfterPayCopy.js\n");
+
+/***/ })
+
+}]);

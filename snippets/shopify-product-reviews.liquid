@@ -1,0 +1,6 @@
+<div id="product-reviews">
+  {% render 'section-headings', type: section.settings.reviews_heading %}
+  <div id="shopify-product-reviews" data-id="{{product.id}}" data-aos="{{ settings.scroll_animation }}">
+    {{ product.metafields.spr.reviews }}
+  </div>
+</div>

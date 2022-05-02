@@ -1,0 +1,128 @@
+<div id="react-instagram-grid-two">
+    <script type="application/json">
+        {
+            "blocks": [
+                {% for block in section.blocks %}
+                    {
+                        "settings": {{ block.settings | json }},
+                        "type": {{ block.type | json }},
+                        "shopify_attributes": {{ block.shopify_attributes | json }}
+                    }
+                    {% if forloop.last != true %},{% endif %}
+                {% endfor %}
+            ]
+        }
+    </script>
+</div>
+
+{% schema %}
+{
+    "name": "Instagram Grid Two",
+    "max_blocks": 40,
+    "blocks": [
+        {
+            "type": "grid",
+            "name": "Instagram Grid",
+            "settings": [
+                {
+                    "id": "grid_title",
+                    "type": "text",
+                    "label": "Grid Title"
+                },
+                {
+                    "type": "header",
+                    "content": "Grid Text"
+                },
+                {
+                    "id": "header_text",
+                    "type": "text",
+                    "label": "Header Text"
+                },
+                {
+                    "id": "header_hash_tag",
+                    "type": "text",
+                    "label": "Header Hash Tag"
+                },
+                {
+                    "id": "link_text",
+                    "type": "text",
+                    "label": "Link Text"
+                },
+                {
+                    "id": "link_url",
+                    "type": "url",
+                    "label": "Link Url"
+                },
+                {
+                    "type": "header",
+                    "content": "Desktop Images"
+                },
+                {
+                    "id": "desktop_images_1_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 1 Image"
+                },
+                {
+                    "id": "desktop_images_2_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 2 Image"
+                },
+                {
+                    "id": "desktop_images_3_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 3 Image"
+                },
+                {
+                    "id": "desktop_images_4_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 4 Image"
+                },
+                {
+                    "id": "desktop_images_5_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 5 Image"
+                },
+                {
+                    "id": "desktop_images_6_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 6 Image"
+                },
+                {
+                    "type": "header",
+                    "content": "Mobile Images"
+                },
+                {
+                    "id": "mobile_images_1_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 1 Image"
+                },
+                {
+                    "id": "mobile_images_2_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 2 Image"
+                },
+                {
+                    "id": "mobile_images_3_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 3 Image"
+                },
+                {
+                    "id": "mobile_images_4_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 4 Image"
+                },
+                {
+                    "id": "mobile_images_5_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 5 Image"
+                },
+                {
+                    "id": "mobile_images_6_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 6 Image"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

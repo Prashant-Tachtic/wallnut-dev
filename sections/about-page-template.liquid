@@ -1,0 +1,101 @@
+<div id="react-about-page">
+    <script type="application/json">
+        {
+            "blocks": [
+                {% for block in section.blocks %}
+                    {
+                        "settings": {{ block.settings | json }},
+                        "type": {{ block.type | json }},
+                        "shopify_attributes": {{ block.shopify_attributes | json }}
+                    }
+                    {% if forloop.last != true %},{% endif %}
+                {% endfor %}
+            ]
+        }
+    </script>
+</div>
+
+{% schema %}
+    {
+        "name": "Custom About Page",
+        "settings": [
+            {
+            "type": "header",
+            "content": "Custom About Page"
+            }
+        ],
+        "blocks": [
+            {
+                "name": "Image With Text",
+                "type": "section",
+                "limit": 8,
+                "settings": [
+                    {
+                        "type": "select",
+                        "id": "text_position",
+                        "label": "Text Position",
+                        "options": [
+                            {
+                                "value": "right",
+                                "label": "Right"
+                            },
+                            {
+                                "value": "left",
+                                "label": "Left"
+                            },
+                            {
+                                "value": "center",
+                                "label": "Center"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "select",
+                        "id": "bg_color",
+                        "label": "Background Color",
+                        "options": [
+                            {
+                                "value": "white",
+                                "label": "White"
+                            },
+                            {
+                                "value": "offwhite",
+                                "label": "Offwhite"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "title",
+                        "type": "text",
+                        "label": "Title"
+                    },
+                    {
+                        "id": "body",
+                        "type": "richtext",
+                        "label": "Body"
+                    },
+                    {
+                        "id": "video",
+                        "type": "url",
+                        "label": "Video URL"
+                    },
+                    {
+                        "id": "image",
+                        "type": "url",
+                        "label": "Image URL"
+                    },
+                    { 
+                        "id": "link_text",
+                        "type": "text",
+                        "label": "Link Text"
+                    },
+                    {
+                        "id": "link",
+                        "type": "url",
+                        "label": "Link"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

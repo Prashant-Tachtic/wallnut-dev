@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h3, h4, h5, h6, span, select {
+    @apply font-serif;
+  }
+
+  h1 {
+    @apply text-3xl;
+    @apply mb-5;
+  }
+
+  h2 {
+    @apply font-sans;
+    @apply text-2xl;
+  }
+
+  p {
+    font-size: 18px;
+    margin-bottom: 1.6em;
+    margin-top: 0;
+  }
+
+  img {
+    @apply inline-block;
+  }
+
+  .alice-carousel__stage-item {
+    @apply w-full !important;
+  }
+
+  a {
+    @apply font-serif;
+    @apply no-underline;
+  }
+}
+
+afterpay-placement { 
+  font-family: 'stolzl';
+  margin-top: 12px;
+  --logo-badge-width: 56px;
+}
+
+.afterpay-paragraph {
+    font-size: 10px !important;
+}

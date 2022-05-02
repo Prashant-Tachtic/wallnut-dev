@@ -1,0 +1,37 @@
+<section>
+    <div id="react-best-sellers">
+        <script type="application/json">
+            {
+                "settings": {{ section.settings | json }}
+            }
+        </script>
+    </div>
+</section>
+
+{% schema %}
+    {
+        "name": "Best Sellers",
+        "settings": [
+            {
+                "id": "header_background",
+                "type": "image_picker",
+                "label": "Header Background"
+            },
+            {
+                "id": "header_title",
+                "type": "text",
+                "label": "Header Title"
+            },
+            {
+                "id": "text_background",
+                "type": "image_picker",
+                "label": "Text Background"
+            },
+            {
+                "id": "header_text",
+                "type": "textarea",
+                "label": "Header Text"
+            }
+        ]
+    }
+{% endschema %}

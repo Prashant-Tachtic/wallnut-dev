@@ -1,0 +1,320 @@
+<section>
+  <div id="react-black-friday-sale-hero">
+    <script type="application/json">
+      {
+        "themeSettings": {{ settings | json }},
+        "settings": {{ section.settings | json }},
+        "saleBanner": "{{ 'sale-banner.png' | asset_url }}",
+        "pageTitle": "{{page_title}}",
+        "collection": {{ collection.title | json }}
+      }
+    </script>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Black Friday Sales Hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Sale Start and End dates",
+      "info": "Start and End dates for the sale is located in the Theme settings on the bottom of this customize page. Add the dates so it will auto start and end"
+    },
+    {
+      "type": "select",
+      "id": "page_layout",
+      "label": "Page Layout",
+      "options": [
+        {
+          "value": "layout_1",
+          "label": "Layout 1"
+        },
+        {
+          "value": "layout_2",
+          "label": "Layout 2"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "font",
+      "label": "Text Font",
+      "options": [
+        {
+          "value": "sans",
+          "label": "Sans(Value Serif Medium Pro)"
+        },
+        {
+          "value": "serif",
+          "label": "Serif(Solzl)"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        {
+          "value": "lynxwhite",
+          "label": "Lynx White"
+        },
+        {
+          "value": "blue-baby",
+          "label": "Baby Blue"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "discount",
+      "label": "Discount Percent"
+    },
+    {
+      "type": "text",
+      "id": "discount_text",
+      "label": "Discount Text"
+    },
+    {
+      "type": "text",
+      "id": "discount_code",
+      "label": "Discount Code"
+    },
+    {
+      "type": "header",
+      "content": "Caption content"
+    },
+    {
+      "type": "text",
+      "id": "hero_first_title",
+      "label": "Heading Beginning Text",
+      "default": "Beginning Text for sale title"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Heading Main Text",
+      "default": "Main text for sale title"
+    },
+    {
+      "type": "text",
+      "id": "hero_last_title",
+      "label": "Heading Ending Text",
+      "default": "Ending text for sale title"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "options": [
+        {
+          "value": "sans",
+          "label": "Sans(Value Serif Medium Pro)"
+        },
+        {
+          "value": "serif",
+          "label": "Serif(Solzl)"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_bold",
+      "label": "Heading Bold",
+      "options": [
+        {
+          "value": "font-normal",
+          "label": "Normal"
+        },
+        {
+          "value": "font-bold",
+          "label": "Bold"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_underline",
+      "label": "Heading Underline",
+      "options": [
+        {
+          "value": "no-underline",
+          "label": "No Underline"
+        },
+        {
+          "value": "underline",
+          "label": "Underline"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "hero_title_color_1",
+      "label": "Heading Primary Color",
+      "options": [
+        {
+          "value": "text-brown",
+          "label": "text-brown"
+        },
+        {
+          "value": "text-blue",
+          "label": "text-blue"
+        },
+        {
+          "value": "text-orange-burnt",
+          "label": "text-orange-burnt"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "hero_title_color_2",
+      "label": "Heading Secondary Color",
+      "options": [
+        {
+          "value": "text-brown",
+          "label": "text-brown"
+        },
+        {
+          "value": "text-blue",
+          "label": "text-blue"
+        },
+        {
+          "value": "text-orange-burnt",
+          "label": "text-orange-burnt"
+        }
+      ]
+    },
+    {
+      "type": "html",
+      "id": "hero_subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "hero_button_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "hero_button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "select",
+      "id": "hero_button_link_color",
+      "label": "Button Link Background Color",
+      "options": [
+        {
+          "value": "text-white",
+          "label": "text-white"
+        },
+        {
+          "value": "text-brown",
+          "label": "text-brown"
+        },
+        {
+          "value": "text-blue",
+          "label": "text-blue"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "under_button_text",
+      "label": "Text Under Button"
+    },
+    {
+      "type": "header",
+      "content": "Hero Content",
+      "info": "Start and End dates for the sale is located in the Theme settings on this customize bottom of the page"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_tablet_image",
+      "label": "Tablet Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_mobile_image",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "header",
+      "content": "Collection Hero Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_hero_image",
+      "label": "Collection Hero Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_hero_tablet_image",
+      "label": "Collection Hero Tablet Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_hero_mobile_image",
+      "label": "Collection Hero Mobile Image"
+    },
+    {
+      "type": "text",
+      "id": "collection_hero_title",
+      "label": "Collection Hero Title"
+    },
+    {
+      "type": "select",
+      "id": "collection_hero_title_font",
+      "label": "Collection Hero Title Font",
+      "options": [
+        {
+          "value": "font-sans",
+          "label": "Font Sans"
+        },
+        {
+          "value": "font-serif",
+          "label": "Font Serif"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "collection_hero_secondary_title",
+      "label": "Collection Hero Second Title"
+    },
+    {
+      "type": "select",
+      "id": "collection_hero_secondary_title_font",
+      "label": "Collection Hero Second Title Font",
+      "options": [
+        {
+          "value": "font-sans",
+          "label": "Font Sans"
+        },
+        {
+          "value": "font-serif",
+          "label": "Font Serif"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "collection_hero_disclaimer",
+      "label": "Collection Hero Disclaimer"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sales Hero",
+      "category": "React Components"
+    }
+  ]
+}
+{% endschema %}

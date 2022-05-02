@@ -1,0 +1,15 @@
+<div class="quick-add-to-cart">
+  {% if product.variants.size <= 1 and product.available %}
+    <form action="{{ routes.cart_add_url }}" method="post" data-money-format="{{ shop.money_format }}" data-product-id="{{ product.id }}" enctype="multipart/form-data" class="product_form">
+      <div class="product-variants"></div><!-- product variants -->
+      <input  type="hidden" id="{{ variant.id }}" name="id" data-sku="{{ variant.sku }}" value="{{ product.variants[0].id }}" />
+      <div class="product-add">
+        <input type="submit" name="button" class="add clearfix AddtoCart" value="{{ 'products.product.add_to_cart' | t }}" />
+      </div>
+    </form>
+  {% else %}
+    <div class="product-add">
+      <a class="add options button clearfix" href="{{ product.url | within: collection }}">{{ 'products.product.select_options' | t }}</a>
+    </div>
+  {% endif %}
+</div>

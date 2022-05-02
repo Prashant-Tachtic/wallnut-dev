@@ -1,0 +1,157 @@
+<div id="page" class="{% if section.settings.show_narrow_page %}desktop-8 desktop-push-2{% else %}desktop-12{% endif %} tablet-6 mobile-3 page-template" data-section-id="{{ section.id }}">
+  <div id="page-content"{% if linklists[section.settings.pagelist] != blank %} class="desktop-9 tablet-4 mobile-3{% endif %}">
+    <h1>{{ page.title }}</h1>
+    <div class="rte">
+      {{ page.content }}
+      {% render 'custom-contact' type: section %}
+    </div>
+  </div>
+
+  {% if linklists[section.settings.pagelist] != blank %}
+    <div id="sidebar" class="desktop-3 tablet-2 mobile-3">
+      <label>{{ section.settings.page_sidebar_title | escape }}</label>
+      <ul>
+        {% for link in linklists[section.settings.pagelist].links %}
+          <li>{{ link.title | link_to: link.url }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+</div>
+
+{% if page.content == '' %}
+<style>
+@media screen and (min-width: 741px) and (max-width: 980px) {
+  div#contactFormWrapper {
+    margin: 20px auto;
+  }
+}
+</style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Page options",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_narrow_page",
+      "label": "Reduced page width",
+      "info": "For narrow pages"
+    },
+    {
+      "type": "text",
+      "id": "cf_heading",
+      "label": "Heading",
+      "default": "Contact Us"
+    },
+    {
+      "type": "checkbox",
+      "id": "cf_show_first_name",
+      "label": "Show first name",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "cf_show_last_name",
+      "label": "Show last name",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "cf_show_company_name",
+      "label": "Show company name",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "cf_show_address",
+      "label": "Show address",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "cf_show_website_url",
+      "label": "Show website url",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "cf_show_phone",
+      "label": "Show phone number",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "cf_show_subject",
+      "label": "Show subject",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Custom Field One"
+    },
+    {
+      "type": "checkbox",
+      "id": "cf_show_custom_field_one",
+      "label": "Show custom field one",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "cf_custom_field_one",
+      "label": "Field Placeholder",
+      "default": "Custom Field One"
+    },
+    {
+     "type":      "select",
+     "id":        "cf_custom_field_one_type",
+     "label":     "Field Type",
+     "default":   "input",
+     "options": [
+       {
+         "value": "textarea",
+         "label": "Multiple line text"
+       },
+       {
+         "value": "input",
+         "label": "Single line text"
+       }
+     ]
+   },
+   {
+     "type": "header",
+     "content": "Custom Field Two"
+   },
+   {
+     "type": "checkbox",
+     "id": "cf_show_custom_field_two",
+     "label": "Show custom field two",
+     "default": false
+   },
+   {
+     "type": "text",
+     "id": "cf_custom_field_two",
+     "label": "Field Placeholder",
+     "default": "Custom Field Two"
+   },
+   {
+    "type":      "select",
+    "id":        "cf_custom_field_two_type",
+    "label":     "Field Type",
+    "default":   "input",
+    "options": [
+      {
+        "value": "textarea",
+        "label": "Multiple line text"
+      },
+      {
+        "value": "input",
+        "label": "Single line text"
+      }
+    ]
+  }
+  ]
+}
+{% endschema %}

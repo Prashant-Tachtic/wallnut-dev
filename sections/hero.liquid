@@ -1,0 +1,131 @@
+<section>
+  <div id="react-hero">
+    <script type="application/json">
+      {
+        "themeSettings": {{ settings | json }},
+        "settings": {{ section.settings | json }},
+        "saleBanner": "{{ 'sale-banner.png' | asset_url }}",
+        "pageTitle": "{{page_title}}"
+      }
+    </script>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "select",
+      "id": "version",
+      "label": "Hero Version",
+      "options": [
+        {
+          "value": "v1",
+          "label": "Version 1(Old)"
+        },
+        {
+          "value": "v2",
+          "label": "Version 2(New/Pattern)"
+        },
+        {
+          "value": "v3",
+          "label": "Version 3(Video)"
+        }
+      ],
+      "default": "v2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_left",
+      "label": "Image Left(Desktop Only)"
+    },
+    {
+      "type": "image_picker",
+      "id": "tablet_image",
+      "label": "Tablet Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "header",
+      "content": "Caption content"
+    },
+    {
+      "type": "text",
+      "id": "mobile_text_color",
+      "label": "Mobile Text Color"
+    },
+    {
+      "type": "text",
+      "id": "text_color",
+      "label": "Text Color"
+    },
+    {
+      "type": "text",
+      "id": "subheading_size",
+      "label": "Subehading Size"
+    },
+    {
+      "type": "text",
+      "id": "subheading_mobile_size",
+      "label": "Subheading Mobile Size"
+    },
+    {
+      "type": "text",
+      "id": "title_size",
+      "label": "Title Size"
+    },
+    {
+      "type": "text",
+      "id": "title_mobile_size",
+      "label": "Title Mobile Size"
+    },
+    {
+      "type": "text",
+      "id": "title_tablet_size",
+      "label": "Title Tablet Size"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Add a title to your image"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "category": "React Components"
+    }
+  ]
+}
+{% endschema %}

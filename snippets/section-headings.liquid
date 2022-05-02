@@ -1,0 +1,12 @@
+<div class="section-heading">
+  {%- if link -%}
+    <a class="no-underline" href="{{ link | escape }}">
+  {%- endif -%}
+  <h1>{{ type | escape }}</h1>
+  {%- if link -%}
+    </a>
+  {%- endif -%}
+  <span class="section-border">
+    {%- if settings.header_border_style == 'zigzag' -%}<div class="zigzag"></div>{% endif %}
+  </span>
+</div>

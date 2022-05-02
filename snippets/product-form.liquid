@@ -1,0 +1,87 @@
+{% assign call_to_action = 'products.product.add_to_cart' | t %}
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+{% unless current_variant.available %}
+  {% assign call_to_action = 'products.product.sold_out' | t %}
+{% endunless %}
+
+{% form 'product', product, id: "AddToCartForm", class: "product_form", data-product-form:product_form_config, data-product-id: product.id %}
+  {% render 'product-json', product: product, section_id: section.id %}
+
+  {% render 'product-price', variant: current_variant, product: product %}
+
+  {% if product.options.size > 1 %}
+    <div class="select" {% if product.variants.size == 1 or section.settings.product_variants == 'swatches' %}style="display: none;"{% endif %}>
+      <select id="{{ section.id }}-product-select-{{ product.id }}" name='id'>
+        {% for variant in product.variants %}
+          <option value="{{ variant.id }}" {% if variant == current_variant %}selected="selected"{% endif %}>
+            {{ variant.title }} - {{ variant.price | money }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+    {% if section.settings.product_variants == 'swatches' %}
+      {% for option in product.options_with_values %}
+        {% render "swatch",
+          option: option,
+          product: product,
+          color_swatch_style: section.settings.color_swatch_options,
+          current_variant: current_variant %}
+      {% endfor %}
+    {% endif %}
+  {% elsif product.options.size == 1 and product.variants.size > 1 %}
+    <div class="select" {% if product.variants.size == 1 or section.settings.product_variants == 'swatches' %}style="display: none;"{% endif %}>
+      <label>{{ product.options[0] }}</label>
+      <select id="{{ section.id }}-product-select-{{ product.id }}" name='id'>
+        {% for variant in product.variants %}
+          <option data-sku="{{ variant.sku }}" value="{{ variant.id }}" {% if variant == current_variant %}selected="selected"{% endif %}>
+            {{ variant.title }} - {{ variant.price | money }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+    {% if section.settings.product_variants == 'swatches' %}
+      {% for option in product.options_with_values %}
+        {% render 'swatch',
+          option: option,
+          product: product,
+          color_swatch_style: section.settings.color_swatch_options,
+          current_variant: current_variant %}
+      {% endfor %}
+    {% endif %}
+  {% else %}
+    <div class="what-is-it">
+      {% if product.options.first != 'Title' %}
+        <label>{{ product.options.first }}:</label>
+        {% for variant in product.variants %}
+          <span class="it-is">{{ variant.option1 | escape }}</span>
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div class="product-variants"></div><!-- product variants -->
+    <input  type="hidden" id="{{ variant.id }}" name="id" data-sku="{{ variant.sku }}" value="{{ product.variants[0].id }}" />
+  {% endif %}
+
+  {% if section.settings.show_sku %}
+    <div class="clear"></div>
+    <div class="sku">
+      <label style="line-height: 1.6em; display: inline-block;">{{ 'customer.order.details.sku' | t }}:</label> <span class="variant_sku">{{ current_variant.sku }}</span>
+    </div><div class="clear"></div>
+  {% endif %}
+
+  <div class="product-add">
+    {% if section.settings.show_quantity %}
+      <label for="quantity">{{ 'products.product.quantity' | t }}</label>
+      <input min="1" type="number" id="quantity" name="quantity" value="1" />
+    {% endif %}
+    <input type="submit" name="button" class="add clearfix AddtoCart{% if section.settings.show_payment_button and product.selling_plan_groups.size == 0 %} secondary-button{% endif %}" value="{{ call_to_action }}" {% unless current_variant.available %}disabled{% endunless %} />
+    {% if section.settings.show_payment_button %}
+     {{ form | payment_button }}
+    {% endif %}
+    <h5 class="free-shipping">FREE SHIPPING</h5>
+  </div>
+  <div class="product-add product-add-sticky-mobile">
+    <input type="submit" name="button" class="add clearfix AddtoCart{% if section.settings.show_payment_button and product.selling_plan_groups.size == 0 %} secondary-button{% endif %}" value="{{ call_to_action }}" {% unless current_variant.available %}disabled{% endunless %} />
+  </div>
+{% endform %}

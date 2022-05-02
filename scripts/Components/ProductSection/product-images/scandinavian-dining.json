@@ -1,0 +1,443 @@
+{
+  "arctic-blue": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "ash-brown": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "burnt-orange": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "cerulean": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "charcoal-gray": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "chili-red": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "dark-sage": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "dark-denim-blue": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "lifestyle-1.jpg",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "dusty-rose": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "gingham-powder-blue": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "lifestyle-1.jpg",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "houndstooth": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "lifestyle-1.jpg",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "kali-ikat-blue": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "light-gray": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "lifestyle-1.jpg",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "light-sage": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "maroon": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "mustard-yellow": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "off-white": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "sand": [
+    "three-quarter-view_v1.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "lifestyle-1.jpg",
+    "front-view_v1.jpg",
+    "back-view_v1.jpg",
+    "side-view_v1.jpg",
+    "three-quarter-view-dimensions_v1.jpg",
+    "color-swatch.jpg"
+  ],
+  "sedona-ivory": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "soft-chartreuse": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "camellia-cream": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "lifestyle-1.jpg",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "camellia-sunset-orange": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "cowhide-black-and-white": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "lifestyle-1.jpg",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "evergreen-forest": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "gingham-rustic-red": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "herringbone-charcoal-gray": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "herringbone-denim": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "herringbone-light-gray": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "herringbone-off-white": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "mezzo-diamond-grayscale": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "lifestyle-1.jpg",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "mezzo-diamond-sapphire": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "lifestyle-1.jpg",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "pinstripe-dark-gray": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "shagreen-storm-gray": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "staccato-salt-and-pepper": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "lifestyle-1.jpg",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "woven-mosaic-storm-gray": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "lifestyle-1.jpg",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "herringbone-sand": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "herringbone-cerulean": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "herringbone-mustard-yellow": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "herringbone-dark-sage": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "herringbone-light-sage": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "pinstripe-off-white": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "woven-mosaic-off-white": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ],
+  "camellia-lily-white": [
+    "three-quarter-view.jpg",
+    "cover-removal_v1.mp4",
+    "washing-machine_v1.mp4",
+    "front-view.jpg",
+    "back-view.jpg",
+    "side-view.jpg",
+    "three-quarter-view-dimensions.jpg",
+    "color-swatch.jpg"
+  ]
+}

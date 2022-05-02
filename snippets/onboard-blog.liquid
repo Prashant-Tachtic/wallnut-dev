@@ -1,0 +1,20 @@
+{% for i in (1..post_limit) %}
+  {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+  {%- assign placeholder = 'lifestyle-' | append: current -%}
+  <li class="desktop-4 tablet-2 mobile-3{% cycle ' first', '', ' last' %}">
+    <a href="{{ article.url }}">
+      <h3 class="text-center">Blog post {{ forloop.index }}</h3>
+    </a>
+    {% if section.settings.show_date %}
+      <p class="date text-center">{{ 'now' | date: "%a, %b %d, %y" }}</p>
+    {% endif %}
+    <div class="homepage-excerpt">
+      {%- assign image_size = '500x' -%}
+      <div class="article-image onboard">
+        <a href="#" title="{{ article_title }}">
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        </a>
+      </div>
+    </div>
+  </li>
+{% endfor %}

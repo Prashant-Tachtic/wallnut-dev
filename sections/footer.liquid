@@ -1,0 +1,519 @@
+{% if settings.show_notfication and settings.notification_position == 'above-footer' -%}
+  {% render 'notification' %}
+{% endif %}
+
+{%- assign locale_selector = false -%}
+{%- assign currency_selector = false -%}
+
+{%- if section.settings.show_currency_selector and shop.enabled_currencies.size > 1 -%}
+  {%- assign currency_selector = true -%}
+{%- endif -%}
+
+{%- if section.settings.show_locale_selector and shop.published_locales.size > 1 -%}
+  {%- assign locale_selector = true -%}
+{%- endif -%}
+
+<div class="footer-section footer-template" data-section-id="{{ section.id }}" data-section-type="footer-section">
+  <div class="clear"></div>
+  <div class="promotion-10">
+    <div class="promo-container">
+      <div class="promo-text-container">
+        <h4 class="text-3xl">Get A Mystery Offer!</h4>
+        <h5 class="text-sm">Sign up to receive <span class="ten-off-bold">discounts</span> on your first order, exclusive offers, and design updates.</h5>
+      </div>
+      <div id="footer_signup">
+        <div class="klaviyo-form-SxEnPF"></div>
+      </div>
+      <div class="promo-terms-container text-white">
+        <p class="promo-terms">
+          By clicking join, you agree to Levity’s <a class="terms-link text-white" href="https://levityhome.com/policies/privacy-policy">Privacy Policy</a> and 
+          <a class="terms-link text-white" href="https://levityhome.com/policies/terms-of-service">Terms of Service</a>, and agree to receive Levity offers, 
+          promotions and other commercial messages. You may unsubscribe from our marketing 
+          emails at any time.
+        </p>
+        <p class="promo-terms">
+          Discounts do not apply to sale items, swatches or gift cards unless otherwise noted and cannot be combined with any other offers. For a full list of 
+          exclusions please see our <a class="terms-link text-white" href="https://levityhome.com/pages/faqs">FAQ</a>
+        </p>
+        <p class="promo-terms">
+          	*Shipping Exclusions Apply <br>
+			Levity.com site-wide free shipping applies to standard shipping and handling within the continental U.S. Free shipping excludes Hawaii, Alaska, and U.S. Territories (other than Washington, D.C.).
+        </p>
+      </div>
+    </div>
+  </div>
+  <div id="footer" class="row">
+    {% case section.blocks.size %}
+    {% when 0 %}
+    {% when 1 %}
+      {% assign column_width = 'desktop-12 tablet-6 mobile-3' %}
+    {% when 2 %}
+      {% assign column_width = 'desktop-6 tablet-3 mobile-3' %}
+    {% when 3 %}
+      {% assign column_width = 'desktop-4 tablet-3 mobile-3' %}
+    {% when 4 %}
+      {% assign column_width = 'desktop-3 tablet-3 mobile-3' %}
+    {% endcase %}
+
+    <div class="desktop-4 tablet-12 mobile-12 footer-block footer-menu center">
+      <h4>SUPPORT</h4>
+      <ul>
+        <li><a href="/pages/faqs" title="">FAQS</a></li>
+        <li><a href="/pages/reviews" title="">Reviews</a></li>
+        <li><a href="/pages/contact-us" title="">Contact Us</a></li>
+        <li><a href="/pages/shipping-policy" title="">Shipping</a></li>
+        <li><a href="/pages/returns" title="">Returns</a></li>
+        <li><a href="/pages/assembly-instructions" title="">Assembly Instructions</a></li>
+        <li><a href="/pages/accessibility" title="">Accessibility</a></li>
+        <li><a href="/pages/faq-afterpay" title="">Afterpay</a></li>
+      </ul>
+    </div>
+
+    <div class="desktop-4 tablet-12 mobile-12 footer-block footer-menu center">
+      <h4>SHOP</h4>
+      <ul>
+        <li><a href="/collections/all-chairs" title="">All Chairs</a></li>
+        <li><a href="/collections/dining-chairs" title="">Dining Chairs</a></li>
+        <li><a href="/collections/lounge-chairs" title="">Lounge Chairs</a></li>
+        <li><a href="/products/scandinavian-lounge-extra-chair-cover" title="">Extra Covers</a></li>
+        <li><a href="/products/e-gift-card" title="">Gift Cards</a></li>
+      </ul>
+    </div>
+
+    <div class="desktop-4 tablet-12 mobile-12 footer-block footer-menu center">
+      <h4>CONNECT</h4>
+      <ul>
+        <li><a href="https://www.blog.levityhome.com/" title="">Blog</a></li>
+        <li><a href="/pages/about" title="">About Us</a></li>
+        <li><a href="/pages/refer-a-friend" title="">Refer & Get $25 off!</a></li>
+      </ul>
+      <ul id="footer_icons" class="desktop-12 tablet-6 mobile-3">
+        {% render "social-icons" %}
+      </ul>
+    </div>
+
+    <div class="clear"></div>
+    <div id="bottom-footer" class="sub-footer row">
+      <!-- <div class="footer-left">
+        {% if section.settings.show_copyright %}
+          <p><a href="{{ routes.root_url }}">Terms of Service</a> | <a href="{{ routes.root_url }}">Privacy</a> | <a href="{{ routes.root_url }}">&copy; {{ 'now' | date: "%Y" }} {{ shop.name }} - Carson, CA </a> {{ powered_by_link }}</p>
+        {% endif %}
+      </div> -->
+      <div id="payment" class="footer-right">
+        {% if locale_selector or currency_selector %}
+          <div class="disclosures">
+            {%- form 'localization', class: 'selectors-form' -%}
+              {%- if locale_selector -%}
+                <div class="selectors-form__item">
+                  <h2 class="visually-hidden" id="lang-heading">
+                    {{ 'general.language.dropdown_label' | t }}
+                  </h2>
+
+                  <div class="disclosure" data-disclosure-locale>
+                    <button type="button" class="disclosure__toggle" aria-expanded="false" aria-controls="lang-list" aria-describedby="lang-heading" data-disclosure-toggle>
+                      {{ form.current_locale.endonym_name }}
+                    </button>
+                    <ul id="lang-list" class="disclosure-list" data-disclosure-list>
+                      {% for locale in form.available_locales %}
+                        <li class="disclosure-list__item {% if locale.iso_code == form.current_locale.iso_code %}disclosure-list__item--current{% endif %}">
+                          <a class="disclosure-list__option" href="#" lang="{{ locale.iso_code }}" {% if locale.iso_code == form.current_locale.iso_code %}aria-current="true"{% endif %} data-value="{{ locale.iso_code }}" data-disclosure-option>
+                            {{ locale.endonym_name }}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                    <input type="hidden" name="locale_code" id="LocaleSelector" value="{{ form.current_locale.iso_code }}" data-disclosure-input/>
+                  </div>
+                </div>
+              {%- endif -%}
+
+              {%- if currency_selector -%}
+                <div class="selectors-form__item">
+                  <h2 class="visually-hidden" id="currency-heading">
+                    {{ 'general.currency.dropdown_label' | t }}
+                  </h2>
+
+                  <div class="disclosure" data-disclosure-currency>
+                    <button type="button" class="disclosure__toggle" aria-expanded="false" aria-controls="currency-list" aria-describedby="currency-heading" data-disclosure-toggle>
+                      {{ form.current_currency.iso_code }} {%- if form.current_currency.symbol -%}{{ form.current_currency.symbol }}{%- endif -%}
+                    </button>
+                    <ul id="currency-list" class="disclosure-list" data-disclosure-list>
+                      {% for currency in form.available_currencies %}
+                        <li class="disclosure-list__item {% if currency.iso_code == form.current_currency.iso_code %}disclosure-list__item--current{% endif %}">
+                          <a class="disclosure-list__option" href="#" {% if currency.iso_code == form.current_currency.iso_code %}aria-current="true"{% endif %} data-value="{{ currency.iso_code }}" data-disclosure-option>
+                            {{ currency.iso_code }} {%- if currency.symbol -%}{{ currency.symbol }}{%- endif -%}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                    <input type="hidden" name="currency_code" id="CurrencySelector" value="{{ form.current_currency.iso_code }}" data-disclosure-input/>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endform -%}
+          </div>
+        {% endif %}
+        {% if section.settings.show_credit_cards %}
+          <div class="payment-methods">
+            {% for type in shop.enabled_payment_types %}
+              {{ type | payment_type_svg_tag: class:'payment-icon' }}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% if section.settings.show_copyright %}
+    <div class="footer-policies">
+      <div class="desktop-12 footer-block footer-menu policies-container center">
+        <p><span class="policies"><a href="/policies/terms-of-service">Terms of Service</a> | <a href="/policies/privacy-policy">Privacy</a></span class="policies"> <span class="copy-right-spacer">|</span> &copy; {{ 'now' | date: "%Y" }} {{ shop.name }} - Carson, CA {{ powered_by_link }}</p>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+
+<style>
+  #footer,
+  input#footer-EMAIL {
+    text-align: {{ section.settings.footer_text_align }};
+  }
+
+  .promo-terms-container {
+    margin: 0 auto;
+    width: 85%;
+  }
+
+  .promo-terms {
+    font-size: 12px;
+  }
+
+  .terms-link {
+    text-decoration: underline;
+  }
+
+  @media screen and ( max-width: 740px ) {
+  	#footer,
+    input#footer-EMAIL {
+      text-align: center;
+    }
+    input#footer-EMAIL {
+      padding: 0;
+    }
+  }
+
+  #footer h4 {
+    font-size: 20px;
+    font-family: "Stolzl";
+  }
+
+  {% if section.settings.payment_icon_color %}
+   svg.payment-icon { filter: grayscale(1); }
+  {% endif %}
+  div#bottom-footer {
+    display: flex;
+    margin: 0 auto;
+    padding-top: 12px;
+    align-items: flex-end;
+  }
+
+  div#bottom-footer .footer-left {
+    width: 50%;
+    text-align: left;
+  }
+
+  div#bottom-footer .footer-right {
+    width: 50%;
+    text-align: right;
+  }
+
+  div#bottom-footer #copy p {
+    text-align: left;
+    margin: 0;
+  }
+  div#bottom-footer #payment {
+    text-align: right;
+  }
+  div#bottom-footer #payment .payment-methods {
+    margin-top: 10px;
+  }
+  div#bottom-footer .selectors-form {
+    justify-content: flex-end;
+    margin: 0;
+  }
+  div#bottom-footer ul#social-links {
+    float: none;
+    text-align: left;
+  }
+
+  @media (min-width: 980px) {
+    #footer #payment {
+      text-align: {{ section.settings.text_alignment }};
+    }
+    #footer ul#footer-icons {
+      text-align: {{ section.settings.text_alignment }};
+    }
+    {% if section.settings.text_alignment == 'left' %}
+      #footer ul#footer-icons li:first-child {
+        margin-left: 0;
+        padding-left: 0;
+      }
+      #footer .selectors-form {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+      }
+    {% endif %}
+  }
+
+  {% assign menus = section.blocks | where: "type", "menu" %}
+  {% for block in menus %}
+  {% assign count = forloop.length %}
+  {% endfor %}
+
+  {% assign textblocks = section.blocks | where: "type", "text" %}
+  {% for block in textblocks %}
+  {% assign text_count = forloop.length %}
+  {% endfor %}
+
+  {% case count %}
+  {% when 1 %}
+    {% assign cols = '1fr 1fr' %}
+    {% assign gc = '1 / span 2' %}
+  {% when 2 %}
+    {% assign cols = '1fr 1fr' %}
+    {% assign gc = '1 / span 2' %}
+  {% when 3 %}
+    {% assign cols = '1fr 1fr 1fr' %}
+    {% assign gc = '1 / span 3' %}
+  {% when 4 %}
+   {% assign cols = '1fr 1fr' %}
+   {% assign gc = '1 / span 2' %}
+  {% endcase %}
+
+  @media screen and (min-width: 741px) and (max-width: 980px) {
+
+    div#footer {
+        display: grid;
+        grid-template-columns: {{ cols }};
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+    }
+
+    .footer-block.footer-menu {
+        width: unset !important;
+        order: 0;
+        {% if count != 4 %}
+        grid-row-start: 1;
+        {% endif %}
+    }
+
+    .footer-block.footer-text {
+        width: unset !important;
+        order: 1;
+        {% if text_count == 2 %}
+        grid-column: 1 / span;
+        {% else %}
+        grid-column: {{ gc }};
+        {% endif %}
+        grid-row: 2;
+    }
+
+    .footer-block.footer-newsletter {
+        width: unset !important;
+        order: 2;
+        grid-column: {{ gc }};
+        grid-row: 3;
+    }
+
+    div#bottom-footer {
+        order: 3;
+        grid-row: 4;
+        grid-column: {{ gc }};
+    }
+
+
+    input#footer-EMAIL {
+        width: 65%;
+        display: inline-block;
+        float: left;
+    }
+
+    input#footer-subscribe {
+        width: 35%;
+        display: inline-block;
+    }
+
+  }
+
+  @media (max-width: 740px) {
+    div#bottom-footer {
+      flex-wrap: wrap;
+    }
+    div#bottom-footer .footer-left {
+      width: 100%;
+      text-align: center;
+      order:2;
+      margin-top: 31px;
+    }
+    div#bottom-footer .footer-right {
+      width: 100%;
+      text-align: center;
+      order: 1;
+    }
+    div#bottom-footer .selectors-form {
+      justify-content: center;
+      margin: 0;
+    }
+    div#bottom-footer #payment {
+      text-align: center;
+    }
+    div#bottom-footer .payment-methods {
+      margin-top: 10px;
+    }
+    div#bottom-footer  .footer-section .disclosure__toggle {
+      height: 44px;
+      width: 80px;
+    }
+    div#bottom-footer ul#social-links {
+      display: block;
+      margin-bottom: 0;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Footer",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "select",
+      "id": "footer_text_align",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type":      "range",
+      "id":        "footer_title_size",
+      "min":       12,
+      "max":       36,
+      "step":       1,
+      "unit":      "px",
+      "label":     "Heading size",
+      "default":   14
+    },
+    {
+      "type": "checkbox",
+      "id": "show_credit_cards",
+      "label": "Show credit card icons",
+      "default": true,
+      "info": "The icons that show are determined by your store's payment settings."
+    },
+    {
+      "type": "checkbox",
+      "id": "payment_icon_color",
+      "label": "Grayscale payment icons",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_copyright",
+      "label": "Show site name and copyright",
+      "default": true
+    },
+   {
+      "type": "header",
+      "content": "Language Selector",
+      "info": "To add a language, go to your [language settings.](/admin/settings/languages)"
+    },
+    {
+     "type": "checkbox",
+     "id": "show_locale_selector",
+     "label": "Show language selector",
+     "default": true
+    },
+    {
+      "type": "header",
+      "content": "Currency Selector",
+      "info": "To add a currency, go to your [payment settings.](/admin/settings/payments)"
+    },
+    {
+     "type": "checkbox",
+     "id": "show_currency_selector",
+     "label": "Show currency selector",
+     "default": true
+    }
+  ],
+  "blocks":[
+    {
+      "type":"menu",
+      "name":"Menu",
+      "settings":[
+        {
+          "type": "link_list",
+          "id": "footer_nav",
+          "label": "Choose a menu",
+          "info":"This menu won't show dropdown items"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Explore"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "limit": 2,
+      "settings":[
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "About"
+        },
+        {
+          "id": "footer_text",
+          "type": "richtext",
+          "label": "Text",
+          "default": "<p>Add some text to your footer.</p>"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter signup",
+      "limit": 1,
+      "settings":[
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "connect"
+        },
+        {
+          "type": "richtext",
+          "id": "mailing_subheading",
+          "label": "Subheading",
+          "default": "<p>Join our mailing list for updates</p>"
+        }
+      ]
+	  }
+  ]
+}
+{% endschema %}

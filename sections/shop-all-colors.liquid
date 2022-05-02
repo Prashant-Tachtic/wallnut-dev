@@ -1,0 +1,159 @@
+<div id="react-shop-all-colors">
+    <script type="application/json">
+        {
+            "settings": {{ section.settings | json }},
+            "blocks": [
+                {% for block in section.blocks %}
+                    {
+                        "settings": {{ block.settings | json }},
+                        "type": {{ block.type | json }},
+                        "shopify_attributes": {{ block.shopify_attributes | json }}
+                    }
+                    {% if forloop.last != true %},{% endif %}
+                {% endfor %}
+            ]
+        }
+    </script>
+</div>
+
+{% schema %}
+    {
+        "name": "Colors Landing Page",
+        "settings": [
+            {
+                "id": "shop_all_colors_background_one",
+                "type": "image_picker",
+                "label": "Shop All Colors Background One"
+            },
+            {
+                "id": "shop_all_colors_background_two",
+                "type": "image_picker",
+                "label": "Shop All Colors Background Two"
+            },
+            {
+                "id": "shop_all_colors_header",
+                "type": "text",
+                "label": "Shop All Colors Header"
+            },
+            {
+                "id": "shop_all_colors_header_text",
+                "type": "textarea",
+                "label": "Shop All Colors Header Text"
+            },
+            {
+                "id": "shop_all_colors_footer_header",
+                "type": "text",
+                "label": "Shop All Colors Footer Header"
+            }
+        ],
+        "blocks": [
+            {
+                "name": "Colors Section",
+                "type": "section",
+                "settings": [
+                    {
+                        "id": "colors_section_style",
+                        "type": "textarea",
+                        "label": "Section Style"
+                    },
+                    {
+                        "id": "colors_header",
+                        "type": "text",
+                        "label": "Header"
+                    },
+                    {
+                        "id": "colors_header_style",
+                        "type": "textarea",
+                        "label": "Header Style"
+                    },
+                    {
+                        "id": "colors_icon",
+                        "type": "image_picker",
+                        "label": "Icon"
+                    },
+                    {
+                        "id": "colors_icon_style",
+                        "type": "textarea",
+                        "label": "Icon Style"
+                    },
+                    {
+                        "id": "colors_image",
+                        "type": "image_picker",
+                        "label": "Image"
+                    },
+                    {
+                        "id": "colors_image_style",
+                        "type": "textarea",
+                        "label": "Image Style"
+                    },
+                     {
+                        "id": "colors_section_body_style",
+                        "type": "textarea",
+                        "label": "Section Body Style"
+                    },
+                    {
+                        "id": "colors_text",
+                        "type": "textarea",
+                        "label": "Text"
+                    },
+                    {
+                        "id": "colors_text_style",
+                        "type": "textarea",
+                        "label": "Text Style"
+                    },
+                    {
+                        "id": "colors_button_style",
+                        "type": "textarea",
+                        "label": "Button Style"
+                    },
+                    {
+                        "id": "colors_button_text",
+                        "type": "text",
+                        "label": "Button Text"
+                    },
+                                     {
+                        "id": "colors_button_text_style",
+                        "type": "textarea",
+                        "label": "Button Text Style"
+                    },
+                    {
+                        "type": "url",
+                        "id": "colors_button_link",
+                        "label": "Button Link"
+                    }
+                ]
+            },
+            {
+                "name": "Colors Footer Section",
+                "type": "footer",
+                "settings": [
+                    {
+                        "id": "colors_footer_image",
+                        "type": "image_picker",
+                        "label": "Image"
+                    },
+                    {
+                        "id": "colors_footer_header",
+                        "type": "text",
+                        "label": "Header"
+                    },
+                    {
+                        "id": "colors_footer_text",
+                        "type": "textarea",
+                        "label": "Text"
+                    },
+                    {
+                        "id": "colors_footer_button_text",
+                        "type": "text",
+                        "label": "Button Text"
+                    },
+                    {
+                        "type": "url",
+                        "id": "colors_footer_button_link",
+                        "label": "Button Link"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

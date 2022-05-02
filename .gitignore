@@ -1,0 +1,6 @@
+node_modules
+.DS_Store
+assets/react-components.bundle.js
+assets/checkout.bundle.js
+assets/*.*.js.LICENSE.txt
+.vscode/settings.json

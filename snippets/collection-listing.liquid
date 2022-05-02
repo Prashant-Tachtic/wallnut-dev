@@ -1,0 +1,9 @@
+<h3 class="desktop-12 tablet-6 mobile-3">{{ 'collections.general.all_collections' | t }}</h3>
+
+<div id="collection-loop" style="width: 100%">
+  {% for collection in collections %}
+    <div class="product-index span-3" data-alpha="{{ collection.title }}">
+  	   {% render 'collection-grid-item', collection: collection %}
+    </div>
+  {% endfor %}
+</div>

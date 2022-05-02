@@ -1,0 +1,65 @@
+<div id="page" class="{% if section.settings.show_narrow_page %}desktop-8 desktop-push-2{% else %}desktop-12{% endif %} tablet-6 mobile-3 page-template" data-section-id="{{ section.id }}">
+  <div id="page-content"{% if linklists[section.settings.pagelist] != blank %} class="desktop-9 tablet-4 mobile-3{% endif %}">
+    <h1>{{ page.title }}</h1>
+    <div class="rte">
+      {{ page.content }}
+    </div>
+    {%if page.title == "Levity" %}
+    <div id="react-product-recommendation">
+      <script type="application/json">
+        {
+          "title": "4 washable chair styles, 40+ colors"
+        }
+      </script>
+    </div>
+    {% endif %}
+  </div>
+
+
+  {% if linklists[section.settings.pagelist] != blank %}
+    <div id="sidebar" class="desktop-3 tablet-2 mobile-3">
+      <label>
+        {{ section.settings.page_sidebar_title | escape }}
+      </label>
+      <ul>
+        {% for link in linklists[section.settings.pagelist].links %}
+          <li>
+            {{ link.title | link_to: link.url }}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+</div>
+
+
+{% schema %}
+{
+  "name": "Page options",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_narrow_page",
+      "label": "Reduced page width",
+      "info": "For narrow pages"
+    },
+    {
+      "type": "link_list",
+      "id": "pagelist",
+      "label": "Choose a menu for the page sidebar"
+    },
+    {
+      "type": "text",
+      "id": "page_sidebar_title",
+      "label": "Page sidebar title",
+      "default": "Page sidebar title",
+      "info": "When sidebar menu chosen"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+jQuery('.rte-accordion.row .item-heading').html('Discount Code <br /> (Applied at Checkout)');
+</script>

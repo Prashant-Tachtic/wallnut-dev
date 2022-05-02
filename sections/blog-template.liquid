@@ -1,0 +1,695 @@
+{% render 'blog-banner' %}
+<div class="blog-template" data-section-id="{{ section.id }}" data-section-type="blog-section">
+  {% if section.settings.banner_image == blank %}
+    <div class="desktop-12 tablet-6 mobile-3">
+      <div class="row">
+        {% render 'section-headings', type: blog.title %}
+      </div>
+    </div>
+  {% endif %}
+  {% if section.settings.show_blog_promos %}
+    <section class="blog-promos">
+      <div class="row">
+        {% for n in (1..3) %}
+          {% assign promo_link =  'promo_link_' | append: n %}
+          {% assign promo_link = section.settings[promo_link] | default: false %}
+          {% assign promo_image =  'promo_image_' | append: n %}
+          {% assign promo_image = section.settings[promo_image] | default: false %}
+          {% assign promo_text =  'promo_text_' | append: n %}
+          {% assign promo_text = section.settings[promo_text] | default: false %}
+          {% if promo_image %}
+           <a class="promo desktop-4 tablet-2 mobile-3" href="{{ promo_link }}" data-aos="{{ settings.scroll_animation }}">
+             <div class="promo-inner lazyload lazyload-fade"
+             data-bgset="{% render 'bgset', image: promo_image %}"
+             data-sizes="auto">
+               <noscript>
+                 <img src="{{ promo_image | img_url: '800x' }}" alt="{{ promo_image.alt }}">
+               </noscript>
+               <div class="promo-caption section-heading">
+                 <h2>{{ promo_text }}</h2>
+               </div>
+             </div>
+           </a>
+         {% else %}
+           <a class="promo desktop-4 tablet-2 mobile-3" href="{{ promo_link }}" data-aos="{{ settings.scroll_animation }}">
+             <div class="promo-inner" style="background-color: #eee;">
+               <div class="promo-caption section-heading">
+                 <h2>{{ promo_text }}</h2>
+               </div>
+             </div>
+           </a>
+         {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+  <section class="blog-content row">
+    {% paginate blog.articles by 5 %}
+      <section class="recent-posts {% if section.settings.show_sidebar %}desktop-9 tablet-4{% else %}desktop-12 tablet-6{% endif %} mobile-3">
+
+        {% if current_tags %}
+          <div class="section-heading">
+
+          <h2>{{ 'blogs.article.tagged' | t }}: {{ current_tags }}</h2>
+          <span class="section-border">
+            {%- if settings.header_border_style == 'zigzag' -%}<div class="zigzag"></div>{% endif %}
+          </span>
+        </div>
+          <ul id="blog-articles" class="{% if section.settings.recent_posts_layout == 'grid' %}grid-layout{% else %}list-layout{% endif %}">
+            {% for article in blog.articles  %}
+            {% if section.settings.recent_posts_layout == 'grid' %}
+              <li class="single-article desktop-4 tablet-6 mobile-3" data-aos="{{ settings.scroll_animation }}">
+                <div class="article-body">
+                  {% if article.image %}
+                    <a href="{{ article.url }}">
+                      {% render 'basic-responsive-image', type: article.image, data_widths: '[180, 360, 540, 720, 900, 1080]' %}
+                      <noscript>
+                        <img src="{{ article.image | img_url: '800x' }}" alt="{{ article.image.alt }}">
+                      </noscript>
+                    </a>
+                  {% endif %}
+                  <h2>
+                    <a href="{{ article.url }}">
+                      {{ article.title }}
+                    </a>
+                  </h2>
+                  {% if article.excerpt == blank %}
+                    <p>{{ article.content | strip_html | truncate: 90 }}</p>
+                  {% else %}
+                    <p>{{ article.excerpt }}</p>
+                  {% endif %}
+                  <div class="article-meta">
+                    <div class="article-meta-inner">
+                      <div class="article-data">
+                        <span class="date">{{ article.created_at | date: "%b %d, %y" }} &nbsp;</span>
+                        <span class="author">•&nbsp;&nbsp;By {{ article.user.first_name }}</span>
+                      </div>
+                    </div>
+                </div>
+              </li>
+            {% elsif section.settings.recent_posts_layout == 'list' %}
+              <li class="single-article desktop-10 tablet-6 mobile-3" data-aos="{{ settings.scroll_animation }}">
+                {% capture article_image %}
+                  {% if article.image %}
+                    <a href="{{ article.url }}">
+                      {% render 'basic-responsive-image', type: article.image, data_widths: '[180, 360, 540, 720, 900, 1080]' %}
+                      <noscript>
+                        <img src="{{ article.image | img_url: '800x' }}" alt="{{ article.image.alt }}">
+                      </noscript>
+                    </a>
+                  {% endif %}
+                {% endcapture %}
+                {% capture article_info %}
+                  <div class="article-content">
+                    <span class="article-tags">{% for tag in article.tags %}
+                      <a href="{{ blog.url }}/tagged/{{ tag }}">{{ tag }}</a>{% unless forloop.last %}•{% endunless %}{% endfor %}</span>
+                    <h1>{{ article.title | truncatewords: 6 }}</h1>
+                    <p>{{ article.excerpt_or_content | strip_html | truncatewords: 30 }}</p>
+                    <a class="button" href="{{ article.url}}">{{ 'blogs.article.read_more' | t }}</a>
+                  </div>
+                  <div class="article-meta">
+                    <div class="article-meta-inner">
+                      <div class="article-data">
+                        <span class="date">{{ article.created_at | date: "%b %d, %y" }} &nbsp;</span>
+                        <span class="author">•&nbsp;&nbsp;By {{ article.user.first_name }}</span>
+                      </div>
+                      <span class="article-share">{% render 'social' with article %}</span>
+
+                      {% if blog.comments_enabled? == true %}
+                        <span class="comments-count">
+                          <a href="{{ article.comment_post_url }}">{{ article.comments_count }} <i class="fa fa-comment-o"></i><span class="comments"{% if section.settings.show_sidebar %}style="display: none;"{% endif %}>{{ 'blogs.article.comments' | t }}</span></a>
+                        </span>
+                      {% endif %}
+                      </div>
+                    </div>
+                {% endcapture %}
+
+                <div class="article-left desktop-6 tablet-6 mobile-3">
+                  {% cycle article_image, article_info %}
+                </div>
+                <div class="article-right desktop-6 tablet-6 mobile-3">
+                  {% cycle article_info, article_image %}
+                </div>
+              </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        {% else %}
+          {% if section.settings.recent_posts_heading != blank %}
+            {% render 'section-headings', type: section.settings.recent_posts_heading %}
+          {% endif %}
+          <ul id="blog-articles" class="{% if section.settings.recent_posts_layout == 'grid' %}grid-layout{% else %}list-layout{% endif %}">
+            {% for article in blog.articles  %}
+              {% if section.settings.recent_posts_layout == 'grid' %}
+                <li class="single-article desktop-4 tablet-6 mobile-3" data-aos="{{ settings.scroll_animation }}">
+                  <div class="article-body">
+                    {% if article.image %}
+                      <a href="{{ article.url }}">
+                        {% render 'basic-responsive-image', type: article.image, data_widths: '[180, 360, 540, 720, 900, 1080]' %}
+                        <noscript>
+                          <img src="{{ article.image | img_url: '800x' }}" alt="{{ article.image.alt }}">
+                        </noscript>
+                      </a>
+                    {% endif %}
+                    <h2>
+                      <a href="{{ article.url }}">
+                        {{ article.title }}
+                      </a>
+                    </h2>
+                    {% if article.excerpt == blank %}
+                      <p>{{ article.content | strip_html | truncate: 90 }}</p>
+                    {% else %}
+                      <p>{{ article.excerpt }}</p>
+                    {% endif %}
+
+                    {% assign show_bullet = false %}
+                    {% if section.settings.show_date or section.settings.show_author %}
+                      <div class="article-meta">
+                        <div class="article-meta-inner">
+                          <div class="article-data">
+                            {% if section.settings.show_date %}
+                            {% assign show_bullet = true %}
+                              <span class="date">{{ article.created_at | date: "%b %d, %y" }} &nbsp;</span>
+                            {% endif %}
+                            {% if section.settings.show_author %}
+                              <span class="author">{% if show_bullet %}•&nbsp;&nbsp;{% endif %}By {{ article.user.first_name }}</span>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}
+                </li>
+              {% elsif section.settings.recent_posts_layout == 'list' %}
+                <li class="single-article desktop-10 tablet-6 mobile-3" data-aos="{{ settings.scroll_animation }}">
+                  {% capture article_image %}
+                    {% if article.image %}
+                      <a href="{{ article.url }}">
+                        {% render 'basic-responsive-image',type: article.image, data_widths: '[180, 360, 540, 720, 900, 1080]' %}
+                        <noscript>
+                          <img src="{{ article.image | img_url: '800x' }}" alt="{{ article.image.alt }}">
+                        </noscript>
+                      </a>
+                    {% endif %}
+                  {% endcapture %}
+                  {% capture article_info %}
+                    <div class="article-content">
+                      <span class="article-tags">{% for tag in article.tags %}
+                        <a href="{{ blog.url }}/tagged/{{ tag }}">{{ tag }}</a>{% unless forloop.last %}•{% endunless %}{% endfor %}</span>
+                      <h1>{{ article.title | truncatewords: 6 }}</h1>
+                      <p>{{ article.excerpt_or_content | strip_html | truncatewords: 30 }}</p>
+                      <a class="button" href="{{ article.url}}">{{ 'blogs.article.read_more' | t }}</a>
+                    </div>
+                    <div class="article-meta">
+                      <div class="article-meta-inner">
+                        <div class="article-data">
+                          {% assign show_bullet = false %}
+                          {% if section.settings.show_date %}
+                          {% assign show_bullet = true %}
+                            <span class="date">{{ article.created_at | date: "%b %d, %y" }} &nbsp;</span>
+                          {% endif %}
+                          {% if section.settings.show_author %}
+                            <span class="author">{% if show_bullet %}•&nbsp;&nbsp;{% endif %}By {{ article.user.first_name }}</span>
+                          {% endif %}
+                        </div>
+                        <span class="article-share">{% render 'social' with article %}</span>
+
+                        {% if blog.comments_enabled? == true %}
+                          <span class="comments-count">
+                            <a href="{{ article.comment_post_url }}">{{ article.comments_count }} <i class="fa fa-comment-o"></i><span class="comments"{% if section.settings.show_sidebar %}style="display: none;"{% endif %}>{{ 'blogs.article.comments' | t }}</span></a>
+                          </span>
+                        {% endif %}
+
+                        </div>
+                      </div>
+                    {% endcapture %}
+
+                    <div class="article-left desktop-6 tablet-6 mobile-3">
+                      {% cycle article_image, article_info %}
+                    </div>
+                    <div class="article-right desktop-6 tablet-6 mobile-3">
+                      {% cycle article_info, article_image %}
+                    </div>
+                  </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% render 'pagination', paginate: paginate %}
+      </section>
+
+      {% if section.settings.show_sidebar %}
+        <aside id="sidebar" class="desktop-3 tablet-2 mobile-3">
+          {% for block in section.blocks %}
+             {% case block.type %}
+               {% when 'bio' %}
+                 <div class="sidebar-item blog-bio" {{ block.shopify_attributes }}>
+                   <div class="bio-image">
+                     <a href="{{ block.settings.blog_bio_link}}">{% render 'basic-responsive-image' type: block.settings.blog_bio_image %}</a>
+                   </div>
+                   <div class="bio">
+                     {{ block.settings.blog_bio_text }}
+                   </div>
+                 </div>
+               {% when 'social' %}
+                 <div class="sidebar-item blog-social" {{ block.shopify_attributes }}>
+                   <h5 class="sidebar-heading">{{ block.settings.share_text }}</h5>
+                   <ul id="social">
+                     {% render 'social-icons' %}
+                   </ul>
+                 </div>
+               {% when 'subscribe' %}
+                 <div class="sidebar-item" {{ block.shopify_attributes }}>
+                   <div class="blog-subscribe">
+                     <h4>{{ block.settings.subscribe_heading }}</h4>
+                     <p>{{ block.settings.subscribe_subheading }}</p>
+                     {% form 'customer' %}
+                       {% if form.posted_successfully? %}
+                         <p class="success">{{ 'password.general.thanks' | t }}</p>
+                       {% else %}
+                         <input type="hidden" name="contact[tags]" value="prospect, password page">
+                         <input type="email" name="contact[email]" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}">
+                         <input type="submit" value="{{ 'general.newsletter_form.submit' | t }}" style="width: 100%; text-align: center; margin-bottom: 0;">
+                       {% endif %}
+                      {{ form.errors | default_errors }}
+                     {% endform %}
+                   </div>
+                 </div>
+               {% when 'promo' %}
+                 <div class="sidebar-item" {{ block.shopify_attributes }}>
+                   <div class="blog-promo">
+                     <a class="promo" href="{{ block.settings.promo_link }}">
+                       <div class="ad-inner">
+                         {% if block.settings.adsense_code != blank %}
+                           {{ block.settings.adsense_code }}
+                         {% elsif block.settings.promo_image %}
+                           {% render 'basic-responsive-image', type: block.settings.promo_image, data_widths: '[180, 360, 540, 720]' %}
+                            <noscript>
+                              <img src="{{ block.settings.promo_image | img_url: '800x' }}" alt="{{ block.settings.promo_image.alt }}">
+                            </noscript>
+                        {% else %}
+                          {{ 'collection-3' | placeholder_svg_tag: 'promo-ad' }}
+                        {% endif %}
+
+                       </div>
+                     </a>
+                   </div>
+                 </div>
+               {% when 'latest_post' %}
+                <div class="sidebar-item blog-latest" {{ block.shopify_attributes }}>
+                  <h5 class="sidebar-heading">{{ block.settings.latest_post_heading }}</h5>
+
+                  {% for article in blog.articles limit: 3 %}
+                    {% if article.image %}
+                      <div class="featured-article">
+                        <div class="article-image lazyload">
+                          {% render 'basic-responsive-image', type: article.image, data_widths: '[180, 360, 540, 720, 900]' %}
+                          <noscript>
+                            <img src="{{ article.image | img_url: '1200x' }}" alt="{{ article.image.alt }}">
+                          </noscript>
+                        </div>
+                        <div class="article-caption">
+                          <a href="{{ article.url}}"><h4>{{ article.title | truncate: 18 }}</h4></a>
+                          <span>{{ article.created_at | date: "%b %d, %y" }}</span>
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+               {% when 'filter_tags' %}
+                 <div class="sidebar-item" {{ block.shopify_attributes }}>
+                   <div class="filter">
+                     <button class="filter-menu">
+                       <h4>{{ block.settings.filter_by_heading }}</h4>
+                       <ul class="filter-list">
+                         {% for tag in blog.all_tags %}
+                           <li><a href="{{ blog.url }}/tagged/{{ tag }}">{{ tag }}</a></li>
+                         {% endfor %}
+                        </ul>
+                     </button>
+                   </div>
+                 </div>
+             {% endcase %}
+           {% endfor %}
+
+           {% if section.settings.show_sidebar_facebook %}
+             <div class="sidebar-item blog-facebook">
+               <h5 class="sidebar-heading">{{ section.settings.facebook_heading }}</h5>
+              {% if section.settings.facebook_iframe == blank %}
+                <iframe src="https://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fugmedia%2F&width=200&layout=standard&action=like&size=large&show_faces=true&share=true&height=80&appId=368960929828814" width="200" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+              {% else %}
+                {{ section.settings.facebook_iframe }}
+              {% endif %}
+             </div>
+           {% endif %}
+        </aside>
+      {% endif %}
+
+      <div class="clear"></div>
+
+    {% endpaginate %}
+  </section>
+
+</div>
+<style media="screen">
+{%- if section.settings.recent_posts_layout == 'grid' -%}
+  @supports (display: grid) {
+    .blog-template ul#blog-articles .single-article {
+      grid-column: auto / span 2;
+      float: none !important;
+      margin: 0 !important;
+      width: 100% !important;
+    }
+  }
+{%- elsif section.settings.recent_posts_layout == 'list' -%}
+@supports (display: grid) {
+  .blog-template ul#blog-articles .single-article {
+    grid-column: auto / span 6;
+    grid-template-columns: repeat(6, 1fr);
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    width: 100% !important;
+    float: none !important;
+    margin: 0 !important;
+    display: grid;
+  }
+  .blog-template .article-left {
+    grid-column: 1 / span 3;
+    align-self: center;
+    width: 100% !important;
+    float: none !important;
+    margin: 0 !important;
+  }
+  .blog-template .article-right {
+    grid-column: 4 / span 3;
+    align-self: center;
+    width: 100% !important;
+    float: none !important;
+    margin: 0 !important;
+  }
+  .blog-template .article-content {
+    padding: 30px;
+  }
+  .blog-template .article-left .article-content {
+    text-align: right;
+  }
+  @media only screen and (max-width: 980px) {
+    .blog-template .article-left {
+      grid-column: 1 / span 6;
+      align-self: center;
+      width: 100% !important;
+      float: none !important;
+      margin: 0 !important;
+    }
+    .blog-template .article-right {
+      grid-column: 1 / span 6;
+      align-self: center;
+      width: 100% !important;
+      float: none !important;
+      margin: 0 !important;
+    }
+  }
+}
+{%- endif -%}
+{% if section.settings.blog_caption_position == 'right' %}
+  .blog .blog-banner .banner-caption {
+    right: 3% !important;
+  }
+{% elsif section.settings.blog_caption_position == 'center' %}
+  .blog .blog-banner .banner-caption {
+    position: absolute;
+    top: 50% !important;
+    left: 50% !important;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    margin-left: 0px !important;
+  }
+{% endif %}
+{% unless section.settings.banner_image == blank %}
+  #content { padding-top: 0 !important; }
+{% endunless %}
+  .bio-image .box-ratio {
+    background-color: transparent;
+  }
+</style>
+{% schema %}
+  {
+    "name": "Blog page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Blog Banner"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner_image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "blog_subheading",
+        "label": "Caption text"
+      },
+      {
+        "type": "select",
+        "id": "blog_caption_position",
+        "label": "Caption position",
+        "options": [
+           { "value": "left", "label": "Left"},
+           { "value": "center", "label": "Center"},
+           { "value": "right", "label": "Right"}
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Blog Promos"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_blog_promos",
+        "label": "Show blog promos",
+        "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "promo_image_1",
+        "label": "Image 1"
+      },
+      {
+        "id": "promo_text_1",
+        "type": "text",
+        "label": "Promo Text 1",
+        "default": "Text 1"
+      },
+      {
+        "type": "url",
+        "id": "promo_link_1",
+        "label": "Link 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "promo_image_2",
+        "label": "Image 2"
+      },
+      {
+        "id": "promo_text_2",
+        "type": "text",
+        "label": "Promo Text 2",
+        "default": "Text 2"
+      },
+      {
+        "type": "url",
+        "id": "promo_link_2",
+        "label": "Link 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "promo_image_3",
+        "label": "Image 3"
+      },
+      {
+        "id": "promo_text_3",
+        "type": "text",
+        "label": "Promo Text 3",
+        "default": "Text 3"
+      },
+      {
+        "type": "url",
+        "id": "promo_link_3",
+        "label": "Link 3"
+      },
+      {
+        "type": "header",
+        "content": "Recent Posts"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_date",
+        "label": "Show published date",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_author",
+        "label": "Show author",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "recent_posts_layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "grid",
+            "label": "Grid"
+          },
+          {
+            "value": "list",
+            "label": "List"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "recent_posts_heading",
+        "label": "Heading"
+      },
+      {
+        "type": "header",
+        "content": "Sidebar Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sidebar",
+        "label": "Show sidebar",
+        "default": true
+      },
+      {
+       "type": "checkbox",
+       "id": "show_sidebar_facebook",
+       "label": "Show facebook in sidebar",
+       "default": true
+      },
+      {
+       "type": "text",
+       "id": "facebook_heading",
+       "label": "Facebook Heading",
+       "default": "Find Us On Facebook"
+      },
+      {
+       "type": "html",
+       "id": "facebook_iframe",
+       "label": "Facebook iframe code"
+      },
+      {
+       "type": "paragraph",
+       "content": "Click 'Add Content' below to add content blocks to the sidebar."
+      }
+    ],
+    "max_blocks": 10,
+    "blocks": [
+      {
+       "type": "bio",
+       "name": "Bio",
+       "settings": [
+         {
+           "type": "image_picker",
+           "id": "blog_bio_image",
+           "label": "Image"
+         },
+         {
+           "type": "url",
+           "id": "blog_bio_link",
+           "label": "Link"
+         },
+         {
+           "type": "richtext",
+           "id": "blog_bio_text",
+           "label": "Text",
+           "default": "<p><b>Meet the Author</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
+         }
+       ]
+     },
+     {
+       "type": "social",
+       "name": "Social Share",
+       "settings": [
+         {
+           "type": "text",
+           "id": "share_text",
+           "label": "Heading",
+           "default": "Subscribe & Follow"
+         }
+       ]
+     },
+     {
+       "type": "subscribe",
+       "name": "Subscribe Box",
+       "settings": [
+         {
+           "type": "text",
+           "id": "subscribe_heading",
+           "label": "Heading",
+           "default": "Join the Club"
+         },
+         {
+           "type": "text",
+           "id": "subscribe_subheading",
+           "label": "Subheading",
+           "default": "Sign up and receive the latest tips via email."
+         }
+       ]
+     },
+     {
+       "type": "promo",
+       "name": "Promo Ad",
+       "settings": [
+        {
+         "type": "image_picker",
+         "id": "promo_image",
+         "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "promo_link",
+          "label": "Link"
+        },
+        {
+         "type": "html",
+         "id": "adsense_code",
+         "label": "Adsense Code",
+         "info": "Paste code block for advertising."
+        }
+       ]
+     },
+     {
+       "type": "latest_post",
+       "name": "Latest Posts",
+       "settings": [
+         {
+           "type": "text",
+           "id": "latest_post_heading",
+           "label": "Heading"
+         }
+       ]
+     },
+     {
+       "type": "filter_tags",
+       "name": "Filter by Tags",
+       "settings": [
+          {
+            "type": "paragraph",
+            "content": "Add tags to your blog articles to use the tag filter."
+          },
+         {
+           "type": "text",
+           "id": "filter_by_heading",
+           "label": "Heading",
+           "default": "Filter by"
+         }
+       ]
+     }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,62 @@
+<div id="react-desktop-announcement">
+  <script type="application/json">
+    {
+      "themeSettings": {{ settings | json }},
+      "settings": {{ section.settings | json }}
+    }
+  </script>
+</div>
+
+{% schema %}
+{
+  "name": "Desktop Announcement",
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement",
+      "label": "Announcement Text"
+    },
+    {
+      "type": "text",
+      "id": "referral_link_text",
+      "label": "Referral Link Text"
+    },
+    {
+      "type": "text",
+      "id": "sale_announcement",
+      "label": "Sale Announcement Text"
+    },
+    {
+      "type": "url",
+      "id": "sale_link",
+      "label": "Sale link"
+    },
+    {
+      "type": "text",
+      "id": "black_friday_sale_announcement",
+      "label": "Black Friday Sale Announcement Text"
+    },
+    {
+      "type": "url",
+      "id": "black_friday_sale_link",
+      "label": "Black Friday Sale link"
+    },
+    {
+      "type": "text",
+      "id": "cyber_monday_sale_announcement",
+      "label": "Cyber Monday Sale Announcement Text"
+    },
+    {
+      "type": "url",
+      "id": "cyber_monday_sale_link",
+      "label": "Cyber Monday Sale link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Desktop Announcement",
+      "category": "React Components"
+    }
+  ]
+}
+{% endschema %}

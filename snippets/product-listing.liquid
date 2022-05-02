@@ -1,0 +1,81 @@
+<a href="{{ product.url | within: collection }}">
+  <div class="reveal reveal-homepage {% if settings.image_ratio == 'square' %}square-images{% elsif settings.image_ratio == 'vertical' %}vertical-images{% elsif settings.image_ratio == 'horizontal' %}horizontal-images{% endif %}">
+    {%- assign preview_image = product.featured_media.preview_image -%}
+    {%- assign second_image = product.media[1] -%}
+
+    {% render "basic-responsive-image", type: preview_image, data_widths: '[180, 360, 540, 720, 900]' %}
+    <noscript>
+      <img src="{{ preview_image | img_url: '1024x' }}" alt="{{ preview_image.alt | escape }}">
+    </noscript>
+
+    {% if settings.display_options == 'image-switch' and product.media.size > 1 %}
+      <div class="hidden hidden-homepage">
+        <div style="cursor: pointer" onclick="window.location.href = '{{ product.url | within: collection }}'" class="shop-hover-button">
+          <a class="button" href="{{ product.url | within: collection }}">Shop</a>
+        </div>
+        <img class="lazyload lazyload-fade"
+          id="{{ preview_image.id }}"
+          data-src="{{ preview_image | img_url: '1024x' }}"
+          data-sizes="auto"
+          alt="{{ preview_image.alt | escape }}">
+        <noscript>
+          <img src="{{ preview_image | img_url: '1024x' }}" alt="{{ preview_image.alt | escape }}">
+        </noscript>
+      </div>
+    {% endif %}
+
+    {% if product.available %}
+      {% for col in product.collections %}
+        {% if col.handle == 'new' %}
+          <div class="new icn">{{ 'products.general.new' | t }}</div>
+        {% endif %}
+      {% endfor %}
+      {% if product.price < product.compare_at_price %}
+        <div class="sale-item icn">{{ 'products.general.sale' | t }}</div>
+      {% endif %}
+    {% else %}
+      <div class="so icn">{{ 'products.general.sold' | t }}</div>
+    {% endif %}
+  </div>
+</a>
+<div class="product-info">
+  {% if settings.quickview and settings.display_options != 'show-content' and template != 'search' %}
+    <a rel="nofollow" data-fancybox="quick-view" class="fancybox.ajax product-modal" href="{{ product.url }}?view=quick">{{ 'products.general.quick_view' | t }}</a>
+  {% endif %}
+
+  <a href="{{ product.url | within: collection }}">
+    {% if settings.vendor %}
+      <p><em>{{ product.vendor }}</em></p>
+    {% endif %}
+    <span class="prod-title">{{ product.title }}</span>
+    <div class="prod-swatches-and-more" style="display: flex;">
+      <img src="https://cdn.shopify.com/s/files/1/0492/6321/4743/files/kali.png?v=1614980015" alt="color swatch kali" />
+      <img src="https://cdn.shopify.com/s/files/1/0492/6321/4743/files/navy_f37c834b-cc1b-4b9e-9639-83c1e53ce924.png?v=1614980015" alt="color swatch navy" />
+      <img src="https://cdn.shopify.com/s/files/1/0492/6321/4743/files/SEDONA_IVORY.jpg?v=1614980013" alt="color swatch sedona ivory" />
+      <img src="https://cdn.shopify.com/s/files/1/0492/6321/4743/files/swatch4.svg?v=1613153672" alt="color swatch " />
+      <p style="font-size: 14px">+ more</p>
+    </div>
+  </a>
+
+  {% render 'product-price-listing', product: product %}
+
+  {% if settings.show_product_review_stars %}
+    <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+  {% endif %}
+
+  {% if product.variants.size > 1 %}
+    {% if settings.product_info == 'sizes' and product.available %}
+      {% render 'show-sizes',
+        product: product %}
+    {% elsif settings.product_info == 'colors' and product.available %}
+      {% render 'show-colors',
+        product: product %}
+    {% endif %}
+  {% endif %}
+
+  {% if settings.product_info == 'add_to_cart' %}
+  	{% render 'product-grid-add',
+      product: product  %}
+  {% endif %}
+
+</div>

@@ -1,0 +1,230 @@
+<ul class="nav{% if inline_centered == true %} inline-centered{% endif %} {{ position }}">
+{% for block in section.blocks %}
+{% comment %} <div>{{block.settings.menu_item}}</div> {% endcomment %}
+{%endfor%}
+{% for link in linklists[section.settings.main_nav].links offset:offset limit:start %}
+  {% assign submenu_with_image = false %}
+  {% assign mega_menu = false %}
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'submenu_with_image' %}
+          {% if block.settings.menu_item == link.title %}
+            {% capture imagemenu %}
+              <li class="regular dropdown has_sub_menu first-level block-{{ block.id }}" aria-haspopup="true" aria-expanded="false">
+                <a class="dlink first-level" href="{{ link.url }}">{{ link.title | escape }}</a>
+                <ul class="image_menu submenu">
+                  {% if block.settings.nav_image != blank %}
+                    {% capture navimage %}
+                    {%- assign image_size = '300x' -%}
+                    <span class="nav_image submenu_column desktop-6">
+                      <a href="{{ block.settings.link }}">
+                        {% render 'basic-responsive-image', type: block.settings.nav_image, data_widths: '[180, 360, 540, 720]' %}
+                        <noscript>
+                          <img src="{{ block.settings.nav_image | img_url: '300x' }}" class="navigation-image">
+                        </noscript>
+                      </a>
+                    </span>
+                    {% endcapture %}
+                  {% endif %}
+                  {% if block.settings.nav_image_position == 'left' %}
+                    {{ navimage }}
+                    <style>
+                      .header-wrapper .nav.left-side .block-{{ block.id }} ul.submenu li.is_parent a.second-level:before {
+                        content: "\f105";
+                        top: 0;
+                        right: 10px;
+                        line-height: 24px;
+                      }
+                      .header-wrapper .nav.right-side .block-{{ block.id }} ul.submenu li.is_parent a.second-level:before {
+                        content: "\f104";
+                        top: 0;
+                        left: 10px;
+                        line-height: 24px;
+                      }
+                      .header-wrapper .nav.left-side .block-{{ block.id }}  ul.sub_sub_menu.third-level,
+                      .header-wrapper .nav .left .block-{{ block.id }}  ul.sub_sub_menu.third-level {
+                        left: 100%;
+                        right: unset;
+                        top: 10px;
+                      }
+                      .header-wrapper .nav.right-side .block-{{ block.id }} ul.sub_sub_menu.third-level,
+                      .header-wrapper .nav .right .block-{{ block.id }} ul.sub_sub_menu.third-level {
+                        left: unset;
+                        right: 50%;
+                        top: 10px;
+                      }
+                    </style>
+                  {% endif %}
+                  <span class="nav_menu submenu_column desktop-6">
+                    {% for sub_link in link.links %}
+                      {% if sub_link.links != blank %}
+                        <li class="is_parent has_sub_menu" aria-haspopup="true" aria-expanded="false">
+                          <a class="second-level" href="{{ sub_link.url }}">
+                            {{ sub_link.title | escape }}
+                          </a>
+                          <ul class="sub_sub_menu third-level">
+                            {% for sub_sub_link in sub_link.links %}
+                              <li>
+                                <a class="third-level" href="{{ sub_sub_link.url }}">
+                                  {{ sub_sub_link.title }}
+                                </a>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        </li>
+                      {% else %}
+                        <li>
+                          <a class="second-level" href="{{ sub_link.url }}">
+                            {{ sub_link.title | escape }}
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  </span>
+                  {% if block.settings.nav_image_position == 'right' %}
+                    {{ navimage }}
+                    <style>
+                      .header-wrapper .nav.right-side .block-{{ block.id }} ul.submenu li.is_parent a.second-level:before {
+                        content: "\f104";
+                        top: 0;
+                        left: 10px;
+                        line-height: 24px;
+                      }
+                      .header-wrapper .nav.left-side .block-{{ block.id }} ul.submenu li.is_parent a.second-level:before {
+                        content: "\f105";
+                        top: 0;
+                        right: 10px;
+                        line-height: 24px;
+                      }
+                      .header-wrapper .nav.left-side .block-{{ block.id }} ul.sub_sub_menu.third-level,
+                      .header-wrapper .nav .left .block-{{ block.id }} ul.sub_sub_menu.third-level {
+                        left: 50%;
+                        right: unset;
+                        top: 10px;
+                      }
+                      .header-wrapper .nav.right-side .block-{{ block.id }} ul.sub_sub_menu.third-level,
+                      .header-wrapper .nav .right .block-{{ block.id }} ul.sub_sub_menu.third-level {
+                        left: unset;
+                        right: 100%;
+                        top: 10px;
+                      }
+                      .header-wrapper ul.nav li.regular.dropdown ul.submenu li a.second-level {
+                        padding-left: 25px;
+                      }
+                    </style>
+                  {% endif %}
+                </ul>
+              </li>
+            {% endcapture %}
+            {% assign submenu_with_image = true %}
+          {% endif %}
+        {% when 'mega_menu' %}
+          {% if block.settings.menu_item == link.title %}
+            {% capture megamenu %}
+              <li class="mega dropdown has_sub_menu first-level block-{{ block.id }}" aria-haspopup="true" aria-expanded="false">
+              <a class="dlink first-level" href="{{ link.url }}">{{ link.title | escape }}</a>
+              <ul class="megamenu submenu">
+                {% if block.settings.nav_image != blank %}
+                  {% capture navimage %}
+                    {%- assign image_size = '300x' -%}
+                    <span class="nav_image submenu_column desktop-3">
+                      <a class="second-level" href="{{ block.settings.link }}">
+                        {% render 'basic-responsive-image', type: block.settings.nav_image, data_widths: '[180, 360, 540, 720]' %}
+                        <noscript>
+                          <img src="{{ block.settings.nav_image | img_url: '300x' }}" class="navigation-image">
+                        </noscript>
+                      </a>
+                    </span>
+                  {% endcapture %}
+                {% endif %}
+                {% if block.settings.nav_image_position == 'left' %}
+                  {{ navimage }}
+                {% endif %}
+                  <span class="menulist desktop-9">
+                  {% for sub_link in link.links %}
+                    <span class="nav_menu submenu_column desktop-3">
+                      <h4 {% if block.settings.menu_heading_border %}class="border-bottom"{% endif %}><a class="second-level" href="{{ sub_link.url }}">{{ sub_link.title }}</a></h4>
+                      {% if sub_link.links != blank %}
+                      <ul class="mega-stack">
+                        {% for sub_sub_link in sub_link.links %}
+                        <li><a class="third-level" href="{{ sub_sub_link.url }}">{{ sub_sub_link.title }}</a></li>
+                        {% endfor %}
+                      </ul>
+                      {% endif %}
+                    </span>
+                  {% endfor %}
+                  </span>
+                  {% if block.settings.nav_image_position == 'right' %}
+                    {{ navimage }}
+                  {% endif %}
+              </ul>
+            </li>
+            {% endcapture %}
+            {% assign mega_menu = true %}
+          {% endif %}
+      {% endcase %}
+    {% endfor %}
+
+    {% if submenu_with_image %}
+      {% if section.settings.logo_position == 'above'%}<span class="{% if forloop.rindex <= 3 %}right{% else %}left{% endif %}">{% endif %}
+        {{ imagemenu }}
+      {% if section.settings.logo_position == 'above'%}</span>{% endif %}
+    {% elsif mega_menu %}
+          {% if section.settings.logo_position == 'above'%}<span class="{% if forloop.rindex <= 3 %}right{% else %}left{% endif %}">{% endif %}
+        {{ megamenu }}
+        <!-- Menu with image end -->
+      {% if section.settings.logo_position == 'above'%}</span>{% endif %}
+    {% elsif link.links != blank %}
+      {% if section.settings.logo_position == 'above'%}<span class="{% if forloop.rindex <= 3 %}right{% else %}left{% endif %}">{% endif %}
+        <li class="simple dropdown has_sub_menu first-level" id="{{link.title}}" aria-haspopup="true" aria-expanded="false">
+        <a class="dlink first-level" href="{{ link.url }}">{{ link.title | escape }}</a>
+        
+        
+         
+
+      
+          <ul id="navigation-dropdown-desktop" class="submenu">
+          {% if link.title == "Shop" %}
+          {%assign sub_menu = section.blocks | where: "type", "sub_menu" | first %}
+          {%assign new_nav = section.blocks | where: "type", "new_nav" | first %}
+            <div id="react-nav">
+              <script type="application/json">
+                {
+                  "themeSettings": {{ settings | json }},
+                  "settings": {{ sub_menu.settings | json }},
+                  "newsettings": {{ new_nav.settings | json }},
+                  "id": {{ section.id | json }}
+                }
+              </script>
+            </div> 
+          {%endif%}
+          
+           {% if link.title == "Colors" %}
+            {% assign color_menu = section.blocks | where: "type", "color_menu" | first %}
+              <div id="react-colors-nav">
+                <script type="application/json">
+                  {
+                    "settings": {{ color_menu.settings | json }},
+                    "id": {{ section.id | json }}
+                  }
+                </script>
+            </div> 
+          {%endif%}
+
+          </ul>
+          
+
+      </li>
+      <div id="overlay"></div>
+      {% if section.settings.logo_position == 'above'%}</span>{% endif %}
+    {% else %}
+     {% if section.settings.logo_position == 'above'%}<span class="{% if forloop.rindex <= 3 %}right{% else %}left{% endif %}">{% endif %}
+      <li class="no-dropdown first-level">
+        <a class="first-level" href="{{ link.url }}">
+          {{ link.title | escape }}
+        </a>
+      </li>
+     {% if section.settings.logo_position == 'above'%}</span>{% endif %}
+    {% endif %}
+{% endfor %}
+</ul>

@@ -1,0 +1,72 @@
+{
+  "name": "ecomm-levity",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack watch --config webpack/webpack.dev.js --progress --color",
+    "build:dev": "webpack --config webpack/webpack.dev.js --progress --color",
+    "lint:local": "eslint --rule 'no-debugger: 0' --fix 'scripts/**/*.js'",
+    "lint": "eslint --fix 'scripts/**/*.js'",
+    "build": "webpack --config webpack/webpack.prod.js --progress --color",
+    "prepare": "husky install",
+    "test": "jest",
+    "actions:deploy:prod": "yarn build && shopify-themekit deploy --env=production --allow-live",
+    "actions:deploy:dev": "yarn shopify-themekit deploy",
+    "actions:build:deploy:dev": "yarn build:dev && shopify-themekit deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruggable/ecomm-levity.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ruggable/ecomm-levity/issues"
+  },
+  "homepage": "https://github.com/ruggable/ecomm-levity#readme",
+  "dependencies": {
+    "@shopify/themekit": "^1.1.9",
+    "framer-motion": "^4.1.11",
+    "prop-types": "^15.7.2",
+    "pubsub-js": "^1.9.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "styled-components": "^5.2.3",
+    "twin.macro": "^2.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.16",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/preset-react": "^7.13.13",
+    "autoprefixer": "^10.2.5",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-macros": "^3.1.0",
+    "babel-plugin-styled-components": "^1.13.2",
+    "core-js": "^3.10.2",
+    "css-loader": "^5.2.4",
+    "eslint": "^7.30.0",
+    "eslint-config-airbnb": "18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.0",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "husky": "^7.0.1",
+    "jest": "^27.0.6",
+    "js-yaml": "^4.1.0",
+    "postcss": "^8.3.0",
+    "postcss-loader": "^5.3.0",
+    "postcss-preset-env": "^6.7.0",
+    "prettier": "^2.3.2",
+    "style-loader": "^2.0.0",
+    "tailwindcss": "^2.1.2",
+    "webpack": "^5.35.0",
+    "webpack-cli": "^4.6.0",
+    "webpack-merge": "^5.7.3"
+  }
+}

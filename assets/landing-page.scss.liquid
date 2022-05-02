@@ -1,0 +1,271 @@
+#content {
+  margin-left: 0;
+  width: 100%;
+}
+
+.landing-section {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.landing-section img {
+  width: 100%;
+}
+
+.quote-container {
+  position: absolute;
+  top: 130px;
+  left: 150px;
+  width: 440px;
+}
+
+.cta {
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.cta a {
+  font-size: 18px;
+  text-transform: uppercase;
+  font-family: stolzl,sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 2px;
+  color: #fffbf4;
+  display: inline-block;
+  padding: 13px 55px;
+  border-radius: 0;
+  min-width: 150px;
+  -webkit-transition: background .5s ease,color .5s ease;
+  -moz-transition: background .5s ease,color .5s ease;
+  -o-transition: background .5s ease,color .5s ease;
+  transition: background .5s ease,color .5s ease;
+  border-radius: 30px !important;
+  background-color: #ad6433;
+}
+
+.section-chairs {
+  text-align: center;
+}
+
+.section-chairs h1 {
+  margin-top: 25px;
+}
+
+.section-2 {
+  display: flex;
+}
+
+.section-2 img {
+  display: inline-block;
+  width: 50%;
+}
+
+.section-2 .quote-container {
+  position: static;
+  display: inline-block;
+  text-align: center;
+  width: 50%;
+  vertical-align: top;
+  background: #F4F4F4;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-2 .cta-container {
+  width: 400px;
+  display: inline-block;
+}
+
+.section-3 .quote-container {
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: min-content;
+}
+
+.chairs-container {
+  display: inline-block;
+  width: 96%;
+  margin-bottom: 50px;
+}
+
+.chair-container {
+  display: inline-block;
+  width: 24%;
+}
+
+.chair-container p {
+  margin: 10px;
+}
+
+.chair-container .color-picker {
+  width: 20px;
+  border-radius: 10px;
+  object-fit: none;
+  vertical-align: middle;
+}
+
+.chair-container .color-picker-container {
+  height: 25px;
+}
+
+.chair-container:hover {
+ text-decoration: none; 
+}
+
+.section-feature {
+  text-align: center;
+}
+
+.section-feature .feature {
+  display: inline-block;
+  width: 17%;
+  color: #191919;
+  margin: 60px 40px;
+  vertical-align: top;
+}
+
+.section-feature .feature h2 {
+  color: #191919;
+}
+
+.section-feature .feature-icon {
+  width: 68px;
+  margin-bottom: 10px;
+}
+
+.section-reviews {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.section-reviews .review {
+  display: inline-block;
+  width: 16%;
+  margin: 36px;
+  vertical-align: top;
+  background: #F4F4F4;
+  padding: 25px;
+  height: 225px;
+}
+
+.section-reviews .review-name {
+  text-align: right;
+  margin-right: 40px;
+}
+
+img.star {
+  width: 20px;
+}
+
+.section-bottom .cta {
+  margin: 20px 0;
+}
+
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .landing-section img {
+      object-fit: cover;
+      height: 450px;
+      object-position: -620px 0px;
+    }
+
+    .section-3 img {
+      object-fit: cover;
+      height: 450px;
+      object-position: -800px 0px;
+    }
+
+    .quote-container {
+      position: initial;
+      width: 100%;
+    }
+
+    .cta-container {
+      text-align: center;
+      padding: 50px;
+    }
+
+    .cta-container a {
+      border-radius: 45px !important;
+    }
+    
+    .section-2 {
+      flex-direction: column;
+    }
+
+    .section-2 img {
+      display: inline-block;
+      width: 100%;
+      object-fit: contain;
+      height: initial;
+      object-position: initial;
+    }
+    .section-2 .quote-container {
+      width: 100%;
+    }
+    
+    .section-2 .cta-container {
+      width: auto;
+      display: inline-block;
+      margin-top: auto;
+    }
+
+    .chairs-container {
+      display: inline-block;
+      width: 100%;
+      margin: 60px 0px;
+    }
+    
+    .chair-container {
+      display: inline-block;
+      width: 100%;
+    }
+
+    .chair-container img {
+      object-fit: contain;
+      object-position: initial;
+      height: auto;
+    }
+
+    .chair-container .color-picker {
+      height: 20px;
+    }
+
+    .section-feature {
+      margin: 20px 0;
+    }
+
+    .section-feature .feature {
+      display: inline-block;
+      width: 70%;
+      margin: 20px 0;
+    }
+
+    .section-feature .feature-icon {
+      object-fit: contain;
+      object-position: initial;
+      height: auto;
+    }
+
+    img.star {
+      object-fit: contain;
+      object-position: initial;
+      height: auto;
+    }
+
+    .section-reviews .review {
+      width: 70%;
+      margin: 20px 0;
+    }
+
+    .cta a {
+      font-size: 12px;
+    }
+}

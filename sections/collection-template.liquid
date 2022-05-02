@@ -1,0 +1,486 @@
+
+<!-- BEGIN USF -->
+<section>
+    <div id="react-plp-section">
+      <script type="application/json">
+        {    
+          "products": [
+            {% paginate collection.products by number %}
+              {% for product in collection.products %}
+                {{ product | json }}{% if forloop.last != true %},{% endif %}
+              {% endfor %}
+            {% endpaginate %}
+          ],
+          "settings": {{ section.settings | json }},
+          "product_info": {{ settings.product_info | json }},
+          "collectionProducts": {{ collection.products | json }},
+          "pageTitle": "{{page_title}}",
+          "collectionTitle": {{ collection.title | json }},
+          "collectionDescription": {{ collection.description | split: '[#' | first | json }}
+        }
+      </script>
+    </div>
+</section>
+
+<div id="collection-page-template" data-section-id="{{ section.id }}" data-section-type="collection-section">
+
+
+{% assign number = section.settings.products_per_page %}
+  {% paginate collection.products by number %}
+  
+
+    {% comment %} <div id="collection-description" class="desktop-12 tablet-6 mobile-3">
+      <h1{% unless section.settings.show_collection_heading %} style="text-indent: -100%; margin: 0; line-height: 0;"{% endunless %}>{{ collection.title }}</h1>
+
+      {% if collection.description and section.settings.description_position == 'top_description' %}
+        {% if collection.description contains '[#banner_image]' or collection.description contains '[#banner_caption]' %}
+          <div class="rte">{{ collection.description | split: '[#' | first }}</div>
+        {% else %}
+           <div class="rte">{{ collection.description }}</div>
+        {% endif %}
+      {% endif %}
+    </div> {% endcomment %}
+	{%- case section.settings.products_per_row -%}
+           {%- when 2 -%}
+             {% assign column_width = 'desktop-6 tablet-6 mobile-3 span-6' %}
+           {%- when 3 -%}
+             {% assign column_width = 'desktop-4 tablet-6 mobile-3 span-4' %}
+           {%- when 4 -%}
+             {% assign column_width = 'desktop-3 tablet-6 mobile-3 span-3' %}
+    {%- endcase -%}
+	{% capture product_form_config %}
+        {
+          "money_format": {{ shop.money_format | json }},
+          "enable_history": false,
+          "currency_switcher_enabled": {{ settings.show_multiple_currencies | json }},
+          "sold_out": {{ "products.product.sold_out" | t | json }},
+          "button": {{ 'products.product.add_to_cart' | t | json }},
+          "unavailable": {{ 'products.product.unavailable' | t | json }}
+        }
+{% endcapture %}   
+  <script>
+    window._usfGlobalSettings = {
+  	  product_info: {{ settings.product_info | json }},
+  	  show_product_review_stars: {{ settings.show_product_review_stars | json }},
+      color_swatch_options: {{ settings.color_swatch_options | json }},
+      image_ratio: {{ settings.image_ratio | json }},
+      display_options: {{ settings.display_options | json }},
+      vendor: {{ settings.vendor | json }},
+  	};
+    window._usf_column_width = {{ column_width | default:'desktop-4 tablet-6 mobile-3 span-4' | json }};
+    window._usf_product_form_config = {{ product_form_config | json }}
+  </script>
+    <div class="desktop-12 tablet-6 mobile-3">
+      {% comment %} <div id="usf_container"></div> {% endcomment %}
+      <div class="clear"></div>
+      {% if section.settings.description_position == 'bottom_description' %}
+        {% unless collection.description == blank %}
+          <div class="bottom-collection-description">
+            <h4{% unless section.settings.show_collection_heading %} style="text-indent: -100%; margin: 0; line-height: 0;"{% endunless %}>{{ collection.title }}</h4>
+
+            {% if collection.description contains '[#banner_image]' or collection.description contains '[#banner_caption]' %}
+             <div class="rte">{{ collection.description | split: '[#' | first }}</div>
+            {% else %}
+               <div class="rte">{{ collection.description }}</div>
+            {% endif %}
+          </div>
+        {% endunless %}
+      {% endif %}
+    </div>
+    <div class="clear"></div>
+
+  {% endpaginate %}
+
+  <style media="screen">
+    #full-width-filter .filter,
+    #collection-page-template .show-filter,
+    #sidebar .filter {
+      color: {{ section.settings.filter_text_color }};
+      border: 1px solid {{ section.settings.filter_border_color }};
+      background-color: {{ section.settings.filter_bg_color }};
+    }
+    #full-width-filter button.filter-menu:after {
+      background-color: {{ section.settings.filter_text_color }};
+      color: {{ section.settings.filter_bg_color }};
+    }
+    #sidebar .filter h4 {
+      border-color: {{ section.settings.filter_border_color }};
+    }
+  </style>
+</div>
+
+<!-- END USF -->
+
+{% comment %}USF
+
+
+
+
+<div id="collection-page-template" data-section-id="{{ section.id }}" data-section-type="collection-section">
+
+{% assign number = section.settings.products_per_page %}
+  {% paginate collection.products by number %}
+
+    <div id="collection-description" class="desktop-12 tablet-6 mobile-3">
+      <h1{% unless section.settings.show_collection_heading %} style="text-indent: -100%; margin: 0; line-height: 0;"{% endunless %}>{{ collection.title }}</h1>
+
+      {% if collection.description and section.settings.description_position == 'top_description' %}
+        {% if collection.description contains '[#banner_image]' or collection.description contains '[#banner_caption]' %}
+          <div class="rte">{{ collection.description | split: '[#' | first }}</div>
+        {% else %}
+           <div class="rte">{{ collection.description }}</div>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="clear"></div>
+
+
+    <a class="show-filter" href="#">REFINE</a>
+    <div id="full-width-filter" class="{% if section.settings.filter_position == 'left_sidebar' or section.settings.filter_position == 'right_sidebar' %}desktop-hide{% else %}desktop-12 tablet-6{% endif %}">
+      {% for block in section.blocks %}
+        {% if block.type == 'vendor_list' %}
+          {% if collection.handle == "all" %}
+            <div class="filter {% cycle '', 'right-filter' %}" {{ block.shopify_attributes }}>
+              <button class="filter-menu">
+                <h4>{{ block.settings.shop_by_designer_title }}</h4>
+              </button>
+              <ul class="filter-list" style="display: none;">
+                {% for product_vendor in shop.vendors %}
+                <li>{{ product_vendor | link_to_vendor  }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% else %}
+            <div class="filter {% cycle '', 'right-filter' %}" {{ block.shopify_attributes }}>
+              <button class="filter-menu">
+                <h4>{{ block.settings.shop_by_designer_title }}</h4>
+              </button>
+              <ul class="filter-list">
+                {% for product_vendor in collection.all_vendors %}
+                <li class="{{ product_vendor | handelize }}">{{ product_vendor | link_to_vendor }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+        {% elsif block.type == 'menu' %}
+          <div class="filter {% cycle '', 'right-filter' %}" {{ block.shopify_attributes }}>
+            <button class="filter-menu">
+              <h4>{{ block.settings.title }}</h4>
+            </button>
+            <ul class="filter-list sidebar-menu" style="display: none;">
+              {% for link in linklists[block.settings.side_nav].links %}
+              {% if link.links != blank %}
+              <li class="extend has_sub_menu" aria-haspopup="true" aria-expanded="false"><a href="{{ link.url }}">{{ link.title }}</a></li>
+              <ul class="extended-submenu">
+                {% for sub_link in link.links %}
+                <li><a href="{{ sub_link.url }}">{{ sub_link.title }}</a></li>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <li>{{ link.title | link_to: link.url }}</li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+        {% render 'filters', collection: collection block: block, forloop: forloop  %}
+      {% endfor %}
+    </div>
+    <div class="clear"></div>
+    <div id="current-filters" class="desktop-12 tablet-6 mobile-3" style="display: none;">
+      <h5>{{ 'collections.filter.filtering_by' | t }}</h5>
+    </div>
+
+    {% if section.settings.filter_position == 'left_sidebar' or section.settings.filter_position == 'right_sidebar' %}
+      {% render 'collection-sidebar', collection: collection %}
+    {% endif %}
+
+    <div class="{% if section.settings.filter_position == 'left_sidebar' or section.settings.filter_position == 'right_sidebar' %}desktop-9 tablet-6{% else %}desktop-12 tablet-6{% endif %} mobile-3">
+      <div id="product-loop">
+        {%- case section.settings.products_per_row -%}
+           {%- when 2 -%}
+             {% assign column_width = 'desktop-6 tablet-6 mobile-3 span-6' %}
+           {%- when 3 -%}
+             {% assign column_width = 'desktop-4 tablet-6 mobile-3 span-4' %}
+           {%- when 4 -%}
+             {% assign column_width = 'desktop-3 tablet-6 mobile-3 span-3' %}
+         {%- endcase -%}
+
+        {% for product in collection.products %}
+          <div class="product-index {{ column_width }}" data-product-id="{{ product.id }}" data-alpha="{{ product.title }}" data-price="{{ product.price }}" data-color-options="{%- render 'product-listing-color-options', product: product, collection: collection -%}" data-size-options="{%- render 'product-listing-size-options', product: product, collection: collection -%}" data-aos="{{ settings.scroll_animation }}" >
+            {% render 'product-listing', product: product, collection: collection %}
+          </div>
+        {% endfor %}
+      </div>
+      {% render 'pagination', paginate: paginate %}
+      <div class="clear"></div>
+      {% if section.settings.description_position == 'bottom_description' %}
+        {% unless collection.description == blank %}
+          <div class="bottom-collection-description">
+            <h4{% unless section.settings.show_collection_heading %} style="text-indent: -100%; margin: 0; line-height: 0;"{% endunless %}>{{ collection.title }}</h4>
+
+            {% if collection.description contains '[#banner_image]' or collection.description contains '[#banner_caption]' %}
+             <div class="rte">{{ collection.description | split: '[#' | first }}</div>
+            {% else %}
+               <div class="rte">{{ collection.description }}</div>
+            {% endif %}
+          </div>
+        {% endunless %}
+      {% endif %}
+    </div>
+    <div class="clear"></div>
+
+  {% endpaginate %}
+
+  <style media="screen">
+    #full-width-filter .filter,
+    #collection-page-template .show-filter,
+    #sidebar .filter {
+      color: {{ section.settings.filter_text_color }};
+      border: 1px solid {{ section.settings.filter_border_color }};
+      background-color: {{ section.settings.filter_bg_color }};
+    }
+    #full-width-filter button.filter-menu:after {
+      color: {{ section.settings.filter_text_color }};
+    }
+    #full-width-filter button.filter-menu {
+      color: {{ section.settings.filter_text_color }};
+      background: {{ section.settings.filter_bg_color }};
+    }
+    #sidebar .filter h4 {
+      border-color: {{ section.settings.filter_border_color }};
+    }
+    #sidebar button.filter-menu {
+     color: {{ section.settings.filter_text_color }} !important;
+   }
+  </style>
+</div>
+
+
+
+
+
+USF{% endcomment %}
+{% schema %}
+{
+  "name": "Collection Page",
+  "max_blocks" : 10,
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Products per row",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "label": "Products per page",
+      "default": 46
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_heading",
+      "label": "Show collection headings",
+      "default": true
+    },
+    {
+       "type": "select",
+       "id": "description_position",
+       "options": [
+          { "value": "top_description", "label": "Top of Page"},
+          { "value": "bottom_description", "label": "Bottom of Page"},
+          { "value": "sidebar_description", "label": "Sidebar"}
+       ],
+       "label": "Description position"
+    },
+    {
+       "type": "select",
+       "id": "filter_position",
+       "options": [
+          { "value": "left_sidebar", "label": "Left Sidebar"},
+          { "value": "right_sidebar", "label": "Right Sidebar"},
+          { "value": "top_filters", "label": "Top of Page"}
+       ],
+       "label": "Filters position"
+    },
+    {
+      "type": "header",
+      "content": "Filter Styles"
+    },
+    {
+      "type": "color",
+      "id": "filter_bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "filter_border_color",
+      "label": "Border color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "filter_text_color",
+      "label": "Text color",
+      "default": "#333333"
+    }
+  ],
+ "blocks":[
+    {
+      "type":"menu",
+      "name":"Menu",
+      "settings":[
+        {
+          "type": "link_list",
+          "id": "side_nav",
+          "label": "Sidebar menu",
+          "info":"This menu has limited support for dropdown items"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Menu title",
+          "default": "Explore"
+        }
+      ]
+    },
+    {
+      "type":"vendor_list",
+      "name":"Vendor list",
+      "limit": 1,
+      "settings":[
+        {
+          "type": "text",
+          "id": "shop_by_designer_title",
+          "label": "Vendor list title",
+          "default": "Shop by Designer"
+        }
+      ]
+    },
+    {
+      "type":"sort_by",
+      "name":"Sort by",
+      "limit": 1,
+      "settings":[
+        {
+          "type": "text",
+          "id": "sort_by_title",
+          "label": "Sort by title",
+          "default": "Sort"
+        }
+      ]
+    },
+    {
+      "type":"filter",
+      "name":"Tag Filter",
+      "limit": 3,
+      "settings":[
+        {
+          "type": "text",
+          "id": "filter_by_title",
+          "label": "Filter by title",
+          "default": "Filter by"
+        },
+        {
+          "type": "textarea",
+          "id": "filter_by",
+          "label": "Tag filter"
+        }
+      ]
+    },
+    {
+      "type":"image",
+      "name":"Image",
+      "settings":[
+        {
+          "type":"paragraph",
+          "content":"For sidebar position on desktop only"
+        },
+        {
+          "type":"image_picker",
+          "id":"image",
+          "label":"Image"
+        },
+        {
+          "type":"url",
+          "id":"link",
+          "label":"Link",
+          "info":"Optional"
+        }
+      ]
+    },
+    {
+      "type":"text_note",
+      "name":"Text",
+      "settings":[
+        {
+          "type":"paragraph",
+          "content":"For sidebar position on desktop only"
+        },
+        {
+          "type":"text",
+          "id":"textbox_heading",
+          "label":"Heading",
+          "default": "Heading"
+        },
+        {
+          "type":"richtext",
+          "id":"textbox_subheading",
+          "label":"Subheading",
+          "default": "<p>Subheading</p>"
+        },
+        {
+           "type": "select",
+           "id": "subheading_align",
+           "options": [
+              { "value": "left", "label": "Left"},
+              { "value": "center", "label": "Center"}
+           ],
+           "label": "Subheading alignment"
+        }
+      ]
+    },
+    {
+      "type":"collection",
+      "name":"Featured collection",
+      "limit": 1,
+      "settings":[
+        {
+          "type":"paragraph",
+          "content":"For sidebar position on desktop only"
+        },
+        {
+          "id": "collection",
+          "type": "collection",
+          "label": "Featured collection"
+        },
+        {
+          "type": "range",
+          "id": "limit",
+          "min": 2,
+          "max": 20,
+          "step": 2,
+          "label": "Products shown",
+          "default": 4
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Collection title",
+          "default": "Featured"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

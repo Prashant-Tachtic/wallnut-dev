@@ -1,0 +1,110 @@
+<div class="index-section custom-section" data-section-id="{{ section.id }}" data-section-type="rich-text-section" data-aos="{{ settings.scroll_animation }}">
+  <div class="row">
+    {% if section.settings.title != blank %}
+      {% render 'section-headings', type: section.settings.title %}
+    {% endif %}
+
+    <div class="pages-content_{{ section.id }}">
+      {% if section.settings.page != blank %}
+        {%- assign feat_page = pages[section.settings.page] -%}
+        {{ feat_page.content }}
+      {% else %}
+        <div class="rte">
+          {{ section.settings.rich_text }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.page == blank and section.settings.rich_text == blank %}
+        <div class="content-onboard">
+          <div class="yotpo yotpo-shoppers-say" data-product-id="{{ product.id }}">&nbsp;</div>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+
+
+  <style>
+    .pages-content_{{ section.id }},
+    .pages-content_{{ section.id }} .rte {
+      {% if section.settings.alignment == 'center' %}
+      text-align: center;
+      {% endif %}
+      max-width: {{ section.settings.text_width }}px;
+      line-height: initial;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .pages-content_{{ section.id }} p {
+      font-size: {{ section.settings.text_size }}px;
+    }
+  </style>
+
+
+{% schema %}
+{
+  "name": "Rich text",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Welcome"
+    },
+    {
+      "type": "richtext",
+      "id": "rich_text",
+      "label": "Text",
+      "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+    },
+    {
+      "type": "page",
+      "id": "page",
+      "label": "Or Show content from a page"
+    },
+    {
+      "type":"select",
+      "id":"alignment",
+      "label":"Text alignment",
+      "default":"left",
+      "options":[
+        {
+          "value":"left",
+          "label":"Left"
+        },
+        {
+          "value":"center",
+          "label":"Center"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "text_width",
+      "min": 500,
+      "max": 1200,
+      "step": 100,
+      "unit": "px",
+      "label": "Text box width size",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 15
+    }
+  ],
+  "presets":[
+    {
+     "name":"Rich text",
+     "category":"Text"
+    }
+  ]
+}
+{% endschema %}

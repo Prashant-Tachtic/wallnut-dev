@@ -1,0 +1,11 @@
+{% if template == 'blog' and section.settings.banner_image != blank %}
+  <div class="blog-banner">
+    {% render 'basic-responsive-image',type: section.settings.banner_image, data_widths: '[180, 360, 540, 720, 900, 1080, 1296, 1512]' %}
+      <div class="banner-caption">
+        <h1>{{ blog.title }}</h1>
+        {%- if section.settings.blog_subheading != blank -%}
+          <p>{{ section.settings.blog_subheading }}</p>
+        {%- endif -%}
+      </div>
+  </div>
+{% endif %}

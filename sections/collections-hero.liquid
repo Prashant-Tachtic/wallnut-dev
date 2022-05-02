@@ -1,0 +1,96 @@
+{% if template contains 'collection' and collection.description contains '[#banner_image]' or collection.description contains '[#banner_caption]'%}
+  {% comment %} <section>
+    <div id="react-collections-hero">
+      <script type="application/json">
+        {
+          "themeSettings": {{ settings | json }},
+          "settings": {{ section.settings | json }},
+          "saleBanner": "{{ 'sale-banner.png' | asset_url }}",
+          "pageTitle": "{{page_title}}",
+          "collection": {{ collection.title | json }}
+        }
+      </script>
+    </div>
+  </section> {% endcomment %}
+  <section>
+    <div id="react-pdp-section">
+      <script type="application/json">
+        {
+          "settings": {{ section.settings | json }},
+          "pageTitle": "{{page_title}}",
+          "collectionTitle": {{ collection.title | json }},
+          "collectionDescription": {{ collection.description | split: '[#' | first | json }}
+        }
+      </script>
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Collections Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "lounge_image",
+      "label": "Lounge Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "lounge_tablet_image",
+      "label": "Lounge Tablet Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "lounge_mobile_image",
+      "label": "Lounge Mobile Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "dining_image",
+      "label": "Dining Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "dining_tablet_image",
+      "label": "Dining Tablet Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "dining_mobile_image",
+      "label": "Dining Mobile Image"
+    },
+    {
+      "type": "header",
+      "content": "Caption content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Add a title to your image"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Hero",
+      "category": "React Components"
+    }
+  ]
+}
+{% endschema %}

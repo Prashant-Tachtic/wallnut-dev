@@ -1,0 +1,56 @@
+{%- assign collection = collections[section.settings.collection] -%}
+
+<div class="index-section" data-section-id="{{ section.id }}" data-section-type="featured-collection" data-aos="{{ settings.scroll_animation }}">
+  <div id="react-product-recommendation">
+    <script type="application/json">
+      {
+        "title": "4 washable chair styles, 40+ colors"
+      }
+    </script>
+  </div>
+</div>
+<div class="clear"></div>
+
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Featured Collection"
+    },
+    {
+      "id": "collection",
+      "type": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "grid",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Products per row",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "rows",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "label": "Rows shown",
+      "default": 2
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured collection",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}

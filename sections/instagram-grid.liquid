@@ -1,0 +1,53 @@
+<div id="react-instagram-grid">
+    <script type="application/json">
+        {
+            "settings": {{ section.settings | json }},
+            "blocks": [
+                {% for block in section.blocks %}
+                    {
+                        "settings": {{ block.settings | json }},
+                        "type": {{ block.type | json }},
+                        "shopify_attributes": {{ block.shopify_attributes | json }}
+                    }
+                    {% if forloop.last != true %},{% endif %}
+                {% endfor %}
+            ]
+        }
+    </script>
+</div>
+
+{% schema %}
+    {
+        "name": "Instagram Grid",
+        "settings": [
+            {
+                "id": "title",
+                "type": "text",
+                "label": "Title"
+            },
+            {
+                "id": "link_text",
+                "type": "text",
+                "label": "Link Text"
+            },
+            {
+                "id": "link_url",
+                "type": "url",
+                "label": "Link Url"
+            }
+        ],
+        "blocks": [
+            {
+                "name": "Instagram Grid Picture",
+                "type": "section",
+                "settings": [
+                    {
+                        "id": "grid_picture",
+                        "type": "image_picker",
+                        "label": "Grid Picture"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

@@ -1,0 +1,585 @@
+<section class="main-slider index-section slider-{{ section.id }} {% unless section.settings.full_width %}row{% endunless %}"
+id="homepage-slideshow"
+data-section-id="{{ section.id }}"
+data-section-type="new-slideshow"
+data-video-audio="{{ section.settings.video_audio }}"
+data-slider-controls="{{ section.settings.slide_controls }}"
+data-aos="{{ settings.scroll_animation }}">
+  {% if section.blocks.size > 0 %}
+    {% for block in section.blocks %}
+    {% capture caption %}
+      <div class="caption caption-{{ block.id }}">
+        <div class="caption-inners">
+          {% unless block.settings.heading == blank %}
+            <h1 class="slide-title">
+              {{ block.settings.heading }}
+            </h1>
+          {% endunless %}
+          {% unless block.settings.subheading == blank %}
+            {{ block.settings.subheading }}
+          {% endunless %}
+          {% if block.settings.button_link %}
+            <div class="cta">
+              <a href="{{ block.settings.button_link }}">
+              {{ block.settings.button_text }}
+             </a>
+            </div>
+          {% endif %}
+          {% if block.settings.button_link_2 %}
+            <div class="cta">
+              <a href="{{ block.settings.button_link_2 }}">
+              {{ block.settings.button_text_2 }}
+             </a>
+            </div>
+          {% endif %}
+          <style media="screen">
+            .caption-{{ block.id }} h2,
+            .caption-{{ block.id }} p {
+              color: {{ block.settings.slide_text_color }};
+            }
+            .caption-{{ block.id }} {
+              text-align: {{ block.settings.caption_alignment }};
+              top: {{ block.settings.caption_position_top }}%;
+              left: {{ block.settings.caption_position_left }}%;
+              transform: translate(-{{ block.settings.caption_position_left }}%, -{{ block.settings.caption_position_top }}%);
+              -webkit-transform: translate(-{{ block.settings.caption_position_left }}%, -{{ block.settings.caption_position_top }}%);
+              -ms-transform: translate(-{{ block.settings.caption_position_left }}%, -{{ block.settings.caption_position_top }}%);
+              -moz-transform: translate(-{{ block.settings.caption_position_left }}%, -{{ block.settings.caption_position_top }}%);
+              -o-transform: translate(-{{ block.settings.caption_position_left }}%, -{{ block.settings.caption_position_top }}%);
+              text-align: {{ block.settings.caption_alignment }};
+              background: {{ block.settings.caption_background }};
+              width: fit-content;
+              max-width: 600px;
+            }
+            .caption-{{ block.id }} .caption-inners {
+              display: inline-block;
+              width: 100%;
+              padding: 20px;
+            }
+            .caption-{{ block.id }} .cta a {
+              color: {{ block.settings.cta_color }};
+              background-color: {{ block.settings.cta_background }};
+            }
+          </style>
+        </div>
+      </div>
+    {% endcapture %}
+      {%- case block.type -%}
+        {%- when 'video' -%}
+          {% if block.settings.video_url.type == 'youtube' %}
+            <div class="item youtube" data-slide-type="youtube" {{ block.shopify_attributes }} data-slider-index="{{ forloop.index0 }}">
+              <div class="videoWrapper">
+                <iframe class="embed-player slide-media" width="980" height="520" src="//www.youtube.com/embed/{{ block.settings.video_url.id }}?enablejsapi=1&controls=0&fs=0&iv_load_policy=3&rel=0&showinfo=0&loop=1" frameborder="0" allowfullscreen></iframe>
+              </div>
+              {{ caption }}
+            </div>
+          {% elsif block.settings.video_url.type == 'vimeo' %}
+            <div class="item vimeo" data-slide-type="vimeo" data-video-start="4" {{ block.shopify_attributes }} data-slider-index="{{ forloop.index0 }}">
+              <div class="videoWrapper">
+                <iframe class="embed-player slide-media" src="//player.vimeo.com/video/{{ block.settings.video_url.id }}?api=1&byline=0&portrait=0&title=0&background=1&mute=1&loop=1&autoplay=0&id=217885864" width="980" height="520" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+              </div>
+              {{ caption }}
+            </div>
+          {% else %}
+            <div class="item video" data-slide-type="video" {{ block.shopify_attributes }} data-slider-index="{{ forloop.index0 }}">
+              <video class="slide-video slide-media" loop {% if forloop.first %}controls{% endif %} {% if section.settings.video_audio == 'off' %}muted{% endif %} preload="metadata" poster="{{ block.settings.poster | img_url: '1200x' }}">
+                <source src="{{ block.settings.video_url_mp4 }}" type="video/mp4" />
+              </video>
+              {{ caption }}
+            </div>
+          {%- endif -%}
+        {%- when 'image' -%}
+          <div class="item image slide--{{ block.id }}" data-slide-type="image" {{ block.shopify_attributes }} data-slider-index="{{ forloop.index0 }}">
+            <figure>
+              {% if block.settings.image == blank %}
+                {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+                {%- assign placeholder = 'lifestyle-' | append: current -%}
+                <div class="slide-image slide-media">
+                  {{ placeholder | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              {% else %}
+              <div class="desktop-image">
+                {% assign image_box_ratio = block.settings.image.height | append: ".0" | times: 1 | divided_by: block.settings.image.width | times: 100 | append: "%" %}
+                {% assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                  <div class="box-ratio" style="padding-bottom: {{ image_box_ratio }};">
+                    {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif %}
+                      <img class="slideshow__image slideshow__image--{{ block.id }} lazyload lazyload-fade"
+                        src="{{ block.settings.image | img_url: '300x' }}"
+                        data-srcset="{{ img_url }}"
+                        data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
+                        data-aspectratio="{{ block.settings.image.aspect_ratio }}"
+                        data-sizes="auto"
+                        data-parent-fit="cover"
+                        alt="{{ block.settings.image.alt | escape }}">
+                    {% if block.settings.link != blank %}</a>{% endif %}
+                  </div>
+                  <noscript>
+                    <img src="{{ block.settings.image | img_url: '1024x' }}" alt="{{ block.settings.image.alt }}">
+                  </noscript>
+              </div>
+              {% endif %}
+              {{ caption }}
+            </figure>
+            {%- assign mobile_image = block.settings.mobile_image -%}
+            {% if mobile_image != blank %}
+            {% assign image_box_ratio = mobile_image.height | append: ".0" | times: 1 | divided_by: mobile_image.width | times: 100 | append: "%" %}
+            <style>
+            @media screen and (max-width: 740px) {
+              .slide--{{ block.id }} {
+                background-image: url('{{ mobile_image | img_url: '600x' }}') !important;
+                opacity: 1;
+                background-size: contain;
+                bacground-position: top center;
+                background-repeat: no-repeat;
+              }
+              .slide--{{ block.id }} .desktop-image {
+                display: none;
+              }
+              .slide--{{ block.id }} .caption {
+                margin-top: {{ image_box_ratio }};
+              }
+            }
+            </style>
+            {% endif %}
+          </div>
+      {%- endcase -%}
+
+    {% endfor %}
+  {% else %}
+    {% render 'no-blocks' %}
+  {% endif %}
+</section>
+<style media="screen">
+  .main-slider .slick-arrow i {
+    color: {{ section.settings.slide_controls_color }};
+  }
+  .main-slider .slick-arrow i:hover {
+    color: {{ settings.link_hover_color }} !important;
+  }
+  /* Section Styles */
+  .main-slider.slider-{{ section.id }} .caption h2 {
+    font-size: {{ section.settings.slide_heading_size }}px;
+  }
+  .main-slider.slider-{{ section.id }} .caption p {
+    font-size: 22px;
+    margin-bottom: 0;
+  }
+  @media only screen
+  and (max-width: 480px) {
+    .main-slider.slider-{{ section.id }} .caption p {
+      font-size: 18px;
+    }
+  }
+  .main-slider.slider-{{ section.id }} .caption .cta a {
+    font-size: 18px;
+    text-transform: uppercase;
+    font-family: stolzl,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 2px;
+    color: #fffbf4;
+    display: inline-block;
+    padding: 13px 55px;
+    border-radius: 0;
+    min-width: 150px;
+    -webkit-transition: background .5s ease,color .5s ease;
+    -moz-transition: background .5s ease,color .5s ease;
+    -o-transition: background .5s ease,color .5s ease;
+    transition: background .5s ease,color .5s ease;
+  }
+  .main-slider .desktop-image {
+    width: 100%;
+  }
+  .main-slider .slick-slide figure {
+    display: inline-block;
+    width: 100%;
+  }
+  @media screen and (max-width: 740px) {
+    .main-slider .caption {
+      position: unset !important;
+      width: 100%;
+      left: unset !important;
+      top: unset !important;
+      transform: translate(0, 0) !important;
+      padding: 0;
+    }
+    .main-slider .caption-inners {
+      width: 100%;
+    }
+    .main-slider .slick-arrow {
+      display: none !important;
+    }
+  }
+</style>
+{% schema %}
+{
+  "name": "Slideshow w/Video",
+  "max_blocks": 10,
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image"
+        },
+        {
+          "type": "header",
+          "content": "Caption Text"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Add a title to your image"
+        },
+        {
+          "type": "richtext",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "<p>Tell your brand's story through images</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "Add a button",
+          "info": "Visible only if a link is chosen"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link",
+          "info": "Link for first button and slide."
+        },
+        {
+          "type": "text",
+          "id": "button_text_2",
+          "label": "Button 2 text",
+          "default": "Add a 2nd button",
+          "info": "Visible only if a link is chosen"
+        },
+        {
+          "type": "url",
+          "id": "button_link_2",
+          "label": "Button 2 link"
+        },
+        {
+          "type": "header",
+          "content": "Caption colors"
+        },
+        {
+          "type": "color",
+          "id": "slide_text_color",
+          "label": "Heading and subheading",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "cta_color",
+          "label": "Button text",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "cta_background",
+          "label": "Button background",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "caption_background",
+          "label": "Caption background color",
+          "default": "transparent"
+        },
+        {
+          "type": "header",
+          "content": "Caption layout"
+        },
+        {
+          "type": "select",
+          "id": "caption_alignment",
+          "label": "Caption text alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "caption_position_top",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "label": "Position from top",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "caption_position_left",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "label": "Position from left",
+          "default": 50
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Video slide",
+      "settings": [
+        {
+           "id": "video_url",
+           "type": "video_url",
+           "label": "Video URL",
+           "accept": ["youtube", "vimeo"],
+           "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+        },
+        {
+          "type": "text",
+          "id": "video_url_mp4",
+          "label": "MP4 URL",
+          "info": "Use for MP4 URL only."
+        },
+        {
+          "type": "image_picker",
+          "id": "poster",
+          "label": "Placeholder Image for Video"
+        },
+        {
+          "type": "header",
+          "content": "Caption Text"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Add a title to your image"
+        },
+        {
+          "type": "richtext",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "<p>Tell your brand's story through images</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "Add a button",
+          "info": "Visible only if a link is chosen"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link",
+          "info": "Link for first button and slide."
+        },
+        {
+          "type": "text",
+          "id": "button_text_2",
+          "label": "Button 2 text",
+          "default": "Add a 2nd button",
+          "info": "Visible only if a link is chosen"
+        },
+        {
+          "type": "url",
+          "id": "button_link_2",
+          "label": "Button 2 link"
+        },
+        {
+          "type": "header",
+          "content": "Caption colors"
+        },
+        {
+          "type": "color",
+          "id": "slide_text_color",
+          "label": "Heading and subheading",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "cta_color",
+          "label": "Button text",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "cta_background",
+          "label": "Button background",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "caption_background",
+          "label": "Caption background color",
+          "default": "transparent"
+        },
+        {
+          "type": "header",
+          "content": "Caption layout"
+        },
+        {
+          "type": "select",
+          "id": "caption_alignment",
+          "label": "Caption text alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "caption_position_top",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "label": "Position from top",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "caption_position_left",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "label": "Position from left",
+          "default": 50
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Slideshow Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Enable full width"
+    },
+    {
+      "type": "select",
+      "id": "slide_controls",
+      "label": "Slider control style",
+      "default": "arrows",
+      "options": [
+        {
+          "value": "arrows",
+          "label": "Arrows"
+        },
+        {
+          "value": "dots",
+          "label": "Dots"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "slide_controls_color",
+      "label": "Slider control color",
+      "default": "rgba(255, 255, 255, 0.5)"
+    },
+    {
+      "type": "select",
+      "id": "video_audio",
+      "label": "Video audio",
+      "default": "off",
+      "options": [
+        {
+          "value": "off",
+          "label": "Off"
+        },
+        {
+          "value": "on",
+          "label": "On"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Slideshow Text"
+    },
+    {
+      "type": "range",
+      "id": "slide_heading_size",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Subheading size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "cta_size",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Button text size",
+      "default": 14
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow w/Video",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "video"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

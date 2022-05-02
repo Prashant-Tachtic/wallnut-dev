@@ -1,0 +1,79 @@
+<div id="react-pop-up-modal">
+  <script type="application/json">
+    {
+      "settings": {{ section.settings | json }}
+    }
+  </script>
+</div>
+
+{% schema %}
+{
+  "name": "Pop Up Modal",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Pop Up Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_tablet",
+      "label": "Pop Up Image"
+    },
+    {
+      "type": "header",
+      "content": "Pop Up Content"
+    },
+    {
+      "type": "number",
+      "id": "initial_load_time",
+      "label": "Initial Time after page load",
+      "info": "Milliseconds after the page loads for the pop up to show. ie. 1 min is 60000 milliseconds"
+    },
+    {
+      "type": "number",
+      "id": "initial_pop_up_time",
+      "label": "Time between pop ups",
+      "info": "Milliseconds between first pop up and second pop up. ie. 1 min is 60000 milliseconds"
+    },
+    {
+      "type": "number",
+      "id": "last_chance_page_limit",
+      "label": "Last Chance Page Limit",
+      "info": "Number of pages a user visits before the last chance modal pop up"
+    },
+    {
+      "type": "text",
+      "id": "line_1_text",
+      "label": "Line 1 Text"
+    },
+    {
+      "type": "text",
+      "id": "offer_title",
+      "label": "Offer Title"
+    },
+    {
+      "type": "text",
+      "id": "line_3_text",
+      "label": "Line 3 Text"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "html",
+      "id": "legal_text",
+      "label": "Legal Text",
+      "info": "Text or HTML"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pop Up Modal",
+      "category": "React Components"
+    }
+  ]
+}
+{% endschema %}

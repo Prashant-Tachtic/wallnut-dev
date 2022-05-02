@@ -1,0 +1,120 @@
+{% assign option_name = option.name | downcase %}
+
+{% assign color_swatch_options = "color, colour" | split: ", " %}
+
+{% assign current_option = "option" | append: option.position %}
+
+{% assign other_options = "option1 option2 option3" | remove: current_option | strip | split: " " %}
+
+<div class="swatch clearfix" data-option-index="{{ option.position }}" data-other-options='{{ other_options | json }}'>
+  <h5>{% if option.name == 'Cover Color' %}Fabric Color Style{% elsif option.name == 'Color' %}Fabric Color{% else %}{% if product.handle == 'extra-chair-cover' %}Product Style{% elsif option.name == 'Amount' %}Amount{% else %}Leg Color{% endif %}{% endif %} {% if option.name != 'Amount' %}- <span class="brown-text">{{current_variant[current_option]}}</span>{% endif %}</h5>
+
+  {% for value in option.values %}
+    {% assign image_url = value | handle | append: '.png' | file_url %}
+
+    {% assign css_color = value | split: ' ' | last | handle %}
+
+    {% capture id %}{{ section.id }}-swatch-{{ option.position }}-{{ value | handle }}{% endcapture %}
+
+    {% assign available = false %}
+
+    <!-- Checking Availability -->
+    {% for variant in product.variants %}
+      {% unless variant.available %}
+        {% continue %}
+      {% endunless %}
+
+      {% unless variant[current_option] == value %}
+        {% continue %}
+      {% endunless %}
+
+      {% unless variant[other_options[0]] == current_variant[other_options[0]] %}
+        {% continue %}
+      {% endunless %}
+
+      {% unless variant[other_options[1]] == current_variant[other_options[1]] %}
+        {% continue %}
+      {% endunless %}
+
+      {% assign available = true %}
+
+    {% endfor %}
+
+    <!-- Building Variant Image -->
+    {% for variant in product.variants %}
+      {% unless variant[current_option] == value %}
+        {% continue %}
+      {% endunless %}
+
+      {% unless variant[other_options[0]] == current_variant[other_options[0]] %}
+        {% continue %}
+      {% endunless %}
+
+      {% unless variant[other_options[1]] == current_variant[other_options[1]] %}
+        {% continue %}
+      {% endunless %}
+
+      {% assign variant_image_url = blank %}
+
+      {% if variant.image %}
+        {% assign variant_image_url =  variant.image | img_url: '1000x' %}
+      {% endif %}
+    {% endfor %}
+
+    {% assign checked = "" %}
+
+    {% if current_variant[current_option] == value %}
+      {% assign checked = 'checked="checked"' %}
+    {% endif %}
+
+    {% capture radio_button %}
+      <input type="radio" id="{% if template == 'product.quick' %}qv-{% endif %}{{ id }}" name="{{ option_name }}" value="{{ value | escape }}" data-position="{{ option.position }}" {{ checked }} />
+    {% endcapture %}
+
+    {% capture sold_out_image %}
+      <img class="crossed-out" src="{{ 'soldout.png' | asset_url }}" />
+    {% endcapture %}
+
+    {% capture regular_swatch %}
+      <div class="swatch-element {% if option.name != 'Amount' %}color{%endif%} {% unless available %}soldout{% endunless %}">
+        {{ radio_button }}
+
+        <label class="{% if product.handle == 'extra-chair-cover' %}design-swatch{% endif %}" for="{% if template == 'product.quick' %}qv-{% endif %}{{ id }}">
+          {% if product.handle == 'extra-chair-cover' %}
+            <div class="design-color-swatch custom-image css-color {{value}}"></div>
+          {% else %}
+            {% if option.name == 'Amount' %}
+              <div>${{value}}</div>
+            {% else %}
+              <div class="wood-color-swatch custom-image css-color {{value}}"></div>
+            {% endif %}
+          {% endif %}
+          {{ sold_out_image }}
+        </label>
+      </div>
+    {% endcapture %}
+
+    {% capture color_swatch %}
+      <div class="swatch-element color {% unless available %}soldout{% endunless %}">
+        {{ radio_button }}
+
+        <label for="{% if template == 'product.quick' %}qv-{% endif %}{{ id }}">
+          {{ sold_out_image }}
+          {% if color_swatch_style == 'variant-image' and variant_image_url != blank %}
+            <img class="variant-image" src="{{ variant_image_url }}" alt="{{ value }}">
+          {% elsif color_swatch_style == 'custom-image' %}
+              <div class="custom-image css-color" style="width: 40px; height: 40px; background-color: {{ css_color }}; background-image: url({{ image_url }});"></div>
+          {% else %}
+              <div class="css-color" style="width: 40px; height: 40px; background-color: {{ css_color }};"></div>
+          {% endif %}
+        </label>
+      </div>
+    {% endcapture %}
+
+    {% if color_swatch_options contains option_name %}
+      {{ color_swatch }}
+    {% else %}
+      {{ regular_swatch }}
+    {% endif %}
+  {% endfor %}
+</div>

@@ -1,0 +1,1046 @@
+{% render 'custom-page-content', page: page %}
+
+{% schema %}
+  {
+    "name": "Custom Page Four",
+    "max_blocks": 40,
+    "blocks": [
+      {
+        "type": "page_title",
+        "name": "Page Title",
+        "settings": [
+          {
+            "type": "select",
+            "id": "pt_align",
+            "label": "Heading alignment",
+            "default": "center",
+            "options": [
+              {
+                "value":"center",
+                "label":"Center"
+              },
+              {
+                "value":"left",
+                "label":"Left"
+              },
+              {
+                "value":"right",
+                "label":"Right"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "page_content",
+        "name": "Page Content",
+        "settings": [
+          {
+            "type": "select",
+            "id": "pc_align",
+            "label": "Content alignment",
+            "default": "center",
+            "options": [
+              {
+                "value":"center",
+                "label":"Center"
+              },
+              {
+                "value":"left",
+                "label":"Left"
+              },
+              {
+                "value":"right",
+                "label":"Right"
+              }
+            ]
+          },
+          {
+            "type": "range",
+            "id": "pc_max_width",
+            "min": 600,
+            "max": 1000,
+            "step": 100,
+            "unit": "px",
+            "label": "Content width",
+            "default": 800
+          }
+        ]
+      },
+      {
+        "type": "page_contact_form",
+        "name": "Contact Form",
+        "settings": [
+          {
+            "type": "text",
+            "id": "cf_heading",
+            "label": "Heading",
+            "default": "Contact Us"
+          },
+          {
+            "type": "checkbox",
+            "id": "cf_show_first_name",
+            "label": "Show first name",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "cf_show_last_name",
+            "label": "Show last name",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "cf_show_company_name",
+            "label": "Show company name",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "cf_show_address",
+            "label": "Show address",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "cf_show_website_url",
+            "label": "Show website url",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "cf_show_phone",
+            "label": "Show phone number",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "cf_show_subject",
+            "label": "Show subject",
+            "default": true
+          },
+          {
+            "type": "header",
+            "content": "Custom Field One"
+          },
+          {
+            "type": "checkbox",
+            "id": "cf_show_custom_field_one",
+            "label": "Show custom field one",
+            "default": false
+          },
+          {
+            "type": "text",
+            "id": "cf_custom_field_one",
+            "label": "Placeholder",
+            "default": "Custom Field One"
+          },
+          {
+           "type":      "select",
+           "id":        "cf_custom_field_one_type",
+           "label":     "Type",
+           "default":   "input",
+           "options": [
+             {
+               "value": "textarea",
+               "label": "Multiple line text"
+             },
+             {
+               "value": "input",
+               "label": "Single line text"
+             }
+           ]
+         },
+         {
+           "type": "header",
+           "content": "Custom Field Two"
+         },
+         {
+           "type": "checkbox",
+           "id": "cf_show_custom_field_two",
+           "label": "Show custom field one",
+           "default": false
+         },
+         {
+           "type": "text",
+           "id": "cf_custom_field_two",
+           "label": "Placeholder",
+           "default": "Custom Field Two"
+         },
+         {
+          "type":      "select",
+          "id":        "cf_custom_field_two_type",
+          "label":     "Type",
+          "default":   "input",
+          "options": [
+            {
+              "value": "textarea",
+              "label": "Multiple line text"
+            },
+            {
+              "value": "input",
+              "label": "Single line text"
+            }
+          ]
+        }
+        ]
+      },
+      {
+        "type": "text_columns_with_images",
+        "name": "Text Columns with Images",
+        "settings": [
+          {
+            "type": "text",
+            "id": "txt_title",
+            "label": "Heading",
+            "default": "Text columns with images"
+          },
+          {
+            "type": "select",
+            "id": "txt_align_text",
+            "label": "Text alignment",
+            "default": "left",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "center",
+                "label": "Centered"
+              }
+            ]
+          },
+          {
+            "type": "checkbox",
+            "id": "txt_no_bottom_margin",
+            "label": "No space after section",
+            "default": false
+          },
+          {
+            "type": "header",
+            "content": "Column One"
+          },
+          {
+            "type": "image_picker",
+            "id": "txt_image_1",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "txt_link_1",
+            "label": "Link",
+            "info": "Optional"
+          },
+           {
+            "type": "text",
+            "id": "txt_title_text_1",
+            "label": "Heading",
+            "default": "Our collections"
+           },
+          {
+            "type": "richtext",
+            "id": "txt_text_1",
+            "label": "Text",
+            "default": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+          },
+          {
+            "type": "header",
+            "content": "Column Two"
+          },
+          {
+            "type": "image_picker",
+            "id": "txt_image_2",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "txt_link_2",
+            "label": "Link",
+            "info": "Optional"
+          },
+           {
+            "type": "text",
+            "id": "txt_title_text_2",
+            "label": "Heading",
+            "default": "Our collections"
+           },
+          {
+            "type": "richtext",
+            "id": "txt_text_2",
+            "label": "Text",
+            "default": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+          },
+          {
+            "type": "header",
+            "content": "Column Three"
+          },
+          {
+            "type": "image_picker",
+            "id": "txt_image_3",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "txt_link_3",
+            "label": "Link",
+            "info": "Optional"
+          },
+           {
+            "type": "text",
+            "id": "txt_title_text_3",
+            "label": "Heading",
+            "default": "Our collections"
+           },
+          {
+            "type": "richtext",
+            "id": "txt_text_3",
+            "label": "Text",
+            "default": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+          },
+          {
+            "type": "header",
+            "content": "Column Four"
+          },
+          {
+            "type": "image_picker",
+            "id": "txt_image_4",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "txt_link_4",
+            "label": "Link",
+            "info": "Optional"
+          },
+           {
+            "type": "text",
+            "id": "txt_title_text_4",
+            "label": "Heading",
+            "default": "Our collections"
+           },
+          {
+            "type": "richtext",
+            "id": "txt_text_4",
+            "label": "Text",
+            "default": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+          }
+        ]
+      },
+      {
+        "type": "image_text_overlay",
+        "name": "Image with Text Overlay",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "io_full_width",
+            "label": "Enable full width",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "io_no_bottom_margin",
+            "label": "No space after section",
+            "default": false
+          },
+          {
+            "type": "image_picker",
+            "id": "io_image",
+            "label": "Image"
+          },
+          {
+            "type": "range",
+            "id": "io_image_height",
+            "min": 100,
+            "max": 600,
+            "step": 100,
+            "unit": "px",
+            "label": "Height",
+            "default": 400
+          },
+          {
+            "type": "url",
+            "id": "io_link",
+            "label": "Link",
+            "info": "Optional"
+          },
+          {
+            "type": "text",
+            "id": "io_heading",
+            "label": "Heading",
+            "default": "Image with Text Overlay"
+          },
+          {
+            "type": "range",
+            "id": "io_heading_text_size",
+            "min": 12,
+            "max": 36,
+            "step": 1,
+            "unit": "px",
+            "label": "Size",
+            "default": 28
+          },
+          {
+            "type": "color",
+            "id": "io_heading_text_color",
+            "label": "Heading",
+            "default": "#000"
+          },
+          {
+            "type": "richtext",
+            "id": "io_hidden_text",
+            "label": "Text",
+            "default": "<p>Pair text with a large full width image to give focus to areas of your store.</p>"
+          },
+          {
+            "type": "range",
+            "id": "io_hidden_text_size",
+            "min": 12,
+            "max": 36,
+            "step": 1,
+            "unit": "px",
+            "label": "Text size",
+            "default": 18
+          },
+          {
+            "type": "color",
+            "id": "io_hidden_text_color",
+            "label": "Text color",
+            "default": "#000"
+          }
+        ]
+      },
+      {
+        "type": "image_with_text",
+        "name": "Image with Text",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "iwt_image",
+            "label": "Image"
+          },
+          {
+            "type": "checkbox",
+            "id": "ic_no_bottom_margin",
+            "label": "No space after section",
+            "default": false
+          },
+          {
+            "type": "select",
+            "id": "iwt_layout",
+            "label": "Position",
+            "default": "left",
+            "options": [
+              {
+                "value": "left",
+                "label": "Image on left"
+              },
+              {
+                "value": "right",
+                "label": "Image on right"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "iwt_image_width",
+            "label": "Width",
+            "default": "50%",
+            "options": [
+              {
+                "value":"33%",
+                "label":"33%"
+              },
+              {
+                "value":"50%",
+                "label":"50%"
+              },
+              {
+                "value":"66%",
+                "label":"66%"
+              }
+            ]
+          },
+         {
+            "type": "select",
+            "id": "iwt_text_align",
+            "label": "Text alignment",
+            "default": "left",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "center",
+                "label": "Center"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "iwt_title",
+            "label": "Heading",
+            "default": "Image with text"
+          },
+          {
+            "type": "richtext",
+            "id": "iwt_text",
+            "label": "Text",
+            "default": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+          },
+          {
+            "type": "url",
+            "id": "iwt_link",
+            "label": "Link"
+          },
+          {
+            "type": "text",
+            "id": "iwt_button",
+            "label": "Button text"
+          }
+        ]
+      },
+      {
+        "type": "featured_collection",
+        "name": "Featured Collection",
+        "settings": [
+          {
+            "type": "text",
+            "id": "fc_heading",
+            "label": "Heading",
+            "default": "Featured collection"
+          },
+          {
+            "id": "fc_collection",
+            "type": "collection",
+            "label": "Collection"
+          },
+          {
+            "type": "range",
+            "id": "fc_grid",
+            "min": 2,
+            "max": 4,
+            "step": 1,
+            "label": "Products per row",
+            "default": 3
+          },
+          {
+            "type": "range",
+            "id": "fc_limit",
+            "min": 2,
+            "max": 30,
+            "step": 1,
+            "label": "Products shown",
+            "default": 3
+          },
+          {
+            "type": "checkbox",
+            "id": "fc_no_bottom_margin",
+            "label": "No space after section",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type": "collection_list",
+        "name": "Collection List",
+        "settings": [
+          {
+            "type": "text",
+            "id": "cl_title",
+            "label": "Heading",
+            "default": "Collection list"
+          },
+          {
+            "type": "range",
+            "id": "cl_collections_per_row",
+            "min": 2,
+            "max": 4,
+            "step": 1,
+            "label": "Collections per row",
+            "default": 3
+          },
+          {
+            "type": "checkbox",
+            "id": "cl_no_bottom_margin",
+            "label": "No space after section",
+            "default": false
+          },
+          {
+            "type": "header",
+            "content": "Choose Collections"
+          },
+          {
+            "label": "Collection 1",
+            "id": "cl_collection_1",
+            "type": "collection"
+          },
+          {
+            "label": "Collection 2",
+            "id": "cl_collection_2",
+            "type": "collection"
+          },
+          {
+            "label": "Collection 3",
+            "id": "cl_collection_3",
+            "type": "collection"
+          },
+          {
+            "label": "Collection 4",
+            "id": "cl_collection_4",
+            "type": "collection"
+          }
+        ]
+      },
+      {
+        "type": "featured_video",
+        "name": "Featured Video",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "fv_display_wide",
+            "label": "Enable full width"
+          },
+          {
+            "type": "checkbox",
+            "id": "fv_no_bottom_margin",
+            "label": "No space after section",
+            "default": false
+          },
+          {
+            "type":"text",
+            "id":"fv_heading",
+            "label":"Heading",
+            "default":"Featured video"
+          },
+          {
+            "type": "video_url",
+            "id": "fv_video_url",
+            "label": "YouTube or Vimeo link",
+            "accept": ["youtube", "vimeo"]
+          }
+        ]
+      },
+      {
+        "type": "page_map",
+        "name": "Map",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "ms_no_bottom_margin",
+            "label": "No space after section",
+            "default": false
+          },
+          {
+            "id": "ms_heading",
+            "type": "text",
+            "label": "Heading",
+            "default": "Visit Us"
+          },
+          {
+            "id": "ms_hours_heading",
+            "type": "text",
+            "label": "Hours Heading",
+            "default": "Our Hours"
+          },
+          {
+            "id": "ms_hours",
+            "type": "richtext",
+            "label": "Hours",
+            "default": "<p>Mon - Fri, 10am - 9pm<br>Saturday, 11am - 9pm<br>Sunday, 11am - 5pm</p>"
+          },
+          {
+            "id": "ms_address_heading",
+            "type": "text",
+            "label": "Address Heading",
+            "default": "Our Location"
+          },
+          {
+            "id": "ms_map_address",
+            "type": "text",
+            "label": "Map address",
+            "info": "Google Maps will find the exact location"
+          },
+          {
+            "id": "ms_button_text",
+            "type": "text",
+            "label": "Map link label",
+            "default": "Get directions"
+          },
+          {
+             "type": "select",
+             "id": "ms_text_position",
+             "label": "Choose Text Position",
+             "options": [
+               {
+                 "value": "text_left",
+                 "label": "Left"
+               },
+               {
+                 "value": "text_right",
+                 "label": "Right"
+               }
+             ],
+             "default": "text_right"
+          },
+          {
+            "id": "ms_background_color",
+            "type": "color",
+            "label": "Background Color",
+            "default": "#f7f7f7"
+          },
+          {
+            "id": "ms_api_key",
+            "type": "text",
+            "label": "Google Maps API Key",
+            "info": "You’ll need to [register a Google Maps API Key](https://help.shopify.com/manual/using-themes/troubleshooting/map-section-api-key) and paste it here to display the map in the background"
+          },
+          {
+            "type": "image_picker",
+            "id": "ms_background_image",
+            "label": "Background image",
+            "info": "Displayed as a fallback if the map isn’t loaded"
+          },
+          {
+            "type": "select",
+            "id": "ms_background_image_position",
+            "label": "Image position",
+            "default": "center center",
+            "options": [
+              {
+                "label": "Top left",
+                "value": "top left"
+              },
+              {
+                "label": "Top center",
+                "value": "top center"
+              },
+              {
+                "label": "Top right",
+                "value": "top right"
+              },
+              {
+                "label": "Middle left",
+                "value": "center left"
+              },
+              {
+                "label": "Middle center",
+                "value": "center center"
+              },
+              {
+                "label": "Middle right",
+                "value": "center right"
+              },
+              {
+                "label": "Bottom left",
+                "value": "bottom left"
+              },
+              {
+                "label": "Bottom center",
+                "value": "bottom center"
+              },
+              {
+                "label": "Bottom right",
+                "value": "bottom right"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "newsletter_subscribe",
+        "name": "Newsletter Subscribe",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "ns_no_bottom_margin",
+            "label": "No space after section",
+            "default": false
+          },
+          {
+            "type": "text",
+            "id": "ns_heading",
+            "label": "Heading",
+            "default": "Subscribe to our newsletter"
+          },
+          {
+            "type": "color",
+            "id": "ns_heading_color",
+            "label": "Heading",
+            "default": "#000000"
+          },
+          {
+            "type": "richtext",
+            "id": "ns_newsletter_subheading",
+            "label": "Subheading",
+            "default": "<p>Signup for our newsletter to stay up to date on sales and events.</p>"
+          },
+          {
+            "type": "range",
+            "id": "ns_subheading_font_size",
+            "min": 12,
+            "max": 36,
+            "step": 1,
+            "unit": "px",
+            "label": "Subheading size",
+            "default": 16
+          },
+          {
+            "type": "select",
+            "id": "ns_subheading_font_weight",
+            "label": "Subheading weight",
+            "options": [
+              {
+                "value": "normal",
+                "label": "Normal"
+              },
+              {
+                "value": "bold",
+                "label": "Bold"
+              }
+            ]
+          },
+          {
+            "type": "color",
+            "id": "ns_subheading_color",
+            "label": "Subheading",
+            "default": "#000"
+          },
+          {
+            "type": "color",
+            "id": "ns_background_color",
+            "label": "Background",
+            "default": "#f7f7f7"
+          },
+          {
+            "type": "paragraph",
+            "content": "Any customers who sign up will have an account created for them in Shopify. [View customers](/admin/customers?query=&accepts_marketing=1)"
+          }
+        ]
+      },
+      {
+        "type": "accordion",
+        "name": "Accordion",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "ac_no_bottom_margin",
+            "label": "No space after section",
+            "default": false
+          },
+          {
+            "type": "text",
+            "id": "ac_section_heading",
+            "label": "Heading",
+            "default": "Accordion"
+          },
+          {
+            "type": "text",
+            "id": "ac_heading_1",
+            "label": "Item 1 Heading",
+            "default": "Item 1"
+          },
+          {
+            "type": "richtext",
+            "id": "ac_content_1",
+            "label": "Item 1 Content",
+            "default": "<p>Description and content for Item 1.</p>"
+          },
+          {
+            "type": "text",
+            "id": "ac_heading_2",
+            "label": "Item 2 Heading",
+            "default": "Item 2"
+          },
+          {
+            "type": "richtext",
+            "id": "ac_content_2",
+            "label": "Item 2 Content",
+            "default": "<p>Description and content for Item 2.</p>"
+          },
+          {
+            "type": "text",
+            "id": "ac_heading_3",
+            "label": "Item 3 Heading",
+            "default": "Item 3"
+          },
+          {
+            "type": "richtext",
+            "id": "ac_content_3",
+            "label": "Item 3 Content",
+            "default": "<p>Description and content for Item 3.</p>"
+          },
+          {
+            "type": "text",
+            "id": "ac_heading_4",
+            "label": "Item 4 Heading",
+            "default": "Item 4"
+          },
+          {
+            "type": "richtext",
+            "id": "ac_content_4",
+            "label": "Item 4 Content",
+            "default": "<p>Description and content for Item 4.</p>"
+          },
+          {
+            "type": "text",
+            "id": "ac_heading_5",
+            "label": "Item 5 Heading",
+            "default": "Item 5"
+          },
+          {
+            "type": "richtext",
+            "id": "ac_content_5",
+            "label": "Item 5 Content",
+            "default": "<p>Description and content for Item 5.</p>"
+          },
+          {
+            "type": "text",
+            "id": "ac_heading_6",
+            "label": "Item 6 Heading",
+            "default": "Item 6"
+          },
+          {
+            "type": "richtext",
+            "id": "ac_content_6",
+            "label": "Item 6 Content",
+            "default": "<p>Description and content for Item 6.</p>"
+          },
+          {
+            "type": "text",
+            "id": "ac_heading_7",
+            "label": "Item 7 Heading",
+            "default": "Item 7"
+          },
+          {
+            "type": "richtext",
+            "id": "ac_content_7",
+            "label": "Item 7 Content",
+            "default": "<p>Description and content for Item 7.</p>"
+          },
+          {
+            "type": "text",
+            "id": "ac_heading_8",
+            "label": "Item 8 Heading",
+            "default": "Item 8"
+          },
+          {
+            "type": "richtext",
+            "id": "ac_content_8",
+            "label": "Item 8 Content",
+            "default": "<p>Description and content for Item 8.</p>"
+          },
+          {
+            "type": "text",
+            "id": "ac_heading_9",
+            "label": "Item 9 Heading",
+            "default": "Item 9"
+          },
+          {
+            "type": "richtext",
+            "id": "ac_content_9",
+            "label": "Item 9 Content",
+            "default": "<p>Description and content for Item 9.</p>"
+          },
+          {
+            "type": "text",
+            "id": "ac_heading_10",
+            "label": "Item 10 Heading",
+            "default": "Item 10"
+          },
+          {
+            "type": "richtext",
+            "id": "ac_content_10",
+            "label": "Item 10 Content",
+            "default": "<p>Description and content for Item 10.</p>"
+          }
+        ]
+      },
+      { "type": "rich_text",
+        "name": "Rich Text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "rt_heading",
+            "label": "Heading",
+            "default": "Welcome"
+          },
+          {
+            "type": "richtext",
+            "id": "rt_text",
+            "label": "Text",
+            "info": "Use basic HTML to format text",
+                "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+          },
+          {
+            "type": "page",
+            "id": "rt_page",
+            "label": "Or Show content from a page"
+          },
+          {
+            "type":"select",
+            "id":"rt_alignment",
+            "label":"Text alignment",
+            "default":"left",
+            "options":[
+              {
+                "value":"left",
+                "label":"Left"
+              },
+              {
+                "value":"center",
+                "label":"Center"
+              }
+            ]
+          },
+          {
+            "type": "range",
+            "id": "rt_text_width",
+            "min": 500,
+            "max": 1200,
+            "step": 100,
+            "unit": "px",
+            "label": "Text box width",
+            "default": 600
+          },
+          {
+            "type": "range",
+            "id": "rt_text_size",
+            "min": 12,
+            "max": 36,
+            "step": 1,
+            "unit": "px",
+            "label": "Text size",
+            "default": 15
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "range",
+        "id": "margin_bottom",
+        "min": 20,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Section spacing",
+        "default": 50
+      }
+    ],
+    "default": {
+      "blocks": [
+        {
+          "type": "image_text_overlay"
+        },
+        {
+          "type": "page_title"
+        },
+        {
+          "type": "page_content"
+        }
+      ]
+    }
+  }
+{% endschema %}

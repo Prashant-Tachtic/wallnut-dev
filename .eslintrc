@@ -1,0 +1,48 @@
+{
+  "extends": ["airbnb", "prettier", "airbnb/hooks", "plugin:jest/recommended"],
+  "plugins": ["prettier", "jest"],
+  "rules": {
+    "prettier/prettier": ["error"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-restricted-globals": 0,
+    "camelcase": 0,
+    "jsx-a11y": 0,
+    "operator-assignment": 0,
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error",
+    "react/no-array-index-key": "warn"
+  },
+  "globals": {
+    "document": "readonly",
+    "location": "readonly",
+    "window": "readonly",
+    "fetch": "readonly",
+    "localStorage": "readonly",
+    "sessionStorage": "readonly",
+    "IntersectionObserver": "readonly",
+    "_learnq": "readonly",
+    "$": "readonly",
+    "heap": "readonly",
+    "ga": "readonly",
+    "dataLayer": "readonly",
+    "history": "readonly",
+    "navigator": "readonly"
+  },
+  "env": {
+    "jest/globals": true
+  },
+  "ignorePatterns": [
+    "assets/*.js",
+    "webpack.*.js",
+    "tailwind.config.js",
+    "postcss.config.js",
+    "plugins"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "allowImportExportEverywhere": true
+  }
+}

@@ -1,0 +1,69 @@
+
+
+
+
+
+
+
+
+<h2 class="desktop-12 tablet-6 mobile-3">{{ 'general.search.title' | t }}</h2>
+{% paginate search.results by 24 %}
+
+  <div id="search-bar" class="desktop-12 tablet-6 mobile-3">
+    <form action="{{ routes.search_url }}" method="get">
+      <p>{{ 'general.search.results_for_html' | t: terms: search.terms }}</p>
+      <input type="text" name="q" id="q" placeholder="{{ 'general.search.placeholder' | t }}" />
+    </form>
+  </div>
+
+  {% if search.performed %}
+    <div id="product-loop">
+      {% for item in search.results %}
+        <div class="product-index span-3" data-alpha="{{ collection.title }}" data-product-id="{{ product.id }}">
+
+          {% if item.object_type == 'article' %}
+            <!--'item' is an article All article object properties can be accessed. -->
+            {% if item.image %}
+              <a href="{{ item.url }}" title="{{ item.title | escape }}">
+                {%- render 'basic-responsive-image', type: item.image, data_widths: '[180, 360, 540, 720, 900]'  -%}
+                <noscript>
+                  <img src="{{ item.image | img_url: '800x' }}" alt="{{ item.image.alt }}">
+                </noscript>
+              </a>
+            {% else %}
+              <div class="search-content prod-image">
+                {{ item.content | strip_html | trancate: 200 }}
+              </div>
+            {% endif %}
+          {% elsif item.object_type == 'page' %}
+            <!--'item' is a page. All page object properties can be accessed. -->
+
+            {% if item.content contains "img" %}
+              {% assign feat_image = item.content | split: 'src="' %}
+              {% assign feat_image = feat_image[1] | split: '"' | first | replace: '//cdn', 'http://cdn' | replace: 'http:http://', 'http://' | remove: 'https:'  %}
+              <div class="collection-image">
+                <a href="{{ item.url }}" title="{{ item.title | escape }}">
+                  <img src="{{ feat_image }}" alt="{{ item.title }}">
+                </a>
+              </div>
+            {% else %}
+              <div class="search-content">
+              {{ item.content | strip_html | trancate: 200 }}
+              </div>
+            {% endif %}
+          {% else %}
+            {% render 'product-listing', product: item, collection: collection %}
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    {% render 'pagination', paginate: paginate %}
+
+  {% endif %}
+
+{% endpaginate %}
+
+
+
+

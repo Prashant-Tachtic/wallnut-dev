@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head>
+    <!-- HEAP -->
+    <script type="text/javascript">
+      window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+      heap.load("559853633");
+      var customerId = '{{ customer.id }}';
+      var customerEmail = '{{ customer.email }}' || '{{ checkout.email }}';
+      heap.identify(customerEmail);
+      heap.addUserProperties({'Name': '{{ customer.name }}','email': customerEmail,'CustomerID':'{{ customer.id }}','TotalSpent':'{{ customer.total_spent }}'});   
+    </script>
+    <script src="https://cdn.optimizely.com/js/20193727087.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="origin">
+
+    <title>{{ page_title }}</title>
+    {{ content_for_header }}
+
+    {{ checkout_stylesheets }}
+    {{ checkout_scripts }}\
+
+    <!-- OPTIMIZELY REVENUE TRACKING -->
+    <script>
+      if (location.href.includes('thank')) {
+        window["optimizely"] = window["optimizely"] || [];
+        
+        let revenue = ({{ checkout.total_price }});
+
+        window["optimizely"].push({
+          "type": "event",
+          "eventName": "Optimizely Revenue Tracking",
+          "tags": {
+            "revenue": revenue
+          }
+        });
+      };
+    </script>
+  </head>
+  <body>
+    {{ skip_to_content_link }}
+
+    <header class="banner" data-header role="banner">
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </header>
+
+    {{ order_summary_toggle }}
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main">
+          <header class="main__header" role="banner">
+            {{ content_for_logo }}
+            <div id="react-checkout-progress">
+              <script type="application/json">
+                {"step": {{page_title | json}}}
+              </script> 
+            </div>  
+            {{ alternative_payment_methods }}
+          </header>
+          <main class="main__content" role="main">
+            {{ content_for_layout }}
+          </main>
+          <footer class="main__footer" role="contentinfo">
+            {{ content_for_footer }}
+          </footer>
+        </div>
+        <aside class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            {{ content_for_order_summary }}
+          </div>
+        </aside>
+      </div>
+    </div>    
+    {% if page_title contains 'Levity - Checkout' %}
+    {% render 'webpack-scripts-modules' %}
+    {% render 'webpack-scripts-global' %}
+    {% render 'webpack-scripts-checkout' %}
+    <script>
+
+    var step = Shopify.Checkout.step;
+    var domain = '{{ shop.domain }}';
+      function termsPolicy() {
+        if ((step == "payment_method") ||(step ="contact_information")  ) {
+          let stepFtr = document.querySelector(".step__footer");
+          let checkStepFtr = new Promise((resolve, reject) => {
+            (function waitForEl() {
+              stepFtr = document.querySelector(".step__footer");
+              if (stepFtr) return resolve();
+              setTimeout(waitForEl, 30);
+            })();
+          });
+          checkStepFtr.then(() => {
+            if ((domain == "levityhome.com") && (step == "payment_method")) {
+              if (!document.querySelector('.levity-terms')) {
+                stepFtr.insertAdjacentHTML(
+                  "beforebegin",
+                  '<div style="margin-top:10px; margin-bottom: 30px; font-size: 12px;" class="levity-terms"><p>By clicking "Pay now", you agree to Levity\'s <a href="/policies/terms-of-service" target="_blank" style="text-decoration: underline; color: #0077cc;">Terms of Service</a> and <a href="/policies/privacy-policy" target="_blank" style="text-decoration: underline; color: #0077cc;">Privacy Policy</a></p></div>'
+                );
+              }
+            }
+            if ((domain == "levityhome.com") && (step == "contact_information")) {
+              if (!document.querySelector('.levity-terms')) {
+                stepFtr.insertAdjacentHTML(
+                  "beforebegin",
+                 '<div style="margin-top:10px; margin-bottom: 30px; font-size: 12px;" class="levity-terms"><p>You acknowledge you have read Levity\'s <a href="/policies/privacy-policy" target="_blank" style="text-decoration: underline; color: #0077cc;">Privacy Policy</a> and you agree to our <a href="/policies/terms-of-service" target="_blank" style="text-decoration: underline; color: #0077cc;">Terms of Service</a></div>'
+                );
+              }
+            }
+          });
+        }
+      }
+  
+      function removeAfterpay() {
+        if ((step == "payment_method")) {
+          const afterPay = (document.querySelectorAll('.radio-wrapper'));
+          let afterpayElements = Array.from(afterPay).filter((element) => element.innerText.includes('Afterpay'));
+          let checkAfterpay = new Promise((resolve, reject) => {
+            (function waitForEl() {
+              afterpayElements = Array.from(afterPay).filter((element) => element.innerText.includes('Afterpay'));
+              if (afterpayElements) return resolve();
+              setTimeout(waitForEl, 30);
+            })();
+          });
+          checkAfterpay.then(() => {
+            if ((domain == "levityhome.com") && (step == "payment_method")) {
+              afterpayElements.forEach(element=>element.style.display= "none");
+            }
+            
+          });
+        }
+      }
+
+      document.addEventListener('page:load', (event) => {
+        termsPolicy();
+        let total = ({{ checkout.total_price | money_without_currency | json }});
+        total = total.replace(',','');
+        if(Number(total) > 2000)  removeAfterpay();
+      });
+
+      document.addEventListener('page:change', (event) => {
+        termsPolicy();
+        let total = ({{ checkout.total_price | money_without_currency | json }});
+        total = total.replace(',','');
+        if(Number(total) > 2000) removeAfterpay();
+      });
+    </script>
+  {% endif %}
+
+
+    {{ tracking_code }}
+    <style>
+      .thank-you__additional-content {
+        display: none !important;
+      }
+    </style>
+  </body>
+</html>

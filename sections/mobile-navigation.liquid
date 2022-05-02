@@ -1,0 +1,438 @@
+<nav class="shifter-navigation" data-section-id="{{ section.id }}" data-section-type="mobile-navigation">
+  {% for block in section.blocks %}
+    <div class="mobile-nav-block" {{ block.shopify_attributes }}>
+    {% case block.type %}
+      {% when 'search_box' %}
+        <div class="search-box">
+          <form action="{{ routes.search_url }}" method="get" class="search-form">
+            <input type="text" name="q" id="q" class="search-field" placeholder="{{ 'general.search.placeholder' | t }}" />
+          </form>
+          <div class="clear"></div>
+        </div>
+      {% when 'navigation' %}
+        <div class="mobile-menu">
+          <ul id="accordion" class="top-level-list">
+            {% for link in linklists[block.settings.main_nav].links %}
+              {% if link.links != blank %}
+                <li class="accordion-toggle has_sub_menu top-level-link" aria-haspopup="true" aria-expanded="false"><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                <div class="accordion-content second-level-list">
+                  <ul class="sub">
+                    {% for sub_link in link.links %}
+                      {% if sub_link.links != blank %}
+                        <div class="accordion-toggle2 has_sub_menu second-level-link" aria-haspopup="true" aria-expanded="false">
+                          <a href="{{ sub_link.url }}">{{ sub_link.title | escape }}</a>
+                        </div>
+                        <div class="accordion-content2 third-level-list">
+                          <ul class="sub">
+                            {% for sub_sub_link in sub_link.links %}
+                              <li class="third-level-link">
+                                <a href="{{ sub_sub_link.url }}">
+                                  {{ sub_sub_link.title }}
+                                </a>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                      {% else %}
+                        <li class="second-level-link">
+                          <a href="{{ sub_link.url }}">
+                            {{ sub_link.title | escape }}
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% else %}
+                <li class="top-level-link">
+                  <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+            {% if shop.customer_accounts_enabled %}
+              {% if customer  %}
+                <li class="top-level-link">
+                  <a href="/account">
+                    <i class="fas fa-user" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'layout.customer.my_account' | t }}
+                  </a>&nbsp;&nbsp;<i class="fas fa-user-times" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'layout.customer.log_out' | t | customer_logout_link }}
+                </li>
+              {% else %}
+                <li class="top-level-link"><i class="fas fa-user" aria-hidden="true"></i>&nbsp;&nbsp;<a href="/account/login">{{ 'layout.customer.log_in' | t }}/{{ 'layout.customer.create_account' | t }}</a></li>
+              {% endif %}
+            {% endif %}
+          </ul>
+          <style media="screen">
+            {% unless block.settings.full_width_nav  %}
+              .mobile-nav-block .mobile-menu {
+                padding: 0;
+              }
+            {% endunless %}
+              .shifter-navigation .top-level-link {
+                background-color: #F7F7F7;
+                font-size: 14px;
+                color: {{  block.settings.nav_top_level_links }} !important;
+              }
+              .shifter-navigation .top-level-link a {
+                color: {{  block.settings.nav_top_level_links }} !important;
+              }
+              .shifter-navigation .second-level-link  {
+                background-color: {{  block.settings.nav_second_level_bg }};
+                color: {{  block.settings.nav_second_level_links }} !important;
+              }
+              .shifter-navigation .second-level-link a {
+                color: {{  block.settings.nav_second_level_links }} !important;
+              }
+              .shifter-navigation .third-level-link {
+                background-color: {{  block.settings.nav_third_level_bg }};
+                color: {{  block.settings.nav_third_level_links }} !important;
+              }
+              .shifter-navigation .third-level-link a {
+                color: {{  block.settings.nav_third_level_links }} !important;
+              }
+              .shifter-navigation ul#accordion > li:last-of-type {
+                display: none;
+              }
+            </style>
+        </div>
+      {% when 'social_icons' %}
+        <ul class="social-icons">
+          {% render 'social-icons' %}
+        </ul>
+      {% when 'featured_image' %}
+        <div class="featured-image {% if forloop.first %}first-item{% endif %}">
+          {% if block.settings.featured_image_link %}<a href="{{ block.settings.featured_image_link }}">{% endif %}
+            {% render 'basic-responsive-image', type: block.settings.featured_image, data_widths: '[180, 360, 540, 720]' %}
+            <noscript>
+              <img src="{{ block.settings.featured_image | img_url: '300x' }}" alt="block.settings.featured_image.alt">
+            </noscript>
+          {% if block.settings.featured_image_link %}</a>{% endif %}
+          <style media="screen">
+            {% unless block.settings.full_featured_image %}
+              .shifter-navigation .featured-image {
+                width: 100%;
+                padding: 10px;
+              }
+            {% endunless %}
+          </style>
+        </div>
+      {% when 'featured_text' %}
+        <div class="featured-text">
+          {{ block.settings.featured_text }}
+        </div>
+      {% when 'cart_status' %}
+        <div class="cart-status">
+          <a href="/cart">
+            <span class="cart-count">{{ cart.item_count }}</span>
+            {% if block.settings.cart_icon == 'cart' %}
+              <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+            {% elsif block.settings.cart_icon == 'bag' %}
+              <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+            {% endif %}
+            {{ 'cart.general.title' | t }}
+          </a>
+        </div>
+    {% endcase %}
+  </div>
+  {% endfor %}
+</nav>
+
+<style>
+    .shifter-navigation {
+      border: {{ section.settings.outer_border_weight }}px solid {{ section.settings.border_color }};
+      background-color: #F7F7F7;
+    }
+    .shifter-navigation .cart-status a,
+    .shifter-navigation .featured-text p,
+    .shifter-navigation .social-icons a {
+      color: {{ section.settings.text_color }} !important;
+    }
+    .shifter-navigation input {
+      color: {{ section.settings.text_color }} !important;
+    }
+    /* .shifter-navigation input::placeholder {
+      color: {{ section.settings.text_color }} !important;
+      opacity: 1;
+    } */
+    .shifter-navigation input:-ms-input-placeholder {
+      color: {{ section.settings.text_color }} !important;
+      opacity: 1;
+    }
+    .shifter-navigation input::-ms-input-placeholder {
+      color: {{ section.settings.text_color }} !important;
+      opacity: 1;
+    }
+    .shifter-navigation ul#accordion > li  {
+      border-bottom: 1px solid white;
+      /* padding: 10px 30px;
+      min-height: 50px; */
+      display: flex;
+      align-items: center;
+      padding: 0;
+    }
+    .shifter-navigation ul#accordion ul.sub li {
+      border-bottom: {{ section.settings.sub_link_border_weight }}px solid {{ section.settings.border_color }} !important;
+    }
+    .shifter-navigation .cart-status a {
+      padding: 10px;
+      border: {{ section.settings.cart_link_weight }}px solid {{ section.settings.border_color }};
+      width: 88%;
+      margin: 0 auto;
+      position: relative;
+      display: block;
+    }
+    .shifter-navigation .cart-count {
+      position: absolute;
+      background: {{ section.settings.background_color }};
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      top: 7px;
+      right: 10px;
+      color: {{ section.settings.text_color }};
+      line-height: 30px;
+      text-align: center;
+     }
+     ul#accordion li, .accordion-toggle, .accordion-toggle2 {
+       border-bottom: {{ section.settings.sub_link_border_weight }}px solid {{ section.settings.border_color }};
+     }
+</style>
+{% schema %}
+  {
+    "name": "Mobile Navigation",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Color Styles"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background",
+        "default":"#fff"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text",
+        "default":"#000"
+      },
+      {
+        "type": "header",
+        "content": "Border Styles"
+      },
+      {
+        "type":      "range",
+        "id":        "outer_border_weight",
+        "min":       0,
+        "max":        5,
+        "step":       1,
+        "unit":       "px",
+        "label":     "Outer border weight",
+        "default":   2
+      },
+      {
+        "type":      "range",
+        "id":        "main_link_border_weight",
+        "min":       0,
+        "max":        5,
+        "step":       1,
+        "unit":       "px",
+        "label":     "Main link border weight",
+        "default":   2
+      },
+      {
+        "type":      "range",
+        "id":        "sub_link_border_weight",
+        "min":       0,
+        "max":        5,
+        "step":       1,
+        "unit":       "px",
+        "label":     "Sublink border weight",
+        "default":   1
+      },
+      {
+        "type":      "range",
+        "id":        "cart_link_weight",
+        "min":       0,
+        "max":        5,
+        "step":       1,
+        "unit":       "px",
+        "label":     "Cart link border weight",
+        "default":   1
+      },
+      {
+        "type":      "range",
+        "id":        "search_box_weight",
+        "min":       0,
+        "max":        5,
+        "step":       1,
+        "unit":       "px",
+        "label":     "Search box border weight",
+        "default":   2
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "label": "Borders",
+        "default":"#000"
+      },
+      {
+        "type": "paragraph",
+        "content": "Use the blocks below to add, reorder, or remove things from the mobile navigation"
+      },
+      {
+        "type": "image_picker",
+        "id": "sale_image",
+        "label": "Sale image"
+      }
+	  ],
+    "blocks": [
+      {
+        "type": "search_box",
+        "name": "Search Box",
+        "settings": []
+      },
+      {
+        "type": "navigation",
+        "name": "Navigation",
+        "settings": [
+          {
+            "type": "link_list",
+            "id": "main_nav",
+            "label": "Choose main menu",
+            "default":"main-menu"
+          },
+          {
+            "type": "header",
+            "content": "Nav Styles"
+          },
+          {
+            "type": "checkbox",
+            "id": "full_width_nav",
+            "label": "Enable full-width",
+            "default": true
+          },
+          {
+            "type": "color",
+            "id": "nav_top_level_bg",
+            "label": "Top Level Links Background",
+            "default":"#000"
+          },
+          {
+            "type": "color",
+            "id": "nav_top_level_links",
+            "label": "Top Level Links",
+            "default":"#fff"
+          },
+          {
+            "type": "color",
+            "id": "nav_second_level_bg",
+            "label": "Second Level Links Background",
+            "default":"#666"
+          },
+          {
+            "type": "color",
+            "id": "nav_second_level_links",
+            "label": "Second Level Links",
+            "default":"#fff"
+          },
+          {
+            "type": "color",
+            "id": "nav_third_level_bg",
+            "label": "Third Level Links Background",
+            "default":"#eee"
+          },
+          {
+            "type": "color",
+            "id": "nav_third_level_links",
+            "label": "Third Level Links",
+            "default":"#666"
+          }
+        ]
+      },
+      {
+        "type": "featured_image",
+        "name": "Featured Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "featured_image",
+            "label": "Choose featured image"
+          },
+          {
+            "type": "url",
+            "id": "featured_image_link",
+            "label": "Featured image link"
+          },
+          {
+            "type": "checkbox",
+            "id": "full_featured_image",
+            "label": "Enable full-width image",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type": "social_icons",
+        "name": "Social Icons",
+        "settings": []
+      },
+      {
+        "type": "featured_text",
+        "name": "Featured Text",
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "featured_text",
+            "label": "Featured Text",
+            "default": "<p><b>Featured Text</b></p><p><em>A great place to share about a sale!</em></p>"
+          }
+        ]
+      },
+      {
+        "type": "cart_status",
+        "name": "Cart Link",
+        "settings": [
+          {
+            "type": "select",
+            "id": "cart_icon",
+            "label": "Cart icon",
+            "options": [
+              {
+                "value": "cart",
+                "label": "Cart"
+              },
+              {
+                "value": "bag",
+                "label": "Bag"
+              }
+            ],
+            "info":"You can change the text in your edit language section"
+          }
+        ]
+      }
+    ],
+    "default": {
+      "blocks": [
+        {
+          "type": "featured_image"
+        },
+        {
+          "type": "cart_status"
+        },
+        {
+          "type": "navigation"
+        },
+        {
+          "type": "featured_text"
+        },
+        {
+          "type": "search_box"
+        },
+        {
+          "type": "social_icons"
+        }
+      ]
+    }
+  }
+{% endschema %}

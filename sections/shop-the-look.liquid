@@ -1,0 +1,370 @@
+<div id="shop-the-look-{{ section.id }}" class="shop-the-look index-section" data-section-id="{{ section.id }}" data-section-type="shoplook" data-aos="{{ settings.scroll_animation }}">
+  <div class="row">
+
+    {% capture desktop_image_layout %}
+      <div class="look-image desktop">
+        {% if section.settings.image != blank %}
+          {% render 'basic-responsive-image', type: section.settings.image, data_widths: '[180, 360, 540, 720, 900, 1080, 1296, 1512]' %}
+          <noscript>
+            <img src="{{ section.settings.image | img_url: '800x' }}" alt="{{ section.settings.image.alt }}">
+          </noscript>
+        {% else %}
+          <div class="onboard">
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {% endif %}
+        {% if section.settings.show_borders %}
+        <div class="back-box fadein"></div>
+        {% endif %}
+      </div>
+    {% endcapture %}
+    {% capture mobile_image_layout %}
+      <div class="look-image mobile">
+        {% if section.settings.image != blank %}
+          {% render 'basic-responsive-image', type: section.settings.image, data_widths: '[180, 360, 540, 720, 900, 1080, 1296, 1512]' %}
+          <noscript>
+            <img src="{{ section.settings.image | img_url: '800x' }}" alt="{{ section.settings.image.alt }}">
+          </noscript>
+        {% else %}
+          <div class="onboard">
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {% endif %}
+      </div>
+    {% endcapture %}
+
+    <div class="shop-the-look-wrapper">
+      {% if section.settings.layout == 'left' %}
+        {{ desktop_image_layout }}
+      {% endif %}
+
+      <div class="look-info {% if section.settings.text_align == 'center' %} text-centered{% endif %}">
+        {% if section.settings.show_borders %}
+
+          {% if section.settings.title != blank %}
+           <div class="section-heading">
+               <h2>{{ section.settings.title | escape }}</h2>
+             <span class="section-border">
+               {%- if settings.header_border_style == 'zigzag' -%}<div class="zigzag"></div>{% endif %}
+             </span>
+           </div>
+         {% endif %}
+
+        {% else %}
+          {% render 'section-headings', type: section.settings.title %}
+        {% endif %}
+
+        {{ mobile_image_layout }}
+
+        <div class="look-products" data-slider-index="{{ forloop.index }}">
+          {% if section.settings.look_collection == blank %}
+          {%- assign grid_item_width = span-3  -%}
+          {%- assign product_limit = 6  -%}
+          {% render 'onboard-product',  product_limit: product_limit, grid_item_width: grid_item_width %}
+          {% else %}
+
+          {% for product in collections[section.settings.look_collection].products %}
+          {% assign current_variant = product.selected_or_first_available_variant %}
+
+            <div class="product-index span-3" data-alpha="{{ product.title }}" data-price="{{ product.price }}" data-product-id="{{ product.id }}" data-id="{{ current_variant.id }}">
+              <a href="{{ product.url | within: collection }}">
+                <div class="reveal {% if settings.image_ratio == 'square' %}square-images{% elsif settings.image_ratio == 'vertical' %}vertical-images{% elsif settings.image_ratio == 'horizontal' %}horizontal-images{% endif %}">
+                  {%- assign preview_image = product.featured_media.preview_image -%}
+                  {%- assign second_image = product.media[1] -%}
+                  {% render "basic-responsive-image", type: preview_image, data_widths: '[180, 360, 540, 720, 900, 1080, 1296, 1512]' %}
+                  <noscript>
+                    <img src="{{ preview_image | img_url: '1024x' }}" alt="{{ preview_image.alt | escape }}">
+                  </noscript>
+                  {% if settings.display_options == 'image-switch' and product.media.size > 1 %}
+                  <div class="hidden">
+                    {% render "basic-responsive-image", type: second_image, data_widths: '[180, 360, 540, 720, 900, 1080, 1296, 1512]' %}
+                    <noscript>
+                      <img src="{{ second_image | img_url: '1024x' }}" alt="{{ second_image.alt | escape }}">
+                    </noscript>
+                  </div>
+                  {% endif %}
+
+                  {% if product.available %}
+                    {% for col in product.collections %}
+                      {% if col.handle == 'new' %}
+                        <div class="new icn">{{ 'products.general.new' | t }}</div>
+                      {% endif %}
+                    {% endfor %}
+                    {% if product.price < product.compare_at_price %}
+                      <div class="sale-item icn">{{ 'products.general.sale' | t }}</div>
+                    {% endif %}
+                  {% else %}
+                    <div class="so icn">{{ 'products.general.sold' | t }}</div>
+                  {% endif %}
+                </div>
+              </a>
+
+              <div class="product-info">
+                {% if section.settings.show_buy_buttons %}
+                  {% render 'product-grid-add', product: product %}
+                {% endif %}
+
+                <a href="{{ product.url | within: collection }}">
+                  {% if settings.vendor %}
+                    <p><em>{{ product.vendor }}</em></p>
+                  {% endif %}
+                  <div class="prod-title">{{ product.title }}</div>
+                </a>
+                <div class="price">
+                  {% if product.price < product.compare_at_price %}
+                    <div class="onsale"><span class="money">{{ product.price | money }}</span></div>
+                    <div class="was"><span class="money">{{ product.compare_at_price | money }}</span></div>
+                  {% else %}
+                    <div class="prod-price">
+                      {% if product.price_varies %}
+                        {{ 'products.general.from' | t }} <span class="money">{{ product.price_min | money }}</span> - <span class="money">{{ product.price_max | money }}</span>
+                      {% else %}
+                        <span class="money">{{ product.price | money }}</span>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+
+              </div>
+
+
+            </div>
+
+          {% endfor %}
+
+          {% endif %}
+        </div>
+      </div>
+
+      {% if section.settings.layout == 'right' %}
+        {{ desktop_image_layout }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+<style media="screen">
+  .shop-the-look-wrapper {
+    padding: 40px 0;
+  }
+  .shop-the-look-wrapper .look-image,
+  .shop-the-look-wrapper .look-info {
+    display: inline-block;
+    vertical-align: middle;
+    width: 47%;
+    margin: 0 1%;
+    position: relative;
+  }
+  .shop-the-look-wrapper .product-info .add {
+    padding: 5px !important;
+    display: block !important;
+    margin: 0 0 18px 0 !important;
+    line-height: 25px !important;
+    background: none !important;
+    cursor: pointer;
+    min-width: unset !important;
+  }
+  .shop-the-look-wrapper .product-info .add.AddtoCart {
+    width: 99.8%;
+  }
+  #buy-all {
+    cursor: pointer;
+    position: absolute;
+    bottom: 18%;
+    right: 10px;
+  }
+
+  .look-image.mobile {
+   display: none;
+  }
+
+  .shop-the-look-wrapper .section-heading {
+    transition: opacity 700ms;
+    -webkit-transition: opacity 700ms;
+    -moz-transition: opacity 700ms;
+    opacity: 0;
+  }
+
+  .look-products {
+    position: relative;
+    padding: 15px 20px;
+    transition: opacity 700ms;
+    -webkit-transition: opacity 700ms;
+    -moz-transition: opacity 700ms;
+    opacity: 0;
+  }
+  .look-products.load,
+  .shop-the-look-wrapper .section-heading.load {
+    opacity: 1;
+  }
+  .look-products .slick-prev {
+    position: absolute;
+    left: 0px;
+    top: 40%;
+    z-index: 1;
+    cursor: pointer;
+  }
+  .look-products .slick-next {
+    position: absolute;
+    right: 0px;
+    top: 40%;
+    z-index: 1;
+    cursor: pointer;
+  }
+  .look-products .slick-arrow {
+    font-size: 20px;
+  }
+  .shop-the-look-wrapper .back-box {
+    position: absolute;
+    width: 100%;
+    height: 440px;
+    z-index: -1;
+    left: 0px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: white;
+  }
+  .shop-the-look-wrapper .box-ratio img,
+  .shop-the-look-wrapper .box-ratio {
+    background-color: unset !important;
+  }
+  .shop-the-look-wrapper .section-heading {
+    position: relative;
+    padding-bottom: 10px;
+    width: 114%;
+    z-index: -2;
+  }
+
+  #shop-the-look-{{ section.id }} .shop-the-look-wrapper .product-info .add {
+    color: {{ settings.button_text }} !important;
+    background-color: {{ settings.button_color }} !important;
+  }
+
+  #shop-the-look-{{ section.id }} .shop-the-look-wrapper .product-info .add:hover {
+    color: {{ settings.button_hover_text }} !important;
+    background: {{ settings.button_hover }} !important;
+    cursor: pointer;
+  }
+  {%- if settings.header_border_style == 'zigzag' -%}
+  #shop-the-look-{{ section.id }} .section-border .zigzag {
+    top: -15px;
+  }
+  {% endif %}
+  {% if section.settings.show_borders %}
+    {%- if settings.header_border_style == 'zigzag' -%}
+      #shop-the-look-{{ section.id }} .shop-the-look-wrapper .back-box {
+        border: {{ settings.header_border_weight}}px solid {{ settings.section_heading_accent }};
+      }
+    {% else %}
+      #shop-the-look-{{ section.id }} .shop-the-look-wrapper .back-box {
+        border: {{ settings.header_border_weight}}px {{ settings.header_border_style }} {{ settings.section_heading_accent }};
+      }
+    {% endif %}
+  {% endif %}
+  {% if section.settings.layout == 'left' %}
+    #shop-the-look-{{ section.id }} .shop-the-look-wrapper .section-heading {
+      margin-left: -14% !important;
+    }
+    #shop-the-look-{{ section.id }} .shop-the-look-wrapper .section-heading h2 {
+      position: absolute;
+      top: -13px;
+      right: 0;
+    }
+  {% else %}
+    #shop-the-look-{{ section.id }} .shop-the-look-wrapper .section-heading {
+      margin-right: -14% !important;
+    }
+    #shop-the-look-{{ section.id }} .shop-the-look-wrapper .section-heading h2 {
+      position: absolute;
+      top: -13px;
+      left: 0;
+    }
+  {% endif %}
+  @media screen and (max-width: 1220px) {
+    .shop-the-look-wrapper .back-box {
+      height: 388px;
+    }
+  }
+  @media screen and (max-width: 980px) {
+    .look-image.desktop {
+      display: none;
+    }
+    .look-image.mobile {
+     display: block;
+     margin-top: 40px;
+     margin-bottom: 10px;
+    }
+    .shop-the-look-wrapper .look-image,
+    .shop-the-look-wrapper .look-info {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .shop-the-look-wrapper .product-info .add {
+      font-size: 12px;
+    }
+  }
+  .shop-the-look .product-info input {
+    width: auto;
+    min-width: unset;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Shop the Look",
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Shop the Look"
+      },
+      {
+        "type": "collection",
+        "id": "look_collection",
+        "label": "Choose collection"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_buy_buttons",
+        "label": "Show options and add to cart buttons",
+        "default": false
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Layout",
+        "default": "right",
+        "options": [
+          {
+            "value": "left",
+            "label": "Image on left"
+          },
+          {
+            "value": "right",
+            "label": "Image on right"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_borders",
+        "label": "Show background borders",
+        "default": true,
+        "info": "Will use same style border as section headings."
+      }
+    ],
+    "presets": [
+      {
+        "name": "Shop the Look",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}

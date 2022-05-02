@@ -1,0 +1,24 @@
+{% assign cart_count = cart.item_count | plus:0 %}
+
+<div id="CartDrawer" class="drawer drawer--right border-0  px-0 text-center">
+  <div class="drawer__header bg-blue-baby border-0 px-4 relative">
+    <div id="mini-cart-container" class="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 top-1/2 transform">
+      <a href="/cart"{% if settings.ajax_cart_method == 'drawer' %} class="site-header__cart-toggle js-drawer-open-right" aria-controls="CartDrawer" aria-expanded="false"{% endif %}>
+        <img src="{{ 'cart-icon.svg' | asset_url }}" />
+        <div class="cart-count absolute -top-1.5 font-serif hidden-count right-2 text-sm w-3">{{ cart.item_count }}</div>
+      </a>
+    </div>
+    <div class="table-cell drawer__close js-drawer-close ml-auto" id="mini-cart-close">
+      <img class="drawer__close js-drawer-close" src="https://cdn.shopify.com/s/files/1/0492/6321/4743/files/close_button.svg?v=1612551339" />
+    </div>
+  </div>
+  <div id="react-empty-cart">
+    <script type="application/json">
+      {
+        "cartChair": "{{ 'cart-chair.gif' | asset_url }}",
+        "cartCount": {{ cart.item_count | json }}
+      }
+    </script>
+  </div>
+  <div id="CartContainer"></div>
+</div>

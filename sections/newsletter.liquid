@@ -1,0 +1,133 @@
+<section id="newsletter" class="homepage-newsletter-{{ section.id }} gridlock-fluid" data-aos="{{ settings.scroll_animation }}">
+  <div class="row">
+    <div class="section-header row">
+      {% if section.settings.heading != blank %}
+        <div class="section-title text-center">
+          <h2>{{ section.settings.heading | escape }}</h2>
+        </div>
+      {% endif %}
+      {%- if section.settings.newsletter_subheading != blank -%}
+        <p>{{ section.settings.newsletter_subheading }}</p>
+      {%- endif -%}
+    </div>
+    <div class="section-newsletter row">
+      {% form 'customer' %}
+        {{ form.errors | default_errors }}
+        {% if form.posted_successfully? %}
+          <p class="form--success">{{ 'general.newsletter_form.confirmation' | t }}</p>
+        {% else %}
+          <div class="input-group password__input-group">
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <input type="email"
+              name="contact[email]"
+              id="Email"
+              class="input-group__field newsletter__input"
+              value="{% if customer %}{{ customer.email }}{% endif %}"
+              placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}"
+              autocorrect="off"
+              autocapitalize="off">
+              <button type="submit" class="btn newsletter__submit" name="commit" id="Subscribe">
+                <span class="newsletter__submit-text--large">{{ 'general.newsletter_form.submit' | t }}</span>
+              </button>
+          </div>
+        {% endif %}
+      {% endform %}
+    </div>
+    <div class="section-icons text-center row">
+      {% render "social-icons" %}
+    </div>
+  </div>
+</section>
+<style>
+  .homepage-newsletter-{{ section.id }} {
+    padding: 0;
+    margin: 0;
+  }
+  .homepage-newsletter-{{ section.id }} {
+      background: {{ section.settings.background_color }};
+  }
+  .homepage-newsletter-{{ section.id }} h2 {
+    color: {{ section.settings.section_heading_text }} !important;
+  }
+
+  .homepage-newsletter-{{ section.id }} p {
+    color: {{ section.settings.subsection_heading_text }} !important;
+    font-size: {{ section.settings.subheading_font_size }}px !important;
+    max-width: 60%;
+    margin: 0 auto !important;
+    line-height: 24px;
+    padding-bottom: 20px !important;
+  }
+  .homepage-newsletter-{{ section.id }} p a {
+    color: {{ section.settings.subsection_heading_text }} !important;
+    opacity: 0.9;
+  }
+  .homepage-newsletter-{{ section.id }} p a:hover {
+    text-decoration: underline;
+  }
+  @media screen and (max-width: 500px) {
+    .homepage-newsletter-{{ section.id }} p {
+      max-width: 100%;
+    }
+  }
+  .homepage-newsletter-{{ section.id }} ul#social-icons li a:hover {
+    opacity: 0.8;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Newsletter",
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Subscribe to our newsletter"
+      },
+      {
+        "type": "richtext",
+        "id": "newsletter_subheading",
+        "label": "Subheading",
+        "default": "<p>Signup to receive news and updates</p>"
+      },
+      {
+        "type": "range",
+        "id": "subheading_font_size",
+        "min": 12,
+        "max": 36,
+        "step": 1,
+        "unit": "px",
+        "label": "Subheading size",
+        "default": 16
+      },
+      {
+        "type": "color",
+        "id": "section_heading_text",
+        "label": "Heading",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "subsection_heading_text",
+        "label": "Subheading",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background",
+        "default": "#f7f7f7"
+      },
+      {
+        "type": "paragraph",
+        "content": "Any customers who sign up will have an account created for them in Shopify. [View customers](/admin/customers?query=&accepts_marketing=1)"
+      }
+    ],
+    "presets": [{
+      "name": "Newsletter",
+      "category": "Promotional"
+    }]
+  }
+{% endschema %}

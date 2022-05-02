@@ -1,0 +1,140 @@
+<section class="index-section {% unless section.settings.full-width %}row{% endunless %}" data-section-id="{{ section.id }}" data-section-type="feat-image-section" data-aos="{{ settings.scroll_animation }}">
+{% if section.settings.image %}
+  <div class="featured-image-wrapper full-width-image-{{ section.id }} lazyload lazyfade"
+  data-bgset="{% render 'bgset', image: section.settings.image %}"
+  data-sizes="auto">
+{% else %}
+  <div class="featured-image-wrapper full-width-image-{{ section.id }}">
+{% endif %}
+    <div class="row tc">
+      <div class="feat-image-content desktop-12 tablet-6 mobile-3">
+        <div class="feat-image-text">
+          {{ section.settings.page_text | escape }}
+
+          <div class="clear"></div>
+
+          {% if section.settings.link != blank %}
+            <a class="button" href="{{ section.settings.link }}">
+              {{ section.settings.button_text }}
+            </a>
+          {% endif %}
+        </div>
+
+        {% if section.settings.image == blank %}
+          <div class="onboard plax-placehold">
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+<div class="clear"></div>
+
+<style>
+  .full-width-image-{{ section.id }} .row.tc {
+    height: {{ section.settings.image_height }}px;
+  }
+
+  .full-width-image-{{ section.id }} {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    {% if section.settings.fixed %}
+    background-attachment: fixed;
+    {% endif %}
+    padding-top: 0;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+  .no-js .full-width-image-{{ section.id }} {
+    background-image: url('{{ section.settings.image | img_url: '1024x' }}');
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+  }
+  .full-width-image-{{ section.id }} .feat-image-text {
+    font-size: {{ section.settings.font_size }}px;
+    color: {{ section.settings.text_color }};
+  }
+  .shopify-section:first-child .featured-image-wrapper {
+    margin-top: 0 !important;
+  }
+</style>
+{% schema %}
+{
+  "name": "Image with text overlay",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full-width",
+      "label": "Enable full width",
+      "default":true
+    },
+    {
+      "type": "checkbox",
+      "id": "fixed",
+      "label": "Enable fixed image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "min": 100,
+      "max": 1000,
+      "step": 15,
+      "unit": "px",
+      "label": "Height",
+      "default": 535
+    },
+    {
+      "type": "header",
+      "content": "Overlay Heading"
+    },
+    {
+      "type": "text",
+      "id": "page_text",
+      "label": "Heading",
+      "default": "Image with Text overlay"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Size",
+      "default": 26
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color",
+      "default": "#000"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Add a button",
+      "info": "Visible only if a link has been chosen"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with text overlay",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}

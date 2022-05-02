@@ -1,0 +1,35 @@
+production:
+  password: shptka_400f82798e302ab750af11867136effe
+  theme_id: "130631598303" # Do not remove or change this ID. This is the theme id for the production. ID: 128331710615.
+  store: wallnut-art.myshopify.com
+  ignore_files:
+    - assets/stylesheet.css
+    - assets/theme.js
+    - assets/alice-carousel.css
+    - assets/ajax-cart.js
+    - assets/styles.gift-card.scss
+
+# Dev Store Creds
+# development:
+#   password: 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
+#   theme_id: "130253848813"
+#   store: dev1-levity.myshopify.com
+#   ignore_files:
+#     - assets/stylesheet.css
+#     - assets/theme.js
+#     - assets/alice-carousel.css
+#     - assets/ajax-cart.js
+#     - assets/styles.gift-card.scss
+#     - assets/landing-page.scss
+
+# Prod Store Creds
+development:
+  password: shptka_400f82798e302ab750af11867136effe
+  theme_id: "130631598303"
+  store: wallnut-art.myshopify.com
+  ignore_files:
+    - assets/stylesheet.css
+    - assets/theme.js
+    - assets/alice-carousel.css
+    - assets/ajax-cart.js
+    - assets/styles.gift-card.scss 

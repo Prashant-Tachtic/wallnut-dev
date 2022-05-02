@@ -1,0 +1,12 @@
+{% if template contains 'collection' and collection.description contains '[#banner_image]' or collection.description contains '[#banner_caption]'%}
+  <div class="collection-banner">
+    {%- if collection.description contains '[#banner_image]' -%}
+      {{ collection.description | split: '[/banner_image]' | first | split: '[#banner_image]' | last }}
+    {%- endif -%}
+    {%- if collection.description contains '[#banner_caption]' -%}
+      <div class="banner-caption">
+        {{ collection.description | split: '[/banner_caption]' | first | split: '[#banner_caption]' | last }}
+      </div>
+    {%- endif -%}
+  </div>
+{% endif %}

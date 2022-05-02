@@ -1,0 +1,33 @@
+{% if collection.empty? %}
+  {% comment %}add default state for collection block in storefront editor{% endcomment %}
+  {% capture collection_title %}{{ 'homepage.onboarding.collection_title' | t }}{% endcapture %}
+  {% capture collection_image_url %}{% endcapture %}
+{% else %}
+  {% capture collection_title %}{{ collection.title }}{% endcapture %}
+{% endif %}
+
+<div class="collection-image {% if settings.image_ratio == 'square' %}square-images{% elsif settings.image_ratio == 'vertical' %}vertical-images{% elsif settings.image_ratio == 'horizontal' %}horizontal-images{% endif %}">
+  <a href="{{ collection.url }}" title="{{ collection_title }}">
+    {% if collection.image %}
+      {% render "basic-responsive-image", type: collection.image, data_widths: '[180, 360, 540, 720, 900]' %}
+      <noscript>
+        <img src="{{ collection.image | img_url: '1024x1024' }}" alt="{{ collection.image.alt | escape }}" class="collection__image">
+      </noscript>
+    {% elsif collection.products.first and collection.products.first.media != empty %}
+      {% render "basic-responsive-image", type: collection.products.first.featured_media.preview_image, data_widths: '[180, 360, 540, 720, 900]' %}
+      <noscript>
+        <img src="{{ collection.products.first.featured_media.preview_image | img_url: '1024x1024' }}" alt="{{ collection.products.first.featured_media.preview_image.alt | escape }}" class="collection__image">
+      </noscript>
+    {% else %}
+      {% render "basic-responsive-image", type: blank, data_widths: '[180, 360, 540, 720, 900]' %}
+      <noscript>
+        <img src="{{ blank | img_url: '1024x1024' }}" alt="{{ collection.products.first.featured_media.alt | escape }}" class="collection__image">
+      </noscript>
+    {% endif %}
+  </a>
+</div>
+<div class="collection-list product-info">
+  <a href="{{ collection.url }}" title="{{ collection_title }}">
+    <div class="prod-title">{{ collection.title }}<br />{{ collection.products_count }} {{ 'collections.general.items' | t }}</div>
+  </a>
+</div>

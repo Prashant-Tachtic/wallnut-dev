@@ -1,0 +1,120 @@
+<div id="react-whats-new">
+  <script type="application/json">
+    {
+      "settings": {{ section.settings | json }}
+    }
+  </script>
+</div>
+{% schema %}
+{
+  "name": "What's New Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "What's New"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "What's New Title"
+    },
+    {
+      "type": "text",
+      "id": "image_left_text",
+      "label": "Left Image Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_left",
+      "label": "Left Image Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_left_tablet",
+      "label": "Left Image Tablet"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_left_mobile",
+      "label": "Left Image Mobile"
+    },
+    {
+      "type": "text",
+      "id": "left_button_text",
+      "label": "Left Button Text"
+    },
+    {
+      "type": "url",
+      "id": "left_button_link",
+      "label": "Left Button Link"
+    },
+    {
+      "type": "text",
+      "id": "image_tr_text",
+      "label": "Top Right Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_top_right",
+      "label": "Top Right Image Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_top_right_tablet",
+      "label": "Top Right Image Tablet"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_top_right_mobile",
+      "label": "Top Right Image Mobile"
+    },
+    {
+      "type": "text",
+      "id": "tr_button_text",
+      "label": "Top Right Button Text"
+    },
+    {
+      "type": "url",
+      "id": "tr_button_link",
+      "label": "Top Right Button Link"
+    },
+    {
+      "type": "text",
+      "id": "image_br_text",
+      "label": "Bottom Right Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_bottom_right",
+      "label": "Top Right Image Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_bottom_right_tablet",
+      "label": "Top Right Image Tablet"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_bottom_right_mobile",
+      "label": "Top Right Image Mobile"
+    },
+    {
+      "type": "text",
+      "id": "br_button_text",
+      "label": "Bottom Right Button Text"
+    },
+    {
+      "type": "url",
+      "id": "br_button_link",
+      "label": "Bottom Right Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "What's New",
+      "category": "React Components"
+    }
+  ]
+}
+
+{% endschema %}

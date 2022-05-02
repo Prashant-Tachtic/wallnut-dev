@@ -1,0 +1,5 @@
+{%- for product_option in product.options_with_values -%}
+  {%- if product_option.name == 'Color' or product_option.name == 'color' or product_option.name == 'Colour' or product_option.name == 'colour' -%}
+  {%- for value in product_option.values -%}{{ value | handleize }}{%- unless forloop.last -%}, {%- endunless -%}{%- endfor -%}
+  {%- endif -%}
+{%- endfor -%}

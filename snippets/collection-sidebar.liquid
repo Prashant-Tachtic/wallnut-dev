@@ -1,0 +1,136 @@
+<div class="clear"></div>
+
+<div id="sidebar" class="desktop-3 tablet-6 mobile-3{% if section.settings.filter_position == 'right_sidebar' %} right{% endif %}">
+  {% comment %}
+  Include block settings for collection template to add sidebar menus
+  {% endcomment %}
+  {% if collection.description and section.settings.description_position == "sidebar_description" %}
+    <div class="sidebar-collection-description">
+      {% if collection.description contains '[#banner_image]' or collection.description contains '[#banner_caption]' %}
+        <div class="rte">{{ collection.description | split: '[#' | first }}</div>
+      {% else %}
+         <div class="rte">{{ collection.description }}</div>
+      {% endif %}
+    </div>
+  {% endif %}
+  {% for block in section.blocks %}
+    {% render 'filters', collection: collection block: block, forloop: forloop %}
+    {% if block.type == 'vendor_list' %}
+      {% if collection.handle == "all" %}
+        <div class="filter" {{ block.shopify_attributes }}>
+          <button class="filter-menu">
+            <h4>{{ block.settings.shop_by_designer_title }}</h4>
+          </button>
+          <ul class="filter-list">
+            {% for product_vendor in shop.vendors %}
+            <li>{{ product_vendor | link_to_vendor  }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% else %}
+        <div class="filter" {{ block.shopify_attributes }}>
+          <button class="filter-menu">
+            <h4>{{ block.settings.shop_by_designer_title }}</h4>
+          </button>
+          <ul class="filter-list">
+            {% for product_vendor in collection.all_vendors %}
+            <li class="{{ product_vendor | handelize }}">{{ product_vendor | link_to_vendor }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% elsif block.type == 'menu' %}
+      <div class="filter" {{ block.shopify_attributes }}>
+        <button class="filter-menu">
+          <h4>{{ block.settings.title }}</h4>
+        </button>
+        <ul class="filter-list sidebar-menu">
+          {% for link in linklists[block.settings.side_nav].links %}
+          {% if link.links != blank %}
+          <li class="extend has_sub_menu" aria-haspopup="true" aria-expanded="false"><a href="{{ link.url }}">{{ link.title }}</a></li>
+          <ul class="extended-submenu">
+            {% for sub_link in link.links %}
+            <li><a href="{{ sub_link.url }}">{{ sub_link.title }}</a></li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <li>{{ link.title | link_to: link.url }}</li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% elsif block.type == 'image' %}
+      {%- assign image_size = '450x' -%}
+      <div class="image_container" {% if forloop.index == 1 %}style="margin-top:0;"{% endif %}>
+        <a href="{{ block.settings.link }}">
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | img_url: image_size }}" alt="{{ block.settings.image.alt }}">
+          {% else %}
+            {{ 'collection-3' | placeholder_svg_tag }}
+          {% endif %}
+        </a>
+      </div>
+    {% elsif block.type == 'text_note' %}
+      <div class="textnote_container">
+        {% if block.settings.textbox_heading != blank %}<h4>{{ block.settings.textbox_heading }}</h4>{% endif %}
+        {% if block.settings.textbox_subheading != blank %}
+          <div class="subheading{% if block.settings.subheading_align == 'center' %} center{% endif %}">
+            {{ block.settings.textbox_subheading }}
+          </div>
+        {% endif %}
+      </div>
+    {% elsif block.type == 'collection' %}
+      {%- assign this_collection = collections[block.settings.collection] -%}
+      {% unless collection.handle == this_collection.handle %} {% comment %}Don't show the same collection as you are viewing in the sidebar{% endcomment %}
+        {%- assign prod_limit = block.settings.limit -%}
+        <div class="collection_container mobile-hide">
+          <h4><a href="{{ this_collection.url }}">{{ block.settings.title }}</a></h4>
+          <div class="sidebar_product_container">
+            {% for product in this_collection.products limit: prod_limit %}
+              <div class="product-index" data-alpha="{{ product.title }}" data-price="{{ product.price }}">
+                {% if product.available %}
+                  {% for col in product.collections %}
+                    {% if col.handle == 'new' %}
+                      <div class="new icn">{{ 'products.general.new' | t }}</div>
+                    {% endif %}
+                  {% endfor %}
+                  {% if product.price < product.compare_at_price %}
+                    <div class="sale-item icn">{{ 'products.general.sale' | t }}</div>
+                  {% endif %}
+                {% else %}
+                  <div class="so icn">{{ 'products.general.sold' | t }}</div>
+                {% endif %}
+
+                <a href="{{ product.url | within: collection }}">
+                  <div class="reveal">
+                    {%- assign preview_image = product.featured_media.preview_image -%}
+                    {%- assign second_image = product.media[1] -%}
+                    {% render "basic-responsive-image", type: preview_image, data_widths: '[180, 360, 540, 720]' %}
+                    <noscript>
+                      <img src="{{ preview_image | img_url: '1024x' }}" alt="{{ preview_image.alt | escape }}">
+                    </noscript>
+                    {% if settings.display_options == 'image-switch' and product.images.size > 1 %}
+                    <div class="hidden">
+                      {% render "basic-responsive-image", type: second_image, data_widths: '[180, 360, 540, 720, 900]' %}
+                      <noscript>
+                        <img src="{{ second_image | img_url: '1024x' }}" alt="{{ second_image.alt | escape }}">
+                      </noscript>
+                    </div>
+                    {% endif %}
+                  </div>
+                </a>
+
+                <div class="product-info">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="prod-title">{{ product.title }}</div>
+                  </a>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      <div class="clear"></div>
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+</div>

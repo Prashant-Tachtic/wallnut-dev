@@ -1,0 +1,22 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+(self["webpackChunkecomm_levity"] = self["webpackChunkecomm_levity"] || []).push([["npm.json-parse-better-errors"],{
+
+/***/ "./node_modules/json-parse-better-errors/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/json-parse-better-errors/index.js ***!
+  \********************************************************/
+/***/ ((module) => {
+
+eval("\n\nmodule.exports = parseJson\nfunction parseJson (txt, reviver, context) {\n  context = context || 20\n  try {\n    return JSON.parse(txt, reviver)\n  } catch (e) {\n    if (typeof txt !== 'string') {\n      const isEmptyArray = Array.isArray(txt) && txt.length === 0\n      const errorMessage = 'Cannot parse ' +\n      (isEmptyArray ? 'an empty array' : String(txt))\n      throw new TypeError(errorMessage)\n    }\n    const syntaxErr = e.message.match(/^Unexpected token.*position\\s+(\\d+)/i)\n    const errIdx = syntaxErr\n    ? +syntaxErr[1]\n    : e.message.match(/^Unexpected end of JSON.*/i)\n    ? txt.length - 1\n    : null\n    if (errIdx != null) {\n      const start = errIdx <= context\n      ? 0\n      : errIdx - context\n      const end = errIdx + context >= txt.length\n      ? txt.length\n      : errIdx + context\n      e.message += ` while parsing near '${\n        start === 0 ? '' : '...'\n      }${txt.slice(start, end)}${\n        end === txt.length ? '' : '...'\n      }'`\n    } else {\n      e.message += ` while parsing '${txt.slice(0, context * 2)}'`\n    }\n    throw e\n  }\n}\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9ub2RlX21vZHVsZXMvanNvbi1wYXJzZS1iZXR0ZXItZXJyb3JzL2luZGV4LmpzLmpzIiwibWFwcGluZ3MiOiJBQUFZOztBQUVaO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxJQUFJO0FBQ0o7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsT0FBTyxFQUFFLHNCQUFzQjtBQUMvQjtBQUNBLE9BQU87QUFDUCxNQUFNO0FBQ04sc0NBQXNDLDBCQUEwQjtBQUNoRTtBQUNBO0FBQ0E7QUFDQSIsInNvdXJjZXMiOlsid2VicGFjazovL2Vjb21tLWxldml0eS8uL25vZGVfbW9kdWxlcy9qc29uLXBhcnNlLWJldHRlci1lcnJvcnMvaW5kZXguanM/NTg1NyJdLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIHN0cmljdCdcblxubW9kdWxlLmV4cG9ydHMgPSBwYXJzZUpzb25cbmZ1bmN0aW9uIHBhcnNlSnNvbiAodHh0LCByZXZpdmVyLCBjb250ZXh0KSB7XG4gIGNvbnRleHQgPSBjb250ZXh0IHx8IDIwXG4gIHRyeSB7XG4gICAgcmV0dXJuIEpTT04ucGFyc2UodHh0LCByZXZpdmVyKVxuICB9IGNhdGNoIChlKSB7XG4gICAgaWYgKHR5cGVvZiB0eHQgIT09ICdzdHJpbmcnKSB7XG4gICAgICBjb25zdCBpc0VtcHR5QXJyYXkgPSBBcnJheS5pc0FycmF5KHR4dCkgJiYgdHh0Lmxlbmd0aCA9PT0gMFxuICAgICAgY29uc3QgZXJyb3JNZXNzYWdlID0gJ0Nhbm5vdCBwYXJzZSAnICtcbiAgICAgIChpc0VtcHR5QXJyYXkgPyAnYW4gZW1wdHkgYXJyYXknIDogU3RyaW5nKHR4dCkpXG4gICAgICB0aHJvdyBuZXcgVHlwZUVycm9yKGVycm9yTWVzc2FnZSlcbiAgICB9XG4gICAgY29uc3Qgc3ludGF4RXJyID0gZS5tZXNzYWdlLm1hdGNoKC9eVW5leHBlY3RlZCB0b2tlbi4qcG9zaXRpb25cXHMrKFxcZCspL2kpXG4gICAgY29uc3QgZXJySWR4ID0gc3ludGF4RXJyXG4gICAgPyArc3ludGF4RXJyWzFdXG4gICAgOiBlLm1lc3NhZ2UubWF0Y2goL15VbmV4cGVjdGVkIGVuZCBvZiBKU09OLiovaSlcbiAgICA/IHR4dC5sZW5ndGggLSAxXG4gICAgOiBudWxsXG4gICAgaWYgKGVycklkeCAhPSBudWxsKSB7XG4gICAgICBjb25zdCBzdGFydCA9IGVycklkeCA8PSBjb250ZXh0XG4gICAgICA/IDBcbiAgICAgIDogZXJySWR4IC0gY29udGV4dFxuICAgICAgY29uc3QgZW5kID0gZXJySWR4ICsgY29udGV4dCA+PSB0eHQubGVuZ3RoXG4gICAgICA/IHR4dC5sZW5ndGhcbiAgICAgIDogZXJySWR4ICsgY29udGV4dFxuICAgICAgZS5tZXNzYWdlICs9IGAgd2hpbGUgcGFyc2luZyBuZWFyICcke1xuICAgICAgICBzdGFydCA9PT0gMCA/ICcnIDogJy4uLidcbiAgICAgIH0ke3R4dC5zbGljZShzdGFydCwgZW5kKX0ke1xuICAgICAgICBlbmQgPT09IHR4dC5sZW5ndGggPyAnJyA6ICcuLi4nXG4gICAgICB9J2BcbiAgICB9IGVsc2Uge1xuICAgICAgZS5tZXNzYWdlICs9IGAgd2hpbGUgcGFyc2luZyAnJHt0eHQuc2xpY2UoMCwgY29udGV4dCAqIDIpfSdgXG4gICAgfVxuICAgIHRocm93IGVcbiAgfVxufVxuIl0sIm5hbWVzIjpbXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./node_modules/json-parse-better-errors/index.js\n");
+
+/***/ })
+
+}]);

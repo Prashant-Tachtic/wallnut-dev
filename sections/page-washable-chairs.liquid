@@ -1,0 +1,245 @@
+<div id="react-custom-landing-one">
+    <script type="application/json">
+        {
+            "settings": {{ section.settings | json }},
+            "videos": {
+                "link1": "{{ 'Step-one_534x375px_CC_AB_3.mp4' | file_url }}",
+                "link2": "{{ 'Step-two_534x375px_CC_AB_2.mp4' | file_url }}",
+                "link3": "{{ 'Step-three_534x375px_CC_AB_3.mp4' | file_url }}"
+            }
+        }
+    </script>
+</div>
+
+{% schema %}
+{
+    "name": "Washable Chairs LP",
+    "settings": [
+        {
+            "id": "page_title",
+            "type": "text",
+            "label": "Page Title"
+        },
+        {
+            "type": "header",
+            "content": "Hero"
+        },
+        {
+            "id": "desktop_hero",
+            "type": "image_picker",
+            "label": "Desktop Hero"
+        },
+        {
+            "id": "tablet_hero",
+            "type": "image_picker",
+            "label": "Tablet Hero"
+        },
+        {
+            "id": "mobile_hero",
+            "type": "image_picker",
+            "label": "Mobile Hero"
+        },
+        {
+            "id": "header",
+            "type": "text",
+            "label": "Header"
+        },
+        {
+            "id": "header_button_text",
+            "type": "text",
+            "label": "Header Button Text"
+        },
+        {
+            "id": "header_button_link",
+            "type": "url",
+            "label": "Header Button Link"
+        },
+        {
+            "type": "header",
+            "content": "Custom Section"
+        },
+        {
+            "id": "custom_section_1_title",
+            "type": "text",
+            "label": "Custom Section 1 Title"
+        },
+        {
+            "id": "custom_section_1_icon",
+            "type": "image_picker",
+            "label": "Custom Section 1 Icon"
+        },
+        {
+            "id": "custom_section_1_image",
+            "type": "image_picker",
+            "label": "Custom Section 1 Image"
+        },
+        {
+            "id": "custom_section_1_text",
+            "type": "textarea",
+            "label": "Custom Section 1 Text"
+        },
+        {
+            "id": "custom_section_1_link_text",
+            "type": "text",
+            "label": "Custom Section 1 Link Text"
+        },
+        {
+            "id": "custom_section_1_link",
+            "type": "url",
+            "label": "Custom Section 1 Link"
+        },
+        {
+            "id": "custom_section_2_title",
+            "type": "text",
+            "label": "Custom Section 2 Title"
+        },
+        {
+            "id": "custom_section_2_icon",
+            "type": "image_picker",
+            "label": "Custom Section 2 Icon"
+        },
+        {
+            "id": "custom_section_2_image",
+            "type": "image_picker",
+            "label": "Custom Section 2 Image"
+        },
+        {
+            "id": "custom_section_2_text",
+            "type": "textarea",
+            "label": "Custom Section 2 Text"
+        },
+        {
+            "id": "custom_section_2_link_text",
+            "type": "text",
+            "label": "Custom Section 2 Link Text"
+        },
+        {
+            "id": "custom_section_2_link",
+            "type": "url",
+            "label": "Custom Section 2 Link"
+        },
+        {
+            "id": "custom_section_3_title",
+            "type": "text",
+            "label": "Custom Section 3 Title"
+        },
+        {
+            "id": "custom_section_3_icon",
+            "type": "image_picker",
+            "label": "Custom Section 3 Icon"
+        },
+        {
+            "id": "custom_section_3_image",
+            "type": "image_picker",
+            "label": "Custom Section 3 Image"
+        },
+        {
+            "id": "custom_section_3_text",
+            "type": "textarea",
+            "label": "Custom Section 3 Text"
+        },
+        {
+            "id": "custom_section_3_link_text",
+            "type": "text",
+            "label": "Custom Section 3 Link Text"
+        },
+        {
+            "id": "custom_section_3_link",
+            "type": "url",
+            "label": "Custom Section 3 Link"
+        },
+        {
+                    "type": "header",
+                    "content": "Grid Text"
+                },
+                {
+                    "id": "header_text",
+                    "type": "text",
+                    "label": "Header Text"
+                },
+                {
+                    "id": "header_hash_tag",
+                    "type": "text",
+                    "label": "Header Hash Tag"
+                },
+                {
+                    "id": "link_text",
+                    "type": "text",
+                    "label": "Link Text"
+                },
+                {
+                    "id": "link_url",
+                    "type": "url",
+                    "label": "Link Url"
+                },
+                {
+                    "type": "header",
+                    "content": "Desktop Images"
+                },
+                {
+                    "id": "desktop_images_1_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 1 Image"
+                },
+                {
+                    "id": "desktop_images_2_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 2 Image"
+                },
+                {
+                    "id": "desktop_images_3_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 3 Image"
+                },
+                {
+                    "id": "desktop_images_4_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 4 Image"
+                },
+                {
+                    "id": "desktop_images_5_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 5 Image"
+                },
+                {
+                    "id": "desktop_images_6_image",
+                    "type": "image_picker",
+                    "label": "Desktop Images 6 Image"
+                },
+                {
+                    "type": "header",
+                    "content": "Mobile Images"
+                },
+                {
+                    "id": "mobile_images_1_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 1 Image"
+                },
+                {
+                    "id": "mobile_images_2_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 2 Image"
+                },
+                {
+                    "id": "mobile_images_3_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 3 Image"
+                },
+                {
+                    "id": "mobile_images_4_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 4 Image"
+                },
+                {
+                    "id": "mobile_images_5_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 5 Image"
+                },
+                {
+                    "id": "mobile_images_6_image",
+                    "type": "image_picker",
+                    "label": "Mobile Images 6 Image"
+                }
+    ]
+}
+{% endschema %}

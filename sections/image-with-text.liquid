@@ -1,0 +1,173 @@
+<!-- <div class="index-section hidden" data-section-id="{{ section.id }}" data-section-type="product-section" data-aos="{{ settings.scroll_animation }}">
+  <div class="row">
+    {% case section.settings.image_width %}
+    {% when '33%' %}
+      {%- assign image_size = '700x' -%}
+      {%- assign image_width = 'desktop-4 tablet-2' -%}
+      {%- assign image_offset = 'desktop-8 tablet-4' -%}
+    {% when '50%' %}
+      {%- assign image_size = '1000x' -%}
+      {%- assign image_width = 'desktop-6 tablet-3' -%}
+      {%- assign image_offset = 'desktop-6 tablet-3' -%}
+    {% when '66%' %}
+      {%- assign image_size = '1400x' -%}
+      {%- assign image_width = 'desktop-8 tablet-4' -%}
+      {%- assign image_offset = 'desktop-4 tablet-2' -%}
+    {% endcase %}
+
+    {% capture image_layout %}
+      <div class="{{ image_width }} mobile-3 text-with-image text-with-image-only">
+        {% if section.settings.image != blank %}
+          {% render 'basic-responsive-image', type: section.settings.image, data_widths: '[180, 360, 540, 720, 900, 1080]' %}
+          <noscript>
+            <img src="{{ section.settings.image | img_url: '800x' }}" alt="{{ section.settings.image.alt }}">
+          </noscript>
+        {% else %}
+          <div class="onboard">
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {% endif %}
+      </div>
+    {% endcapture %}
+
+    <div class="image-with-text-wrapper">
+      {% if section.settings.layout == 'left' %}
+        {{ image_layout }}
+      {% endif %}
+
+      <div class="{{ image_offset }} mobile-3 text-with-image text_section{% if section.settings.text_align == 'center' %} text-centered{% endif %}">
+        {% if section.settings.title != blank %}
+          {% render 'section-headings', type: section.settings.title, link: section.settings.link %}
+        {% endif %}
+        {% if section.settings.text != blank %}
+          <div class="rte">
+            {{ section.settings.text }}
+          </div>
+        {% endif %}
+        {% if section.settings.button != blank and section.settings.link != blank %}
+          <a href="{{ section.settings.link }}" class="button">
+            {{ section.settings.button | escape }}
+          </a>
+        {% endif %}
+      </div>
+
+      {% if section.settings.layout == 'right' %}
+        {{ image_layout }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  (() => {
+    const el = document.querySelector('[data-section-id="{{ section.id }}"]')
+
+    if (window.optimizely && window.optimizely.initialized) {
+      const experimentStates = window.optimizely.get('state').getExperimentStates();
+      const experiment = experimentStates['21013370290'];
+
+      if (!experiment) {
+        el.classList.remove('hidden');
+      } else if (experiment && experiment.variation) {
+        const variantId = experiment.variation.id;
+
+        if (variantId !== '21025190351') {
+          el.classList.remove('hidden');
+        }
+      }
+    }
+  })();
+</script>
+{% schema %}
+  {
+    "name": "Image with text",
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Position",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "Image on left"
+          },
+          {
+            "value": "right",
+            "label": "Image on right"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "image_width",
+        "label": "Width",
+        "default": "50%",
+        "options": [
+          {
+            "value":"33%",
+            "label":"33%"
+          },
+          {
+            "value":"50%",
+            "label":"50%"
+          },
+          {
+            "value":"66%",
+            "label":"66%"
+          }
+        ]
+      },
+     {
+        "type": "select",
+        "id": "text_align",
+        "label": "Text alignment",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Image with text"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+        "default": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+      },
+      {
+        "type": "url",
+        "id": "link",
+        "label": "Link"
+      },
+      {
+        "type": "text",
+        "id": "button",
+        "label": "Button text"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image with text",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %} -->

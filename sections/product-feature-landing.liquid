@@ -1,0 +1,49 @@
+{% for product in collections.all.products %}
+{% if product.id == 6199395844247 %}
+{% assign shopifyProduct = product %}
+{% endif %}
+{% endfor %}
+<div id="react-product-feature-landing">
+    <script type="application/json">
+        {
+            "product": {{ shopifyProduct | json }}
+        }
+    </script>
+</div> 
+
+
+{% schema %}
+{
+  "name": "Product Feature Landing",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "section",
+      "name": "Text Prop",
+      "settings": [
+        {
+         "type": "image_picker",
+         "id": "hero_image",
+         "label": "Menu Hero Image Large"
+        },
+        {
+         "type": "image_picker",
+         "id": "hero_image_small",
+         "label": "Menu Hero Image Small"
+        },
+        {
+         "type": "image_picker",
+         "id": "hero_image_medium",
+         "label": "Menu Hero Image Medium"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
